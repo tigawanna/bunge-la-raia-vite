@@ -3,10 +3,10 @@ import { RouterProvider, ErrorComponent, createRouter } from "@tanstack/react-ro
 import { Spinner } from "./components/Spinner";
 import { routeTree } from "./routeTree.gen";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { pb } from "./lib/pb/client";
 import "./styles.css";
 import "@park-ui/tailwind-plugin/preset.css";
-import { useViewer, viewerqueryOptions } from "./lib/tanstack/query/use-viewer";
+import { useViewer } from "./lib/tanstack/query/use-viewer";
+import { supabase } from "./lib/supabase/client";
 
 
 export const queryClient = new QueryClient({
@@ -64,9 +64,9 @@ function App() {
         router={router}
         defaultPreload="intent"
         context={{
-          pb,
           queryClient,
           viewer: userQuery.data,
+          supabase
         }}
       />
     </>

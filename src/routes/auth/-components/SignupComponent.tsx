@@ -1,10 +1,8 @@
-import { PropertyUserCreate } from "@/lib/pb/database";
 import { formOptions, useForm } from "@tanstack/react-form";
 import { FormLabel } from "@/components/park/ui/form-label";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { pb } from "@/lib/pb/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { TextFormField } from "@/lib/tanstack/form/TextFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
@@ -12,20 +10,23 @@ import { Checkbox } from "@/components/park/ui/checkbox";
 import { useState } from "react";
 import { viewerqueryOptions } from "@/lib/tanstack/query/use-viewer";
 import { useNavigate } from "@tanstack/react-router";
+import { supabase } from "@/lib/supabase/client";
 
 interface SignupComponentProps {}
 
-const formOpts = formOptions<PropertyUserCreate>({
+interface UserCreate{
+  email: string;
+  password: string;
+  passwordConfirm: string
+  username: string;
+}
+
+const formOpts = formOptions<UserCreate>({
   defaultValues: {
-    username: "",
-    email: "",
-    emailVisibility: true,
     password: "",
     passwordConfirm: "",
-    role: "user",
-    verification_status: "initial",
-    pnone: "",
-    avatarUrl: "",
+    email: "",
+    username:""
   },
 });
 
@@ -34,13 +35,21 @@ export function SignupComponent({}: SignupComponentProps) {
   const qc = useQueryClient();
   const navigate = useNavigate({ from: "/auth/signup" });
   const mutation = useMutation({
-    mutationFn: (data: PropertyUserCreate) => {
-      return pb.from("property_user").create(data);
+    mutationFn: (data: Required<UserCreate>) => {
+      return supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            username: data.username,
+          },
+        },
+      });
     },
     onSuccess(data) {
       toaster.create({
         title: "signed up",
-        description: `Welcome ${data.username}`,
+        description: `Welcome ${data.data.user?.email}`,
         type: "success",
         duration: 2000,
       });
@@ -86,7 +95,7 @@ export function SignupComponent({}: SignupComponentProps) {
           }}
           children={(field) => {
             return (
-              <TextFormField<PropertyUserCreate>
+              <TextFormField<UserCreate>
                 field={field}
                 fieldKey="username"
                 inputOptions={{
@@ -105,7 +114,7 @@ export function SignupComponent({}: SignupComponentProps) {
           }}
           children={(field) => {
             return (
-              <TextFormField<PropertyUserCreate>
+              <TextFormField<UserCreate>
                 field={field}
                 fieldKey="email"
                 inputOptions={{
@@ -124,7 +133,7 @@ export function SignupComponent({}: SignupComponentProps) {
           }}
           children={(field) => {
             return (
-              <TextFormField<PropertyUserCreate>
+              <TextFormField<UserCreate>
                 field={field}
                 fieldKey="password"
                 inputOptions={{
@@ -144,7 +153,7 @@ export function SignupComponent({}: SignupComponentProps) {
           }}
           children={(field) => {
             return (
-              <TextFormField<PropertyUserCreate>
+              <TextFormField<UserCreate>
                 field={field}
                 fieldKey="passwordConfirm"
                 fieldlabel="Confirm password"

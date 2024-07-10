@@ -5,24 +5,25 @@ import { FormLabel } from "@/components/park/ui/form-label";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { pb } from "@/lib/pb/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { TextFormField } from "@/lib/tanstack/form/TextFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { Checkbox } from "@/components/park/ui/checkbox";
 import { useState } from "react";
 import { viewerqueryOptions } from "@/lib/tanstack/query/use-viewer";
+import { supabase } from "@/lib/supabase/client";
+import { OauthSigninButtons } from "./OauthSigninButtons";
 
 interface SigninComponentProps {}
 
 interface PropertyUserLogn {
-  emailOrUsername: string;
+  email: string;
   password: string;
 }
 
 const formOpts = formOptions<PropertyUserLogn>({
   defaultValues: {
-    emailOrUsername: "",
+    email: "",
     password: "",
   },
 });
@@ -33,21 +34,20 @@ export function SigninComponent({}: SigninComponentProps) {
   const navigate = useNavigate({ from: "/auth" });
   const mutation = useMutation({
     mutationFn: (data: PropertyUserLogn) => {
-      return pb.from("property_user").authWithPassword(data.emailOrUsername, data.password);
+      return supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
     },
     onSuccess(data) {
       toaster.create({
         title: "signed in",
-        description: `Welcome ${data.record.username}`,
+        description: `Welcome ${data.data.user?.email}`,
         type: "success",
         duration: 2000,
       });
       qc.invalidateQueries(viewerqueryOptions);
-      // @ts-expect-error
       navigate({ to: returnTo || "/" });
-      // if (typeof window !== "undefined") {
-      //   location.reload();
-      // }
     },
     onError(error) {
       console.log(error.name);
@@ -76,17 +76,17 @@ export function SigninComponent({}: SigninComponentProps) {
         className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-3 ">
         <h1 className="text-4xl">Sign in</h1>
         <form.Field
-          name="emailOrUsername"
+          name="email"
           validatorAdapter={zodValidator()}
           validators={{
-            onChange: z.string(),
+            onChange: z.string().email(),
           }}
           children={(field) => {
             return (
               <TextFormField<PropertyUserLogn>
                 field={field}
-                fieldKey="emailOrUsername"
-                fieldlabel="email or username"
+                fieldKey="email"
+                fieldlabel="email"
                 inputOptions={{
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),
@@ -133,6 +133,8 @@ export function SigninComponent({}: SigninComponentProps) {
 
         <MutationButton mutation={mutation} />
       </form>
+      <span>----------------------------- or -----------------------------</span>
+      <OauthSigninButtons/>
     </div>
   );
 }

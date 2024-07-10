@@ -3,15 +3,15 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { MainNavbar } from "@/components/MainNavbar";
-import { PocketBaseClient } from "@/lib/pb/client";
 import { ParkuiToast } from "@/components/navigation/ParkuiToast";
-import { PropertyUserResponse } from "@/lib/pb/database";
 import { RecordAuthResponse } from "pocketbase";
+import { SupabaseUser, TypedSupabaseClient } from "@/lib/supabase/client";
+
 
 export const Route = createRootRouteWithContext<{
-  pb: PocketBaseClient;
+  supabase: TypedSupabaseClient;
   queryClient: QueryClient;
-  viewer?: RecordAuthResponse<PropertyUserResponse>
+  viewer?: RecordAuthResponse<SupabaseUser>;
 }>()({
   component: RootComponent,
 });
