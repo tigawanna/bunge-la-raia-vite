@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* success */
+  --colors-success: var(--colors-green-5);
+  --colors-success-content: var(--colors-green-12);
+  /* error */
+  --colors-error: var(--colors-red-5);
+  --colors-error-content: var(--colors-red-12);
+  /* warning */
+  --colors-warning: var(--colors-yellow-5);
+  --colors-warning-content: var(--colors-yellow-12);
+  /* loading */
+  --colors-loading: var(--colors-blue-5);
+  --colors-loading-content: var(--colors-blue-12);
+  /* oark ui fonts */
+  --fonts-body: var(--font-jakarta);
+  --radii-l1: var(--radii-sm);
+  --radii-l2: var(--radii-md);
+  --radii-l3: var(--radii-lg);
+  /* oark ui accent */
+  --colors-accent-1: var(--colors-gold-1);
+  --colors-accent-a1: var(--colors-gold-a1);
+  --colors-accent-2: var(--colors-gold-2);
+  --colors-accent-a2: var(--colors-gold-a2);
+  --colors-accent-3: var(--colors-gold-3);
+  --colors-accent-a3: var(--colors-gold-a3);
+  --colors-accent-4: var(--colors-gold-4);
+  --colors-accent-a4: var(--colors-gold-a4);
+  --colors-accent-5: var(--colors-gold-5);
+  --colors-accent-a5: var(--colors-gold-a5);
+  --colors-accent-6: var(--colors-gold-6);
+  --colors-accent-a6: var(--colors-gold-a6);
+  --colors-accent-7: var(--colors-gold-7);
+  --colors-accent-a7: var(--colors-gold-a7);
+  --colors-accent-8: var(--colors-gold-8);
+  --colors-accent-a8: var(--colors-gold-a8);
+  --colors-accent-9: var(--colors-gold-9);
+  --colors-accent-a9: var(--colors-gold-a9);
+  --colors-accent-10: var(--colors-gold-10);
+  --colors-accent-a10: var(--colors-gold-a10);
+  --colors-accent-11: var(--colors-gold-11);
+  --colors-accent-a11: var(--colors-gold-a11);
+  --colors-accent-12: var(--colors-gold-12);
+  --colors-accent-a12: var(--colors-gold-a12);
+  --colors-accent-fg: var(--colors-white);
+  --colors-accent-default: var(--colors-accent-9);
+  --colors-accent-emphasized: var(--colors-accent-10);
+  --colors-accent-text: var(--colors-accent-a11);
+}
+
+.dark {
+  --fonts-body: var(--font-jakarta);
+  --radii-l1: var(--radii-sm);
+  --radii-l2: var(--radii-md);
+  --radii-l3: var(--radii-lg);
+  --colors-accent-1: var(--colors-gold-1);
+  --colors-accent-a1: var(--colors-gold-a1);
+  --colors-accent-2: var(--colors-gold-2);
+  --colors-accent-a2: var(--colors-gold-a2);
+  --colors-accent-3: var(--colors-gold-3);
+  --colors-accent-a3: var(--colors-gold-a3);
+  --colors-accent-4: var(--colors-gold-4);
+  --colors-accent-a4: var(--colors-gold-a4);
+  --colors-accent-5: var(--colors-gold-5);
+  --colors-accent-a5: var(--colors-gold-a5);
+  --colors-accent-6: var(--colors-gold-6);
+  --colors-accent-a6: var(--colors-gold-a6);
+  --colors-accent-7: var(--colors-gold-7);
+  --colors-accent-a7: var(--colors-gold-a7);
+  --colors-accent-8: var(--colors-gold-8);
+  --colors-accent-a8: var(--colors-gold-a8);
+  --colors-accent-9: var(--colors-gold-9);
+  --colors-accent-a9: var(--colors-gold-a9);
+  --colors-accent-10: var(--colors-gold-10);
+  --colors-accent-a10: var(--colors-gold-a10);
+  --colors-accent-11: var(--colors-gold-11);
+  --colors-accent-a11: var(--colors-gold-a11);
+  --colors-accent-12: var(--colors-gold-12);
+  --colors-accent-a12: var(--colors-gold-a12);
+  --colors-accent-fg: var(--colors-white);
+  --colors-accent-default: var(--colors-accent-9);
+  --colors-accent-emphasized: var(--colors-accent-10);
+  --colors-accent-text: var(--colors-accent-a11);
+}
+
+.toast__root {
+  background: var(--colors-bg-default);
+  border-radius: var(--radii-l3);
+  box-shadow: var(--shadows-lg);
+  min-width: var(--sizes-xs);
+  height: var(--height);
+  opacity: var(--opacity);
+  overflow-wrap: anywhere;
+  padding: var(--spacing-4);
+  position: relative;
+  scale: var(--scale);
+  translate: var(--x) var(--y) 0;
+  will-change: translate, opacity, scale;
+  z-index: var(--z-index);
+  --transition-duration: var(--durations-slow);
+  transition-duration: var(--durations-slow);
+  --transition-prop: translate, scale, opacity, height;
+  transition-property: translate, scale, opacity, height;
+  --transition-easing: var(--easings-default);
+  transition-timing-function: var(--easings-default);
+}
+
+.toast__title {
+  color: var(--colors-fg-default);
+  font-weight: var(--font-weights-semibold);
+}
+
+.toast__description,
+.toast__title {
+  font-size: var(--font-sizes-sm);
+  line-height: 1.25rem;
+}
+
+.toast__description {
+  color: var(--colors-fg-muted);
+}
+
+.toast__actionTrigger {
+  margin-top: var(--spacing-2);
+}
+
+.toast__closeTrigger {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+}
+
+
+  .toast--type__info {
+    @apply bg-bg-muted;
+  }
+  /* Base styles for toast types (assuming Tailwind CSS) */
+  .toast--type__success {
+    @apply text-success-content bg-success;
+  }
+
+  .toast--type__error {
+    @apply text-error-content bg-error;
+  }
+  .toast--type__loading {
+    @apply text-loading-content bg-loading;
+  }
+
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* Hide the default scroll bar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-bg-subtle;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-accent-default;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-emphasized;
+}
+
+.skeleton {
+  border-radius: var(--rounded-box, 1rem /* 16px */);
+  --tw-bg-opacity: 1;
+  background-color: var(--b3, oklch(var(--b3) / var(--tw-bg-opacity)));
+  will-change: background-position;
+  animation: skeleton 5s ease-in-out infinite;
+  background-image: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    var(--b1, oklch(var(--b1) / 1)) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% auto;
+  background-repeat: no-repeat;
+  background-position-x: -50%;
+}
+@media (prefers-reduced-motion) {
+  .skeleton {
+    animation-duration: 15s;
+  }
+}
