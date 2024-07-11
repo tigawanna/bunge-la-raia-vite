@@ -53,9 +53,9 @@ export async function authGuard({ ctx, reverse }: AuthGuardProps) {
   const returnTo = ctx.search?.returnTo ?? "/";
   const user = ctx.context?.viewer;
   // console.log(" ============ user in ",ctx.location.pathname," guard =========== ", user);
-  // console.log(" ============ user in ",ctx.location.pathname," guard =========== ", user?.record);
+  // console.log(" ============ user in ",ctx.location.pathname," guard =========== ", user);
 
-  if (!user?.record) {
+  if (!user) {
     // console.log(" ++++++++ no user redirectiong to auth ++++++ ");
     throw redirect({
       to: "/auth",

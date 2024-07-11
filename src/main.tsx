@@ -57,7 +57,7 @@ declare module "@tanstack/react-router" {
 }
 function App() {
   const { userQuery } = useViewer();
-
+console.log("======================== main.tsx query.viewer ====================== ",userQuery.data)
   return (
     <>
       <RouterProvider

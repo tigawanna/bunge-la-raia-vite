@@ -34,6 +34,7 @@ export function SigninComponent({}: SigninComponentProps) {
   const navigate = useNavigate({ from: "/auth" });
   const mutation = useMutation({
     mutationFn: (data: PropertyUserLogn) => {
+ 
       return supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -74,7 +75,7 @@ export function SigninComponent({}: SigninComponentProps) {
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-3 ">
+        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
         <h1 className="text-4xl">Sign in</h1>
         <form.Field
           name="email"
@@ -134,7 +135,7 @@ export function SigninComponent({}: SigninComponentProps) {
 
         <MutationButton mutation={mutation} />
       </form>
-      <span>----------------------------- or -----------------------------</span>
+      <span className="my-5">----------------------------- or -----------------------------</span>
       <OauthSigninButtons/>
     </div>
   );

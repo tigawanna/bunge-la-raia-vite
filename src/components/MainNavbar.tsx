@@ -1,7 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import Nprogress from "./navigation/nprogress/Nprogress";
 import { MdCastle } from "react-icons/md";
-import { FaCircleUser } from "react-icons/fa6";
 import { MainSideDrawer } from "./navigation/MainSideDrawer";
 import { navbarRoutes } from "./navigation/navbar-routes";
 import { ThemeToggle } from "./navigation/ThemeToggle";
@@ -27,10 +26,7 @@ export function MainNavbar({}: MainNavbarProps) {
           })}
         </div>
         <div className=" h-full hidden sm:flex gap-2 justify-center items-center rounded-full ">
-          <Link to="/auth" search={{ returnTo: "/" }}>
-            <FaCircleUser className="size-6" />
-          </Link>
-          <NavbarUser/>
+          <NavbarUser />
           <ThemeToggle />
         </div>
         <div className="h-full md:hidden">

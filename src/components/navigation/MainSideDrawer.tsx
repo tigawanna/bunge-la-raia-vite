@@ -5,7 +5,6 @@ import { IconButton } from "~/components/park/ui/icon-button";
 import { navbarRoutes } from "./navbar-routes";
 import { ThemeToggle } from "./ThemeToggle";
 
-
 export function MainSideDrawer(props: Drawer.RootProps) {
   return (
     <Drawer.Root {...props}>
@@ -21,7 +20,7 @@ export function MainSideDrawer(props: Drawer.RootProps) {
             <Drawer.Title>
               <Drawer.CloseTrigger asChild>
                 <Link to="/" className="hover:text-accent-text">
-                  Property Manager
+                  Bunge la raia
                 </Link>
               </Drawer.CloseTrigger>
             </Drawer.Title>
@@ -39,15 +38,16 @@ export function MainSideDrawer(props: Drawer.RootProps) {
                 <Link
                   key={route.name}
                   to={route.path}
-                  className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
+                  className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2"
+                >
                   <route.icon />
-                   {route.name}
+                  {route.name}
                 </Link>
               ))}
             </div>
           </Drawer.Body>
           <Drawer.Footer className="justify-start items-center">
-            <ThemeToggle/>
+            <ThemeToggle />
             <p className="text-sm">{new Date().toLocaleDateString()}</p>
           </Drawer.Footer>
         </Drawer.Content>

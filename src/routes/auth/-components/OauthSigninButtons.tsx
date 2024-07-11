@@ -28,6 +28,7 @@ export function OauthSigninButtons({}:OauthSigninButtonsProps){
             duration: 2000,
           });
           qc.invalidateQueries(viewerqueryOptions);
+          // @ts-expect-error
           navigate({ to: returnTo || "/" });
         },
         onError(error) {
@@ -42,7 +43,7 @@ export function OauthSigninButtons({}:OauthSigninButtonsProps){
       });
 return (
  <div className='w-full h-full flex flex-col items-center justify-center'>
-    <IconButton variant="outline" className="flex justify-evenly items-center gap-1" onClick={() => mutation.mutate("google")} disabled={mutation.isPending}>
+    <IconButton variant="outline" className="flex justify-evenly items-center gap-3 px-3" onClick={() => mutation.mutate("google")} disabled={mutation.isPending}>
         <FaGoogle className="size-6" />
         <span>Sign in with Google</span>
         {mutation.isPending&&<Loader/>}
