@@ -15,13 +15,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
-import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
-import { Route as AdminTenantsImport } from './routes/admin/tenants'
-import { Route as AdminShopsImport } from './routes/admin/shops'
-import { Route as AdminRentImport } from './routes/admin/rent'
-import { Route as AdminBillsIndexImport } from './routes/admin/bills/index'
-import { Route as AdminBillsPrintImport } from './routes/admin/bills/print'
 
 // Create/Update Routes
 
@@ -45,38 +39,8 @@ const AuthIndexRoute = AuthIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AdminIndexRoute = AdminIndexImport.update({
-  path: '/admin/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const AuthSignupRoute = AuthSignupImport.update({
   path: '/auth/signup',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminTenantsRoute = AdminTenantsImport.update({
-  path: '/admin/tenants',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminShopsRoute = AdminShopsImport.update({
-  path: '/admin/shops',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminRentRoute = AdminRentImport.update({
-  path: '/admin/rent',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminBillsIndexRoute = AdminBillsIndexImport.update({
-  path: '/admin/bills/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AdminBillsPrintRoute = AdminBillsPrintImport.update({
-  path: '/admin/bills/print',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -98,39 +62,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
-    '/admin/rent': {
-      id: '/admin/rent'
-      path: '/admin/rent'
-      fullPath: '/admin/rent'
-      preLoaderRoute: typeof AdminRentImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/shops': {
-      id: '/admin/shops'
-      path: '/admin/shops'
-      fullPath: '/admin/shops'
-      preLoaderRoute: typeof AdminShopsImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/tenants': {
-      id: '/admin/tenants'
-      path: '/admin/tenants'
-      fullPath: '/admin/tenants'
-      preLoaderRoute: typeof AdminTenantsImport
-      parentRoute: typeof rootRoute
-    }
     '/auth/signup': {
       id: '/auth/signup'
       path: '/auth/signup'
       fullPath: '/auth/signup'
       preLoaderRoute: typeof AuthSignupImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexImport
       parentRoute: typeof rootRoute
     }
     '/auth/': {
@@ -147,20 +83,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
-    '/admin/bills/print': {
-      id: '/admin/bills/print'
-      path: '/admin/bills/print'
-      fullPath: '/admin/bills/print'
-      preLoaderRoute: typeof AdminBillsPrintImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/bills/': {
-      id: '/admin/bills/'
-      path: '/admin/bills'
-      fullPath: '/admin/bills'
-      preLoaderRoute: typeof AdminBillsIndexImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -168,15 +90,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  AdminRentRoute,
-  AdminShopsRoute,
-  AdminTenantsRoute,
   AuthSignupRoute,
-  AdminIndexRoute,
   AuthIndexRoute,
   ProfileIndexRoute,
-  AdminBillsPrintRoute,
-  AdminBillsIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -189,15 +105,9 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_layout",
-        "/admin/rent",
-        "/admin/shops",
-        "/admin/tenants",
         "/auth/signup",
-        "/admin/",
         "/auth/",
-        "/profile/",
-        "/admin/bills/print",
-        "/admin/bills/"
+        "/profile/"
       ]
     },
     "/": {
@@ -206,32 +116,14 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx"
     },
-    "/admin/rent": {
-      "filePath": "admin/rent.tsx"
-    },
-    "/admin/shops": {
-      "filePath": "admin/shops.tsx"
-    },
-    "/admin/tenants": {
-      "filePath": "admin/tenants.tsx"
-    },
     "/auth/signup": {
       "filePath": "auth/signup.tsx"
-    },
-    "/admin/": {
-      "filePath": "admin/index.tsx"
     },
     "/auth/": {
       "filePath": "auth/index.tsx"
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
-    },
-    "/admin/bills/print": {
-      "filePath": "admin/bills/print.tsx"
-    },
-    "/admin/bills/": {
-      "filePath": "admin/bills/index.tsx"
     }
   }
 }

@@ -1,5 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
-import { Route } from "../index";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { formOptions, useForm } from "@tanstack/react-form";
 import { FormLabel } from "@/components/park/ui/form-label";
 import { zodValidator } from "@tanstack/zod-form-adapter";
@@ -30,7 +29,8 @@ const formOpts = formOptions<PropertyUserLogn>({
 export function SigninComponent({}: SigninComponentProps) {
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
-  const { returnTo } = Route.useSearch();
+  const {returnTo} = useSearch({from: "/auth/"});
+
   const navigate = useNavigate({ from: "/auth" });
   const mutation = useMutation({
     mutationFn: (data: PropertyUserLogn) => {
@@ -44,9 +44,10 @@ export function SigninComponent({}: SigninComponentProps) {
         title: "signed in",
         description: `Welcome ${data.data.user?.email}`,
         type: "success",
-        duration: 2000,
+
       });
       qc.invalidateQueries(viewerqueryOptions);
+      // @ts-expect-error
       navigate({ to: returnTo || "/" });
     },
     onError(error) {

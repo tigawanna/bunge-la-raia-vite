@@ -51,7 +51,7 @@ export function SignupComponent({}: SignupComponentProps) {
         title: "signed up",
         description: `Welcome ${data.data.user?.email}`,
         type: "success",
-        duration: 2000,
+
       });
       qc.invalidateQueries(viewerqueryOptions);
 
