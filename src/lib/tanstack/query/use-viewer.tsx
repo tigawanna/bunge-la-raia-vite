@@ -24,6 +24,24 @@ export const viewerqueryOptions = queryOptions({
   staleTime: 1000 * 60 * 60,
 });
 
+
+export const adminqueryOptions =(id:string)=>{
+  return queryOptions({
+    queryKey: ["viewer", "admin", id],
+    queryFn: () =>
+      getAdmin(id),
+    staleTime: 1000 * 60 * 60,
+  });
+
+} 
+
+export async function getAdmin(id: string) {
+  return await supabase.from("admin").select("*").eq("user_id", id).single();
+}
+
+export function useAdmin(id: string) {
+  return useSuspenseQuery(adminqueryOptions(id));
+}
 export function useViewer() {
   const qc = useQueryClient();
   const logoutMutation = useMutation({
