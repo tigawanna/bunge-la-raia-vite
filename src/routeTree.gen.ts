@@ -14,7 +14,9 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
+import { Route as MpsIndexImport } from './routes/mps/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
+import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 
 // Create/Update Routes
@@ -34,8 +36,18 @@ const ProfileIndexRoute = ProfileIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const MpsIndexRoute = MpsIndexImport.update({
+  path: '/mps/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthIndexRoute = AuthIndexImport.update({
   path: '/auth/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminIndexRoute = AdminIndexImport.update({
+  path: '/admin/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -69,11 +81,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupImport
       parentRoute: typeof rootRoute
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/': {
       id: '/auth/'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/mps/': {
+      id: '/mps/'
+      path: '/mps'
+      fullPath: '/mps'
+      preLoaderRoute: typeof MpsIndexImport
       parentRoute: typeof rootRoute
     }
     '/profile/': {
@@ -91,7 +117,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   AuthSignupRoute,
+  AdminIndexRoute,
   AuthIndexRoute,
+  MpsIndexRoute,
   ProfileIndexRoute,
 })
 
@@ -106,7 +134,9 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/_layout",
         "/auth/signup",
+        "/admin/",
         "/auth/",
+        "/mps/",
         "/profile/"
       ]
     },
@@ -119,8 +149,14 @@ export const routeTree = rootRoute.addChildren({
     "/auth/signup": {
       "filePath": "auth/signup.tsx"
     },
+    "/admin/": {
+      "filePath": "admin/index.tsx"
+    },
     "/auth/": {
       "filePath": "auth/index.tsx"
+    },
+    "/mps/": {
+      "filePath": "mps/index.tsx"
     },
     "/profile/": {
       "filePath": "profile/index.tsx"

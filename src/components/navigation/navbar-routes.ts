@@ -12,4 +12,14 @@ export const navbarRoutes = [
     path: "/profile",
     icon: Users2Icon,
   },
+  {
+    name: "admin",
+    path: "/admin",
+    icon: Users2Icon,
+  },
+  {
+    name: "mps",
+    path: "/mps",
+    icon: Users2Icon,
+  },
 ] as const;

@@ -11,7 +11,8 @@ export function NavbarUser({}: NavbarUserProps) {
   const { userQuery, logoutMutation } = useViewer();
 
   const location = useLocation();
-  const user = userQuery?.data?.record;
+  const user = userQuery?.data.data?.user;
+  const raia = userQuery?.data.data?.raia
   if (!user) {
     return (
       <Dialog.Root>
@@ -22,16 +23,21 @@ export function NavbarUser({}: NavbarUserProps) {
         <Dialog.Positioner>
           <Dialog.Content className="absolute top-[10%] right-[2%] w-[40%] h-fit p-5 bg-bg-muted">
             <div className="flex flex-col gap-2 h-full w-full  p-5">
-              <div className="flex gap-2 w-full justify-end">
+              <div className="flex flex-col gap-2 w-full justify-end">
+                <Dialog.CloseTrigger asChild>
+                  <Link
+                    to="/auth"
+                    className="bg-accent-emphasized p-2"
+                    search={{ returnTo: location.pathname }}>
+                    Login
+                  </Link>
+                </Dialog.CloseTrigger>
                 <Dialog.CloseTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.CloseTrigger>
-                <Link to="/auth" search={{ returnTo: location.pathname }}>
-                  Login
-                </Link>
               </div>
             </div>
-            <Dialog.CloseTrigger asChild className="absolute top-4 right-4">
+            <Dialog.CloseTrigger asChild className="absolute top-[2%] right-[2%]">
               <IconButton aria-label="Close Dialog" variant="ghost" size="sm">
                 <XIcon />
               </IconButton>
@@ -46,8 +52,8 @@ export function NavbarUser({}: NavbarUserProps) {
       <Dialog.Trigger asChild>
         <Avatar
           className="border-accent-text border-2"
-          name={user?.username}
-          src={user?.avatarUrl}
+          name={raia?.name}
+          src={raia?.avatar_url||""}
         />
       </Dialog.Trigger>
       <Dialog.Backdrop />
@@ -55,7 +61,7 @@ export function NavbarUser({}: NavbarUserProps) {
         <Dialog.Content className="absolute top-[10%] right-[2%] w-[40%] h-fit p-5 bg-bg-muted">
           <div className="flex flex-col gap-2 h-full w-full  p-5">
             <div className="flex flex-col gap-2 w-full">
-              <Dialog.Title>{user.username}</Dialog.Title>
+              <Dialog.Title>{raia?.name}</Dialog.Title>
               <Dialog.Description>{user.email}</Dialog.Description>
             </div>
             <div className="flex gap-2 w-full justify-end">
