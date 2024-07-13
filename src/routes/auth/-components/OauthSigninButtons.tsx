@@ -17,8 +17,8 @@ export function OauthSigninButtons({}:OauthSigninButtonsProps){
       const { returnTo } = Route.useSearch();
       const navigate = useNavigate({ from: "/auth" });
       const mutation = useMutation({
-        mutationFn: (provider:"google") => {
-          return supabase.auth.signInWithOAuth({ provider})
+        mutationFn: async(provider:"google") => {
+          return await supabase.auth.signInWithOAuth({ provider})
         },
         onSuccess() {
           toaster.create({

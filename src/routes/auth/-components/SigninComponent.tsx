@@ -29,13 +29,12 @@ const formOpts = formOptions<PropertyUserLogn>({
 export function SigninComponent({}: SigninComponentProps) {
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
-  const {returnTo} = useSearch({from: "/auth/"});
+  const { returnTo } = useSearch({ from: "/auth/" });
 
   const navigate = useNavigate({ from: "/auth" });
   const mutation = useMutation({
-    mutationFn: (data: PropertyUserLogn) => {
- 
-      return supabase.auth.signInWithPassword({
+    mutationFn: async(data: PropertyUserLogn) => {
+      return await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
@@ -45,7 +44,6 @@ export function SigninComponent({}: SigninComponentProps) {
         title: "signed in",
         description: `Welcome ${data.data.user?.email}`,
         type: "success",
-
       });
       qc.invalidateQueries(viewerqueryOptions);
       // @ts-expect-error
@@ -136,7 +134,7 @@ export function SigninComponent({}: SigninComponentProps) {
         <MutationButton mutation={mutation} />
       </form>
       <span className="my-5">----------------------------- or -----------------------------</span>
-      <OauthSigninButtons/>
+      <OauthSigninButtons />
     </div>
   );
 }

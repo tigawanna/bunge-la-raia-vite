@@ -35,8 +35,8 @@ export function SignupComponent({}: SignupComponentProps) {
   const qc = useQueryClient();
   const navigate = useNavigate({ from: "/auth/signup" });
   const mutation = useMutation({
-    mutationFn: (data: Required<UserCreate>) => {
-      return supabase.auth.signUp({
+    mutationFn: async(data: Required<UserCreate>) => {
+      return await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
