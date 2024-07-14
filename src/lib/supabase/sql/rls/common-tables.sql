@@ -11,18 +11,23 @@ create policy "allow all to select" on "public"."wards" to public using (true);
 CREATE policy "Enable insert for authenticated users only"
 on "public"."governors" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
+
 CREATE policy "Enable insert for authenticated users only"
 on "public"."counties" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
+
 CREATE policy "Enable insert for authenticated users only"
 on "public"."mps" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
+
 CREATE policy "Enable insert for authenticated users only"
 on "public"."constituencies" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
+
 CREATE policy "Enable insert for authenticated users only"
 on "public"."mcas" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
+
 CREATE policy "Enable insert for authenticated users only"
 on "public"."wards" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);

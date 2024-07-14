@@ -28,6 +28,8 @@ as $$
   end;
 $$;
 
+
+
 GRANT USAGE ON SCHEMA public TO supabase_auth_admin;
 
 GRANT

@@ -1,4 +1,4 @@
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { formOptions, useForm } from "@tanstack/react-form";
 import { FormLabel } from "@/components/park/ui/form-label";
 import { zodValidator } from "@tanstack/zod-form-adapter";
@@ -33,7 +33,7 @@ export function SigninComponent({}: SigninComponentProps) {
 
   const navigate = useNavigate({ from: "/auth" });
   const mutation = useMutation({
-    mutationFn: async(data: PropertyUserLogn) => {
+    mutationFn: async (data: PropertyUserLogn) => {
       return await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -133,7 +133,13 @@ export function SigninComponent({}: SigninComponentProps) {
 
         <MutationButton mutation={mutation} />
       </form>
-      <span className="my-5">----------------------------- or -----------------------------</span>
+      <div className="w-full flex flex-col justify-center items-center gap-2 mt-3 p-3">
+          <Link to="/auth/signup" search={{ returnTo }} className="hover:text-accent-emphasized">
+            New here? Sign up instead
+          </Link>
+
+        <span className="">----------------------------- or -----------------------------</span>
+      </div>
       <OauthSigninButtons />
     </div>
   );

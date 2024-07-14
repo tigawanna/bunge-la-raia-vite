@@ -8,7 +8,7 @@
     "serve": "vite preview",
     "start": "vite",
     "pb-types": "tsx src/lib/pb/scripts/gen-pb-types.ts property",
-    "supabase-types":"supabase gen types --lang=typescript --project-id 'rkbhyhctbdyypucjercs' --schema public > src/lib/supabase/db-types.ts",
+    "supabase-types": "supabase gen types --lang=typescript --project-id 'rkbhyhctbdyypucjercs' --schema public > src/lib/supabase/db-types.ts",
     "park": "npx @park-ui/cli"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "@tanstack/zod-form-adapter": "^0.25.2",
     "dayjs": "^1.11.11",
     "immer": "^10.0.3",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.400.0",
     "pocketbase": "^0.21.3",
     "react": "^18.2.0",
