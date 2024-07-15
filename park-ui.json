@@ -1,5 +1,4 @@
 {
-  "$schema": "https://park-ui.com/schema.json",
   "cssFramework": "tailwind",
   "jsFramework": "react",
   "importAliases": {

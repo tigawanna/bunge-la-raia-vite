@@ -32,4 +32,16 @@ CREATE policy "Enable insert for authenticated users only"
 on "public"."wards" AS PERMISSIVE FOR INSERT
 TO authenticated with check ( true);
  
+
 -- update rules 
+CREATE policy "Allow authorized delete access" ON public.mps FOR DELETE USING (
+    (
+        SELECT authorize ('common.delete')
+    )
+);
+
+CREATE policy "Allow authorized delete access" ON public.messages FOR DELETE USING (
+    (
+        SELECT authorize ('common.delete')
+    )
+);
