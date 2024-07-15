@@ -13,8 +13,13 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
+import { Route as WardsIndexImport } from './routes/wards/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as MpsIndexImport } from './routes/mps/index'
+import { Route as McasIndexImport } from './routes/mcas/index'
+import { Route as GovernorsIndexImport } from './routes/governors/index'
+import { Route as CountiesIndexImport } from './routes/counties/index'
+import { Route as ConstituenciesIndexImport } from './routes/constituencies/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
@@ -31,6 +36,11 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const WardsIndexRoute = WardsIndexImport.update({
+  path: '/wards/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ProfileIndexRoute = ProfileIndexImport.update({
   path: '/profile/',
   getParentRoute: () => rootRoute,
@@ -38,6 +48,26 @@ const ProfileIndexRoute = ProfileIndexImport.update({
 
 const MpsIndexRoute = MpsIndexImport.update({
   path: '/mps/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const McasIndexRoute = McasIndexImport.update({
+  path: '/mcas/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GovernorsIndexRoute = GovernorsIndexImport.update({
+  path: '/governors/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CountiesIndexRoute = CountiesIndexImport.update({
+  path: '/counties/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConstituenciesIndexRoute = ConstituenciesIndexImport.update({
+  path: '/constituencies/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +125,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexImport
       parentRoute: typeof rootRoute
     }
+    '/constituencies/': {
+      id: '/constituencies/'
+      path: '/constituencies'
+      fullPath: '/constituencies'
+      preLoaderRoute: typeof ConstituenciesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/counties/': {
+      id: '/counties/'
+      path: '/counties'
+      fullPath: '/counties'
+      preLoaderRoute: typeof CountiesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/governors/': {
+      id: '/governors/'
+      path: '/governors'
+      fullPath: '/governors'
+      preLoaderRoute: typeof GovernorsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/mcas/': {
+      id: '/mcas/'
+      path: '/mcas'
+      fullPath: '/mcas'
+      preLoaderRoute: typeof McasIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/mps/': {
       id: '/mps/'
       path: '/mps'
@@ -109,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
+    '/wards/': {
+      id: '/wards/'
+      path: '/wards'
+      fullPath: '/wards'
+      preLoaderRoute: typeof WardsIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -119,8 +184,13 @@ export const routeTree = rootRoute.addChildren({
   AuthSignupRoute,
   AdminIndexRoute,
   AuthIndexRoute,
+  ConstituenciesIndexRoute,
+  CountiesIndexRoute,
+  GovernorsIndexRoute,
+  McasIndexRoute,
   MpsIndexRoute,
   ProfileIndexRoute,
+  WardsIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -136,8 +206,13 @@ export const routeTree = rootRoute.addChildren({
         "/auth/signup",
         "/admin/",
         "/auth/",
+        "/constituencies/",
+        "/counties/",
+        "/governors/",
+        "/mcas/",
         "/mps/",
-        "/profile/"
+        "/profile/",
+        "/wards/"
       ]
     },
     "/": {
@@ -155,11 +230,26 @@ export const routeTree = rootRoute.addChildren({
     "/auth/": {
       "filePath": "auth/index.tsx"
     },
+    "/constituencies/": {
+      "filePath": "constituencies/index.tsx"
+    },
+    "/counties/": {
+      "filePath": "counties/index.tsx"
+    },
+    "/governors/": {
+      "filePath": "governors/index.tsx"
+    },
+    "/mcas/": {
+      "filePath": "mcas/index.tsx"
+    },
     "/mps/": {
       "filePath": "mps/index.tsx"
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
+    },
+    "/wards/": {
+      "filePath": "wards/index.tsx"
     }
   }
 }

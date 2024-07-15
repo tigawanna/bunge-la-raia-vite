@@ -23,3 +23,32 @@ export const navbarRoutes = [
     icon: Users2Icon,
   },
 ] as const;
+
+export const locationRoutes = [
+  {
+    name: "counties",
+    path: "/counties",
+  },
+  {
+    name: "constituencies",
+    path: "/constituencies",
+  },
+  {
+    name: "wards",
+    path: "/wards",
+  },
+] as const
+export const leaderRoutes = [
+  {
+    name: "governors",
+    path: "/governors",
+  },
+  {
+    name: "mps",
+    path: "/mps",
+  },
+  {
+    name: "mcas",
+    path: "/mcas",
+  },
+] as const
