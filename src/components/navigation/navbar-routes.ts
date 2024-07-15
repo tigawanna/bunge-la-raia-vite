@@ -38,7 +38,7 @@ export const locationRoutes = [
     path: "/wards",
   },
 ] as const
-export const leaderRoutes = [
+export const positionsRoutes = [
   {
     name: "governors",
     path: "/governors",

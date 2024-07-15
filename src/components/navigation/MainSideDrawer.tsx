@@ -4,6 +4,7 @@ import * as Drawer from "~/components/park/ui/drawer";
 import { IconButton } from "~/components/park/ui/icon-button";
 import { navbarRoutes } from "./navbar-routes";
 import { ThemeToggle } from "./ThemeToggle";
+import { SideDrawerAccordion } from "./SideDrawerAccordion";
 
 export function MainSideDrawer(props: Drawer.RootProps) {
   return (
@@ -38,12 +39,12 @@ export function MainSideDrawer(props: Drawer.RootProps) {
                 <Link
                   key={route.name}
                   to={route.path}
-                  className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2"
-                >
-                  <route.icon />
+                  className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
+                  <route.icon className="size-4"/>
                   {route.name}
                 </Link>
               ))}
+              <SideDrawerAccordion/>
             </div>
           </Drawer.Body>
           <Drawer.Footer className="justify-start items-center">

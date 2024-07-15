@@ -1,10 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import Nprogress from "./navigation/nprogress/Nprogress";
 import { MdCastle } from "react-icons/md";
-import { MainSideDrawer } from "./navigation/MainSideDrawer";
-import { navbarRoutes } from "./navigation/navbar-routes";
-import { ThemeToggle } from "./navigation/ThemeToggle";
+import { LocationshoverCard } from "./LocationshoverCard";
+import { MainSideDrawer } from "./MainSideDrawer";
+import { navbarRoutes } from "./navbar-routes";
 import { NavbarUser } from "./NavbarUser";
+import Nprogress from "./nprogress/Nprogress";
+import { ThemeToggle } from "./ThemeToggle";
+import { PositionshoverCard } from "./PositionshoverCard";
 interface MainNavbarProps {}
 
 export function MainNavbar({}: MainNavbarProps) {
@@ -24,6 +26,8 @@ export function MainNavbar({}: MainNavbarProps) {
               </Link>
             );
           })}
+        <LocationshoverCard />
+        <PositionshoverCard/>
         </div>
         <div className=" h-full hidden sm:flex gap-2 justify-center items-center rounded-full ">
           <NavbarUser />

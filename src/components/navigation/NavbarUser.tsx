@@ -1,10 +1,11 @@
 import * as Dialog from "~/components/park/ui/dialog";
-import { IconButton } from "./park/ui/icon-button";
 import { UserCircleIcon, XIcon } from "lucide-react";
-import { Button } from "./park/ui/button";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
-import { Avatar } from "./park/ui/avatar";
 import { Link, useLocation } from "@tanstack/react-router";
+import { Avatar } from "@/components/park/ui/avatar";
+import { Button } from "@/components/park/ui/button";
+import { IconButton } from "../park/ui/icon-button";
+
 interface NavbarUserProps {}
 
 export function NavbarUser({}: NavbarUserProps) {
