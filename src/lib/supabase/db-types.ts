@@ -9,52 +9,9 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      admin: {
-        Row: {
-          avatar_url: string | null
-          bio: string | null
-          created_at: string
-          embedding: string | null
-          gps: unknown | null
-          id: number
-          name: string
-          user_id: string
-          vibe_check: Json | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          bio?: string | null
-          created_at?: string
-          embedding?: string | null
-          gps?: unknown | null
-          id?: number
-          name: string
-          user_id?: string
-          vibe_check?: Json | null
-        }
-        Update: {
-          avatar_url?: string | null
-          bio?: string | null
-          created_at?: string
-          embedding?: string | null
-          gps?: unknown | null
-          id?: number
-          name?: string
-          user_id?: string
-          vibe_check?: Json | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "admin_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       candidates: {
         Row: {
+          account_id: string
           avatar_url: string | null
           bio: string | null
           created_at: string
@@ -63,11 +20,11 @@ export type Database = {
           id: number
           name: string
           period: string
-          user_id: string
           vibe_check: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
         }
         Insert: {
+          account_id?: string
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
@@ -76,11 +33,11 @@ export type Database = {
           id?: number
           name: string
           period: string
-          user_id?: string
           vibe_check?: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
         }
         Update: {
+          account_id?: string
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
@@ -89,14 +46,13 @@ export type Database = {
           id?: number
           name?: string
           period?: string
-          user_id?: string
           vibe_check?: Json | null
           vying_for?: Database["public"]["Enums"]["positions"]
         }
         Relationships: [
           {
-            foreignKeyName: "candidate_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "candidates_account_id_fkey"
+            columns: ["account_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -105,22 +61,31 @@ export type Database = {
       }
       constituencies: {
         Row: {
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
           county_id: number | null
           created_at: string
+          entry_contributed_by: string
+          entry_verified_by: string | null
           gps: unknown | null
           id: number
           name: string
         }
         Insert: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           county_id?: number | null
           created_at?: string
+          entry_contributed_by: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name: string
         }
         Update: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           county_id?: number | null
           created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name?: string
@@ -137,29 +102,129 @@ export type Database = {
       }
       counties: {
         Row: {
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
           created_at: string
+          entry_contributed_by: string
+          entry_verified_by: string | null
           gps: unknown | null
           id: number
           name: string
         }
         Insert: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name: string
         }
         Update: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name?: string
         }
         Relationships: []
       }
+      governors: {
+        Row: {
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
+          county_id: number | null
+          created_at: string
+          entry_contributed_by: string
+          entry_verified_by: string | null
+          from: string
+          id: number
+          name: string
+          to: string | null
+        }
+        Insert: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
+          county_id?: number | null
+          created_at?: string
+          entry_contributed_by: string
+          entry_verified_by?: string | null
+          from: string
+          id?: number
+          name: string
+          to?: string | null
+        }
+        Update: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
+          county_id?: number | null
+          created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
+          from?: string
+          id?: number
+          name?: string
+          to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "governors_county_id_fkey"
+            columns: ["county_id"]
+            isOneToOne: false
+            referencedRelation: "counties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mcas: {
+        Row: {
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
+          created_at: string
+          entry_contributed_by: string
+          entry_verified_by: string | null
+          from: string
+          id: number
+          name: string
+          to: string | null
+          ward_id: number | null
+        }
+        Insert: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
+          created_at?: string
+          entry_contributed_by: string
+          entry_verified_by?: string | null
+          from: string
+          id?: number
+          name: string
+          to?: string | null
+          ward_id?: number | null
+        }
+        Update: {
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
+          created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
+          from?: string
+          id?: number
+          name?: string
+          to?: string | null
+          ward_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mcas_ward_id_fkey"
+            columns: ["ward_id"]
+            isOneToOne: false
+            referencedRelation: "wards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mps: {
         Row: {
           contituency_id: number | null
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
           created_at: string
+          entry_contributed_by: string | null
+          entry_verified_by: string | null
           from: string
           id: number
           name: string
@@ -167,7 +232,10 @@ export type Database = {
         }
         Insert: {
           contituency_id?: number | null
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by?: string | null
+          entry_verified_by?: string | null
           from: string
           id?: number
           name: string
@@ -175,7 +243,10 @@ export type Database = {
         }
         Update: {
           contituency_id?: number | null
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by?: string | null
+          entry_verified_by?: string | null
           from?: string
           id?: number
           name?: string
@@ -191,45 +262,89 @@ export type Database = {
           },
         ]
       }
-      raia: {
+      role_permissions: {
+        Row: {
+          id: number
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          id?: number
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          id?: number
+          permission?: Database["public"]["Enums"]["app_permission"]
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: number
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
         Row: {
           avatar_url: string | null
           bio: string | null
           created_at: string
-          embedding: string | null
+          email: string | null
+          fullname: string | null
           gps: unknown | null
-          id: number
-          name: string
-          user_id: string
+          id: string
+          username: string | null
           vibe_check: Json | null
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
-          embedding?: string | null
+          email?: string | null
+          fullname?: string | null
           gps?: unknown | null
-          id?: number
-          name: string
-          user_id?: string
+          id?: string
+          username?: string | null
           vibe_check?: Json | null
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
-          embedding?: string | null
+          email?: string | null
+          fullname?: string | null
           gps?: unknown | null
-          id?: number
-          name?: string
-          user_id?: string
+          id?: string
+          username?: string | null
           vibe_check?: Json | null
         }
         Relationships: [
           {
-            foreignKeyName: "raia_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
+            foreignKeyName: "users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -238,21 +353,30 @@ export type Database = {
       wards: {
         Row: {
           constituency_id: number
+          contribution_status: Database["public"]["Enums"]["contribution_status"]
           created_at: string
+          entry_contributed_by: string
+          entry_verified_by: string | null
           gps: unknown | null
           id: number
           name: string
         }
         Insert: {
           constituency_id: number
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name: string
         }
         Update: {
           constituency_id?: number
+          contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
+          entry_contributed_by?: string
+          entry_verified_by?: string | null
           gps?: unknown | null
           id?: number
           name?: string
@@ -272,9 +396,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      authorize: {
+        Args: {
+          requested_permission: Database["public"]["Enums"]["app_permission"]
+        }
+        Returns: boolean
+      }
+      custom_access_token_hook: {
+        Args: {
+          event: Json
+        }
+        Returns: Json
+      }
     }
     Enums: {
+      app_permission: "common.update" | "common.delete"
+      app_role: "admin" | "moderator"
+      contribution_status: "pending" | "verified"
       positions: "mca" | "mp" | "governor" | "president"
     }
     CompositeTypes: {
