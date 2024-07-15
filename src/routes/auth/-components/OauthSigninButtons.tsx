@@ -3,8 +3,7 @@ import { IconButton } from "@/components/park/ui/icon-button";
 import { supabase } from "@/lib/supabase/client";
 import { viewerqueryOptions } from "@/lib/tanstack/query/use-viewer";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
-import { Route } from "../index";
+
 import { FaGoogle } from "react-icons/fa6";
 import { Loader } from "lucide-react";
 
@@ -17,12 +16,6 @@ export function OauthSigninButtons({}: OauthSigninButtonsProps) {
       return await supabase.auth.signInWithOAuth({ provider });
     },
     onSuccess() {
-      toaster.create({
-        title: "signed in",
-        description: `Welcome`,
-        type: "success",
-        duration: 2000,
-      });
       qc.invalidateQueries(viewerqueryOptions);
     },
     onError(error) {
@@ -38,7 +31,7 @@ export function OauthSigninButtons({}: OauthSigninButtonsProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <IconButton
-        variant="outline"
+        variant="solid"
         className="flex justify-evenly items-center gap-3 px-3"
         onClick={() => mutation.mutate("google")}
         disabled={mutation.isPending}>
