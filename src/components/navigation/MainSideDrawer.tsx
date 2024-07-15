@@ -36,15 +36,17 @@ export function MainSideDrawer(props: Drawer.RootProps) {
           <Drawer.Body>
             <div className="w-full flex flex-col  justify-startjustify-center gap-2">
               {navbarRoutes.map((route) => (
-                <Link
-                  key={route.name}
-                  to={route.path}
-                  className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
-                  <route.icon className="size-4"/>
-                  {route.name}
-                </Link>
+                <Drawer.CloseTrigger asChild className="" key={route.name}>
+                  <Link
+                    key={route.name}
+                    to={route.path}
+                    className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
+                    <route.icon className="size-4" />
+                    {route.name}
+                  </Link>
+                </Drawer.CloseTrigger>
               ))}
-              <SideDrawerAccordion/>
+              <SideDrawerAccordion />
             </div>
           </Drawer.Body>
           <Drawer.Footer className="justify-start items-center">
