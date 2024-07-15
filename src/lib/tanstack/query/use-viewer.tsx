@@ -1,5 +1,6 @@
 import {
   getSupabaseUser,
+  getSupabaseViewer,
   supabase,
   SupabaseUser,
   TypedSupabaseClient,
@@ -19,53 +20,12 @@ import { RecordAuthResponse } from "pocketbase";
 export const viewerqueryOptions = queryOptions({
   queryKey: ["viewer"],
   queryFn: async () => {
-    return await getSupabaseUser();
+    const user = await getSupabaseViewer();
+    return user;
   },
-    staleTime: 1000 * 60 * 60,
+  staleTime: 1000 * 60 * 60,
 });
 
-export async function getViewrWithRoles() {
-  const user_response = await getSupabaseUser();
-  if (user_response.error) {
-    console.log("============= user error ==========", user_response.error);
-    return { data: null, error: user_response.error };
-  }
-
-  const user = user_response.data.user;
-  const raia_response = await getRaia(user.id);
-  if (raia_response.error) {
-    console.log("============= raia error ==========", raia_response.error);
-    return { data: null, error: raia_response.error };
-  }
-
-  const raia = raia_response.data;
-  const admin_response = await getAdmin(user.id);
-  if (admin_response.error) {
-    console.log("============= admin error ==========", admin_response.error);
-    return { data: null, error: admin_response.error };
-  }
-  const admin = admin_response.data;
-  return { data: { user, raia, admin }, error: null };
-}
-
-export const adminqueryOptions = (id: string) => {
-  return queryOptions({
-    queryKey: ["viewer", "admin", id],
-    queryFn: () => getAdmin(id),
-    staleTime: 1000 * 60 * 60,
-  });
-};
-
-export async function getAdmin(id: string) {
-  return await supabase.from("admin").select("*").eq("user_id", id).single();
-}
-export async function getRaia(id: string) {
-  return await supabase.from("raia").select("*").eq("user_id", id).single();
-}
-
-export function useAdmin(id: string) {
-  return useSuspenseQuery(adminqueryOptions(id));
-}
 export function useViewer() {
   const qc = useQueryClient();
   const logoutMutation = useMutation({

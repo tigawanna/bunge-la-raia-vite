@@ -11,9 +11,9 @@ export function NavbarUser({}: NavbarUserProps) {
   const { userQuery, logoutMutation } = useViewer();
 
   const location = useLocation();
-  const user = userQuery?.data.data?.user;
-  const raia = userQuery?.data.data?.raia
-  if (!user) {
+  const viewer = userQuery?.data.data;
+
+  if (!viewer) {
     return (
       <Dialog.Root>
         <Dialog.Trigger asChild>
@@ -52,17 +52,24 @@ export function NavbarUser({}: NavbarUserProps) {
       <Dialog.Trigger asChild>
         <Avatar
           className="border-accent-text border-2"
-          name={raia?.name}
-          src={raia?.avatar_url||""}
+          name={viewer?.fullname ?? viewer?.username ?? "uwu"}
+          src={viewer?.avatar_url || ""}
         />
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content className="absolute top-[10%] right-[2%] w-[40%] h-fit p-5 bg-bg-muted">
           <div className="flex flex-col gap-2 h-full w-full  p-5">
-            <div className="flex flex-col gap-2 w-full">
-              <Dialog.Title>{raia?.name}</Dialog.Title>
-              <Dialog.Description>{user.email}</Dialog.Description>
+            <div className="flex  gap-2 h-full w-full justify-center items-center">
+              <Avatar
+                className="border-accent-text border-2 h-full"
+                name={viewer?.fullname ?? viewer?.username ?? "uwu"}
+                src={viewer?.avatar_url || ""}
+              />
+              <div className="flex flex-col gap-2 w-full">
+                <Dialog.Title>{viewer?.username ?? viewer?.fullname}</Dialog.Title>
+                <Dialog.Description>{viewer.email}</Dialog.Description>
+              </div>
             </div>
             <div className="flex gap-2 w-full justify-end">
               <Dialog.CloseTrigger asChild>
