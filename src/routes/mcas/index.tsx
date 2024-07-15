@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/mcas/')({
-  component: () => <div>Hello /mcas/!</div>
+  component:WardsPage
 })
 
 interface WardsPageProps {

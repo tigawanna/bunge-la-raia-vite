@@ -16,12 +16,7 @@ export const navbarRoutes = [
     name: "admin",
     path: "/admin",
     icon: Users2Icon,
-  },
-  {
-    name: "mps",
-    path: "/mps",
-    icon: Users2Icon,
-  },
+  }
 ] as const;
 
 export const locationRoutes = [
