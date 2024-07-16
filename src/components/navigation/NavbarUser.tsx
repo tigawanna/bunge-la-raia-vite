@@ -52,7 +52,7 @@ export function NavbarUser({}: NavbarUserProps) {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <Avatar
-          className="border-accent-text border-2"
+          className="border-accent-text  size-8 rounded-[5%]"
           name={viewer?.fullname ?? viewer?.username ?? "uwu"}
           src={viewer?.avatar_url || ""}
         />
@@ -63,16 +63,16 @@ export function NavbarUser({}: NavbarUserProps) {
           <div className="flex flex-col gap-2 h-full w-full  p-5">
             <div className="flex  gap-2 h-full w-full justify-center items-center">
               <Avatar
-                className="border-accent-text border-2 h-full"
+                className=""
                 name={viewer?.fullname ?? viewer?.username ?? "uwu"}
                 src={viewer?.avatar_url || ""}
               />
-              <div className="flex flex-col gap-2 w-full">
+              <div className="flex flex-col w-full">
                 <Dialog.Title>{viewer?.username ?? viewer?.fullname}</Dialog.Title>
                 <Dialog.Description>{viewer.email}</Dialog.Description>
               </div>
             </div>
-            <div className="flex gap-2 w-full justify-end">
+            <div className="flex gap-2 w-full justify-center">
               <Dialog.CloseTrigger asChild>
                 <Button variant="outline">Cancel</Button>
               </Dialog.CloseTrigger>

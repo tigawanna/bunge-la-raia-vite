@@ -20,6 +20,7 @@ import { Route as McasIndexImport } from './routes/mcas/index'
 import { Route as GovernorsIndexImport } from './routes/governors/index'
 import { Route as CountiesIndexImport } from './routes/counties/index'
 import { Route as ConstituenciesIndexImport } from './routes/constituencies/index'
+import { Route as CandidatesIndexImport } from './routes/candidates/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
@@ -68,6 +69,11 @@ const CountiesIndexRoute = CountiesIndexImport.update({
 
 const ConstituenciesIndexRoute = ConstituenciesIndexImport.update({
   path: '/constituencies/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CandidatesIndexRoute = CandidatesIndexImport.update({
+  path: '/candidates/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -123,6 +129,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/candidates/': {
+      id: '/candidates/'
+      path: '/candidates'
+      fullPath: '/candidates'
+      preLoaderRoute: typeof CandidatesIndexImport
       parentRoute: typeof rootRoute
     }
     '/constituencies/': {
@@ -184,6 +197,7 @@ export const routeTree = rootRoute.addChildren({
   AuthSignupRoute,
   AdminIndexRoute,
   AuthIndexRoute,
+  CandidatesIndexRoute,
   ConstituenciesIndexRoute,
   CountiesIndexRoute,
   GovernorsIndexRoute,
@@ -206,6 +220,7 @@ export const routeTree = rootRoute.addChildren({
         "/auth/signup",
         "/admin/",
         "/auth/",
+        "/candidates/",
         "/constituencies/",
         "/counties/",
         "/governors/",
@@ -229,6 +244,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/auth/": {
       "filePath": "auth/index.tsx"
+    },
+    "/candidates/": {
+      "filePath": "candidates/index.tsx"
     },
     "/constituencies/": {
       "filePath": "constituencies/index.tsx"

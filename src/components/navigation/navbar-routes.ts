@@ -1,4 +1,4 @@
-import { HomeIcon, Users2Icon } from "lucide-react";
+import { HomeIcon, Users2Icon, UserSearchIcon } from "lucide-react";
 
 export const navbarRoutes = [
   {
@@ -16,6 +16,11 @@ export const navbarRoutes = [
     name: "admin",
     path: "/admin",
     icon: Users2Icon,
+  },
+  {
+    name: "candidates",
+    path: "/candidates",
+    icon: UserSearchIcon,
   }
 ] as const;
 

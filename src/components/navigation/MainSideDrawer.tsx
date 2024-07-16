@@ -5,8 +5,14 @@ import { IconButton } from "~/components/park/ui/icon-button";
 import { navbarRoutes } from "./navbar-routes";
 import { ThemeToggle } from "./ThemeToggle";
 import { SideDrawerAccordion } from "./SideDrawerAccordion";
+import { useViewer } from "@/lib/tanstack/query/use-viewer";
+import * as Dialog from "~/components/park/ui/dialog";
+import { Avatar } from "../park/ui/avatar";
+import { Button } from "../park/ui/button";
 
 export function MainSideDrawer(props: Drawer.RootProps) {
+  const { userQuery,logoutMutation } = useViewer();
+  const viewer = userQuery?.data?.data;
   return (
     <Drawer.Root {...props}>
       <Drawer.Trigger asChild>
@@ -35,23 +41,42 @@ export function MainSideDrawer(props: Drawer.RootProps) {
           </Drawer.Header>
           <Drawer.Body>
             <div className="w-full flex flex-col  justify-startjustify-center gap-2">
-              {navbarRoutes.map((route) => (
-                <Drawer.CloseTrigger asChild className="" key={route.name}>
-                  <Link
-                    key={route.name}
-                    to={route.path}
-                    className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
-                    <route.icon className="size-4" />
-                    {route.name}
-                  </Link>
-                </Drawer.CloseTrigger>
-              ))}
+              {navbarRoutes.map((route) => {
+                if (route.path === "/profile" && !viewer) return;
+                if (route.path === "/admin" && viewer?.user_role !== "admin") return;
+                return (
+                  <Drawer.CloseTrigger asChild className="" key={route.name}>
+                    <Link
+                      key={route.name}
+                      to={route.path}
+                      className="flex justify-start items-center gap-4 text-base font-normalhover:bg-bg-emphasized border-b hover:text-accent-text p-2">
+                      <route.icon className="size-4" />
+                      {route.name}
+                    </Link>
+                  </Drawer.CloseTrigger>
+                );
+              })}
               <SideDrawerAccordion />
             </div>
           </Drawer.Body>
-          <Drawer.Footer className="justify-start items-center">
-            <ThemeToggle />
-            <p className="text-sm">{new Date().toLocaleDateString()}</p>
+          <Drawer.Footer className="flex flex-col justify-start ">
+            <div className="w-full flex gap-3 justify-evenly">
+              <ThemeToggle />
+            </div>
+            <div className="flex  gap-2 h-full w-full justify-center items-center">
+              <Avatar
+                className=""
+                name={viewer?.fullname ?? viewer?.username ?? "uwu"}
+                src={viewer?.avatar_url || ""}
+              />
+              <div className="flex flex-col w-full">
+                <Dialog.Title>{viewer?.username ?? viewer?.fullname}</Dialog.Title>
+                <Dialog.Description>{viewer?.email}</Dialog.Description>
+              </div>
+              <Button className="bg-error" onClick={() => logoutMutation.mutate()}>
+                Logout
+              </Button>
+            </div>
           </Drawer.Footer>
         </Drawer.Content>
       </Drawer.Positioner>
