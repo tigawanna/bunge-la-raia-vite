@@ -13,10 +13,10 @@ export function CandidatesList({ q }: CandidatesListProps) {
       return await supabase
         .from("candidates")
         .select(
-          `
-          id,
+        `id,
           name,
           avatar_url,
+          account_id,
           bio,
           created_at,
           embedding,
@@ -32,12 +32,12 @@ export function CandidatesList({ q }: CandidatesListProps) {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <ul className="w-full h-full flex flex-wrap justify-center items-center gap-2">
+      <ul className="w-full h-full flex flex-wrap items-center gap-2 p-2">
         {candidates.map((item) => {
           return (
             <li
               key={item.id}
-              className="w-[95%] md:w-[45%] lg:w-[30%] p-2 bg-bg-muted rounded-lg flex flex-col gap-2">
+              className="w-[95%] sm:w-[45%] md:w-[30%] lg:w-[25%] p-2 bg-bg-muted rounded-lg flex flex-col gap-2">
               <div className="w-full flex items-center justify-between ">
                 <h1 className="text-2xl">{item.name}</h1>
                 <h4 className=" border-2 border-accent-fg px-1 rounded-lg">
