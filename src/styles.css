@@ -253,3 +253,33 @@ h6 {
     animation-duration: 15s;
   }
 }
+
+.shimmerBG {
+    animation-duration: 8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    @apply bg-bg-muted bg-gradient-to-r from-bg-default to-bg-emphasized;
+    background-size: 1200px 100%;
+}
+
+
+@-webkit-keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1200px 0;
+    }
+    100% {
+        background-position: 1200px 0;
+    }
+}
+  

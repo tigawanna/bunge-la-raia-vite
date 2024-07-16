@@ -31,8 +31,8 @@ export function Candidates({}: CandidatesProps) {
           keyword={keyword}
         />
       </div>
+     
       <div className="w-full h-full flex justify-center items-center m-3 p-5">
-        <CardsListSuspenseFallback />
         <Suspense fallback={<CardsListSuspenseFallback />}>
           <CandidatesList q={debouncedValue} />
         </Suspense>

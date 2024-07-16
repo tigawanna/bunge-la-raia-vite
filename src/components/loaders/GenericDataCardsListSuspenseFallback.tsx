@@ -19,7 +19,10 @@ export function CardsListSuspenseFallback({
         {Array.from({ length: cards }).map((_, i) => (
           <li
             key={i}
-            className={twMerge("h-56 w-[95%] md:w-[40%] lg:w-[30%] flex flex-col bg-bg-emphasized/70 skeleton p-2 gap-2 rounded-lg",cardClassName)}
+            className={twMerge(
+              "h-56 w-[95%] md:w-[40%] lg:w-[30%] flex flex-col shimmerBG p-2 gap-2 rounded-lg",
+              cardClassName
+            )}
           />
         ))}
       </ul>
