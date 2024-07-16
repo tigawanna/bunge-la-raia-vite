@@ -2,64 +2,77 @@ import { z } from "zod";
 import { formSchema } from "./VibecheckForm";
 import { Button } from "@/components/park/ui/button";
 import { Checkbox } from "@/components/park/ui/checkbox";
+
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { VibeCheckQuestions } from "./data";
 import { FormLabel } from "@/components/park/ui/form-label";
 
-interface MultileChoicevibecheckProps {
+interface YesNoChoicevibecheckProps {
   question: VibeCheckQuestions;
   vibes: z.infer<typeof formSchema>;
   setVibes: React.Dispatch<React.SetStateAction<z.infer<typeof formSchema>>>;
   handleNext: () => void;
   handlePrevious: () => void;
-  currentStep: number;
+  currentStep:number;
 }
 
-export function MultileChoicevibecheck({
+export function YesNoChoicevibecheck({
   vibes,
   question,
   setVibes,
   handleNext,
   handlePrevious,
-  currentStep,
-}: MultileChoicevibecheckProps) {
+  currentStep
+}: YesNoChoicevibecheckProps) {
   const existingInput = vibes.find((item) => item.query === question.query);
-  const [checkedOption, setCheckedOptins] = useState(existingInput?.answer || "");
+  const [yesOrNo, setYesOrNo] = useState(existingInput?.answer || "no");
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-5 p-2">
       <div className="flex h-full w-[90%] flex-col items-center justify-center gap-5 rounded-lg bg-base-200/40 p-5 md:w-[60%]">
         <h4 className="H5 w-full">{question.query}</h4>
-        <div className="flex h-full w-full flex-col items-center justify-center gap-2  ">
-          {question.options?.map((item) => {
-            return (
-              <div
-                key={item.key}
-                className={
-                  item.value === checkedOption
-                    ? "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border bg-base-200 p-2"
-                    : "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border p-2"
-                }>
-                <Checkbox
-                  className="size-6 border-4"
-                  checked={item.value === checkedOption}
-                  onCheckedChange={(e) => {
-                    setCheckedOptins(item.value);
-                  }}
-                />
+        <div className="flex h-full w-full flex-col items-center gap-2  ">
+          <div
+            className={
+              yesOrNo === "yes"
+                ? "flex w-full items-center  gap-3 rounded-md border bg-base-200 p-2"
+                : "flex w-full items-center  gap-3 rounded-md border p-2"
+            }>
+            <Checkbox
+              className="size-6 border-4"
+              checked={yesOrNo === "yes"}
+              onCheckedChange={(e) => {
+                setYesOrNo("yes");
+              }}
+            />
 
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="text-lg">{item.key}</FormLabel>
-                  <p>{item.value}</p>
-                </div>
-              </div>
-            );
-          })}
+            <div className="leading-none">
+              <FormLabel className="">Yes</FormLabel>
+            </div>
+          </div>
+          <div
+            className={
+              yesOrNo === "no"
+                ? "flex w-full items-center  gap-3 rounded-md border bg-base-200 p-2"
+                : "flex w-full items-center  gap-3 rounded-md border p-2"
+            }>
+            <Checkbox
+              className="size-6 border-4"
+              checked={yesOrNo === "no"}
+              onCheckedChange={(e) => {
+                setYesOrNo("no");
+              }}
+            />
+
+            <div className="leading-none">
+              <FormLabel className="">No</FormLabel>
+            </div>
+          </div>
         </div>
 
         <div className="flex w-full justify-between gap-2">
-          {currentStep > 0 && (
+          {(currentStep > 0)&& (
             <Button
               type="button"
               variant="outline"
@@ -80,7 +93,7 @@ export function MultileChoicevibecheck({
                 return [
                   ...prev,
                   {
-                    answer: checkedOption,
+                    answer: yesOrNo,
                     query: question.query,
                     options: question.options,
                   },
