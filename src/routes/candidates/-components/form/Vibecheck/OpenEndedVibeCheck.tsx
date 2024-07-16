@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { VibeCheckQuestions } from "../data";
+import { VibeCheckQuestions } from "./data";
 import { formSchema } from "./VibecheckForm";
 import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
-import { Button } from "@/components/shadcn/ui/button";
 import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/park/ui/button";
 
 interface OpenEndedVibeCheckProps {
   question: VibeCheckQuestions;

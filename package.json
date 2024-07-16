@@ -23,6 +23,7 @@
     "@tanstack/router-devtools": "^1.43.6",
     "@tanstack/router-vite-plugin": "^1.43.9",
     "@tanstack/zod-form-adapter": "^0.25.2",
+        "react-textarea-autosize": "^8.5.3",
     "dayjs": "^1.11.11",
     "immer": "^10.0.3",
     "jwt-decode": "^4.0.0",

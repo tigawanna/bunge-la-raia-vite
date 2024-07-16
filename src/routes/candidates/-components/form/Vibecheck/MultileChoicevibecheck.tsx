@@ -1,16 +1,11 @@
 import { z } from "zod";
 import { formSchema } from "./VibecheckForm";
-import { Button } from "@/components/shadcn/ui/button";
-import { Checkbox } from "@/components/shadcn/ui/checkbox";
-import {
-  FormControl,
-  FormDescription,
-  FormItem,
-  FormLabel,
-} from "@/components/shadcn/ui/form";
+import { Button } from "@/components/park/ui/button";
+import { Checkbox } from "@/components/park/ui/checkbox";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
-import { VibeCheckQuestions } from "../data";
+import { VibeCheckQuestions } from "./data";
+import { FormLabel } from "@/components/park/ui/form-label";
 
 interface MultileChoicevibecheckProps {
   question: VibeCheckQuestions;
@@ -18,11 +13,7 @@ interface MultileChoicevibecheckProps {
   setVibes: React.Dispatch<React.SetStateAction<z.infer<typeof formSchema>>>;
 }
 
-export function MultileChoicevibecheck({
-  question,
-  vibes,
-  setVibes,
-}: MultileChoicevibecheckProps) {
+export function MultileChoicevibecheck({ question, vibes, setVibes }: MultileChoicevibecheckProps) {
   const [checkedOption, setCheckedOptins] = useState("");
 
   return (
@@ -32,27 +23,25 @@ export function MultileChoicevibecheck({
         <div className="flex h-full w-full flex-col items-center justify-center gap-2  ">
           {question.options?.map((item, idx) => {
             return (
-              <FormItem
+              <div
                 key={item.key}
                 className={
                   item.value === checkedOption
                     ? "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border bg-base-200 p-2"
                     : "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border p-2"
-                }
-              >
-                <FormControl>
-                  <Checkbox
-                    checked={item.value === checkedOption}
-                    onCheckedChange={(e) => {
-                      setCheckedOptins(item.value);
-                    }}
-                  />
-                </FormControl>
+                }>
+                <Checkbox
+                  checked={item.value === checkedOption}
+                  onCheckedChange={(e) => {
+                    setCheckedOptins(item.value);
+                  }}
+                />
+
                 <div className="space-y-1 leading-none">
                   <FormLabel className="text-lg">{item.key}</FormLabel>
-                  <FormDescription>{item.value}</FormDescription>
+                  <p>{item.value}</p>
                 </div>
-              </FormItem>
+              </div>
             );
           })}
         </div>
@@ -71,8 +60,7 @@ export function MultileChoicevibecheck({
                 },
               ];
             });
-          }}
-        >
+          }}>
           Next
           <ChevronRight />
         </Button>
