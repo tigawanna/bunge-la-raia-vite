@@ -1,9 +1,10 @@
 import { CardsListSuspenseFallback } from "@/components/loaders/GenericDataCardsListSuspenseFallback";
 import { SearchBox } from "@/components/search/SearchBox";
 import { useListSearch } from "@/utils/hooks/use-list-search";
-import { useSearch } from "@tanstack/react-router";
+import { Link, useSearch } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { CandidatesList } from "./CandidatesList";
+import { Plus } from "lucide-react";
 
 interface CandidatesProps {}
 
@@ -18,8 +19,13 @@ export function Candidates({}: CandidatesProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <div className="w-full z-20 sticky top-[9%] p-2 px-3 flex flex-col md:flex-row justify-evenly gap-1 pr-5">
-        <div className="w-full flex gap-2 p-1">
+        <div className="w-full flex gap-5 p-1">
           <h1 className="text-2xl font-bold  ">Candidates</h1>
+          <Link
+            to="/candidates/new"
+            className="flex justify-center items-center gap-2 border rounded-lg px-2 hover:text-accent-text">
+            <Plus /> apply
+          </Link>
         </div>
         <SearchBox
           inputProps={{
@@ -31,7 +37,7 @@ export function Candidates({}: CandidatesProps) {
           keyword={keyword}
         />
       </div>
-     
+
       <div className="w-full h-full flex justify-center items-center m-3 p-5">
         <Suspense fallback={<CardsListSuspenseFallback />}>
           <CandidatesList q={debouncedValue} />
