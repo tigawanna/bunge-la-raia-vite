@@ -42,7 +42,7 @@ export function YesNoChoicevibecheck({
             <Checkbox
               className="size-6 border-4"
               checked={yesOrNo === "yes"}
-              onCheckedChange={(e) => {
+              onCheckedChange={() => {
                 setYesOrNo("yes");
               }}
             />
@@ -60,7 +60,7 @@ export function YesNoChoicevibecheck({
             <Checkbox
               className="size-6 border-4"
               checked={yesOrNo === "no"}
-              onCheckedChange={(e) => {
+              onCheckedChange={() => {
                 setYesOrNo("no");
               }}
             />
