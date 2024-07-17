@@ -6,6 +6,9 @@ import { OpenEndedVibeCheck } from "./OpenEndedVibeCheck";
 import { YesNoChoicevibecheck } from "./YesNoChoicevibecheck";
 import { Button } from "@/components/park/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { useVibeCheckMutation } from "./use-mutate-vibecheck";
+import { MutationButton } from "@/lib/tanstack/query/MutationButton";
+import { CandidateType } from "../../types";
 
 export const formSchema = z.array(
   z.object({
@@ -16,15 +19,17 @@ export const formSchema = z.array(
         z.object({
           key: z.string(),
           value: z.string(),
-        }),
+        })
       )
       .optional(),
-  }),
+  })
 );
-export type VibesFormSchema = z.infer<typeof formSchema>;
-interface VibecheckFormProps {}
+export type VibesFormType = z.infer<typeof formSchema>;
+interface VibecheckFormProps {
+  candidate: CandidateType;
+}
 
-export function VibecheckForm({}: VibecheckFormProps) {
+export function VibecheckForm({candidate}: VibecheckFormProps) {
   const [vibes, setVibes] = useState<z.infer<typeof formSchema>>([]);
   const [currentStep, setCurrentStep] = useState(0);
   function handleNext() {
@@ -35,6 +40,8 @@ export function VibecheckForm({}: VibecheckFormProps) {
     setCurrentStep(currentStep - 1);
   }
   const currentQuestion = questions[currentStep];
+  const mutation = useVibeCheckMutation();
+
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
       <h1 className="H1">Vibecheck</h1>
@@ -82,7 +89,7 @@ export function VibecheckForm({}: VibecheckFormProps) {
           />
         )}
         {currentStep === questions.length && (
-          <div className="flex w-full flex-col items-center justify-center">
+          <div className="flex w-full flex-col items-center justify-center p-5 pb-[5%]">
             <ul className="flex h-full w-[90%] flex-col gap-3  p-5">
               {vibes.map((item, idx) => {
                 return (
@@ -95,18 +102,21 @@ export function VibecheckForm({}: VibecheckFormProps) {
                 );
               })}
             </ul>
-            {currentStep > 0 && (
-              <Button
-                type="button"
-                variant="outline"
-                className="iyems-center  btn flex justify-center gap-2 text-base-content"
-                onClick={() => {
-                  handlePrevious();
-                }}>
-                <ChevronLeft />
-                Previous
-              </Button>
-            )}
+            <div className="w-full flex justify-evenly items-center gap-2">
+              {currentStep > 0 && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="iyems-center  btn flex justify-center gap-2 text-base-content"
+                  onClick={() => {
+                    handlePrevious();
+                  }}>
+                  <ChevronLeft />
+                  Previous
+                </Button>
+              )}
+              <MutationButton mutation={mutation} onClick={() => mutation.mutate({candidate,vibe:vibes})}/>
+            </div>
           </div>
         )}
       </form>

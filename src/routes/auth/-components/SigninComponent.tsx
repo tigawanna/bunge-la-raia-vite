@@ -50,7 +50,7 @@ export function SigninComponent({}: SigninComponentProps) {
       navigate({ to: returnTo || "/" });
     },
     onError(error) {
-      console.log(error.name);
+
       toaster.create({
         title: "Something went wrong",
         description: `${error.message}`,
