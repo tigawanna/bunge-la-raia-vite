@@ -6,6 +6,7 @@ import { MainNavbar } from "@/components/navigation/MainNavbar";
 import { ParkuiToast } from "@/components/navigation/ParkuiToast";
 import { RecordAuthResponse } from "pocketbase";
 import { SupabaseUser, TypedSupabaseClient } from "@/lib/supabase/client";
+import { TailwindIndicator } from "@/components/misc/tailwind-indicator";
 
 
 export const Route = createRootRouteWithContext<{
@@ -24,6 +25,7 @@ function RootComponent() {
         <Outlet />
         <ParkuiToast />
       </div>
+      <TailwindIndicator/>
       <ReactQueryDevtools buttonPosition="bottom-right" />
       <TanStackRouterDevtools position="bottom-left" />
     </>
