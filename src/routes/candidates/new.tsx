@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { VibecheckForm } from './-components/form/Vibecheck/VibecheckForm';
+import { VibecheckForm } from './-components/form/vibecheck/VibecheckForm';
 
 export const Route = createFileRoute('/candidates/new')({
   component: NewCandidatePage
