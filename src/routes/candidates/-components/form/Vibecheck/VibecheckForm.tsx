@@ -1,4 +1,3 @@
-"use client";
 import { z } from "zod";
 import { useState } from "react";
 import { MultileChoicevibecheck } from "./MultileChoicevibecheck";
@@ -46,29 +45,7 @@ export function VibecheckForm({}: VibecheckFormProps) {
             {currentStep + 1} / {questions.length}
           </div>
         )}
-        {/* {questions.map((question) => {
-          if (question.type === "multiple_choice") {
-            return (
-              <MultileChoicevibecheck
-                key={question.query}
-                question={question}
-                vibes={vibes}
-                setVibes={setVibes}
-              />
-            );
-          }
-          if (question.type === "open_ended") {
-            return (
-              <OpenEndedVibeCheck
-                key={question.query}
-                question={question}
-                vibes={vibes}
-                setVibes={setVibes}
-              />
-            );
-          }
-          return null;
-        })} */}
+
         {currentQuestion?.type === "multiple_choice" && (
           <MultileChoicevibecheck
             currentStep={currentStep}
@@ -111,9 +88,9 @@ export function VibecheckForm({}: VibecheckFormProps) {
                 return (
                   <li
                     key={idx}
-                    className="flex w-full flex-col gap-1 rounded-lg  border bg-base-200/70 p-3">
-                    <h2 className="H5 border-b">Q: {item.query}</h2>
-                    <p className="pl-2 ">A: {item.answer}</p>
+                    className="flex w-full flex-col gap-1 rounded-lg  border bg-bg-subtle p-3">
+                    <h2 className="text-sm border-b">Q: {item.query}</h2>
+                    <p className="pl-2 text-sm">A: {item.answer}</p>
                   </li>
                 );
               })}

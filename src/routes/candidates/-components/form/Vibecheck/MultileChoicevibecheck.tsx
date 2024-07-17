@@ -44,7 +44,7 @@ export function MultileChoicevibecheck({
                 <Checkbox
                   className="size-6 border-4"
                   checked={item.value === checkedOption}
-                  onCheckedChange={(e) => {
+                  onCheckedChange={() => {
                     setCheckedOptins(item.value);
                   }}
                 />
