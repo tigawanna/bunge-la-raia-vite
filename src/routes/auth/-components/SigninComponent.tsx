@@ -24,6 +24,7 @@ const formOpts = formOptions<PropertyUserLogn>({
   defaultValues: {
     email: "",
     password: "",
+
   },
 });
 export function SigninComponent({}: SigninComponentProps) {
@@ -50,7 +51,6 @@ export function SigninComponent({}: SigninComponentProps) {
       navigate({ to: returnTo || "/" });
     },
     onError(error) {
-
       toaster.create({
         title: "Something went wrong",
         description: `${error.message}`,
@@ -134,9 +134,9 @@ export function SigninComponent({}: SigninComponentProps) {
         <MutationButton mutation={mutation} />
       </form>
       <div className="w-full flex flex-col justify-center items-center gap-2 mt-3 p-3">
-          <Link to="/auth/signup" search={{ returnTo }} className="hover:text-accent-emphasized">
-            New here? Sign up instead
-          </Link>
+        <Link to="/auth/signup" search={{ returnTo }} className="hover:text-accent-emphasized">
+          New here? Sign up instead
+        </Link>
 
         <span className="">----------------------------- or -----------------------------</span>
       </div>
