@@ -2,11 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { VibesFormType } from "./VibecheckForm";
 import { supabase } from "@/lib/supabase/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
-import { CandidateType } from "../../types";
+import { CandidateRowType } from "../../types";
 
 interface VibecheckFormProps {
   vibe: VibesFormType;
-  candidate: CandidateType
+  candidate: CandidateRowType
 }
 export function useVibeCheckMutation() {
   const qc = useQueryClient();

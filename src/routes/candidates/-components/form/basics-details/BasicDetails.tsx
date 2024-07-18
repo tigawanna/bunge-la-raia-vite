@@ -22,12 +22,13 @@ export function BasicDetails({ candidates }: BasicDetailsProps) {
       account_id: viewer?.id ?? "",
     },
   });
+  
   const onSubmit: SubmitHandler<CandidateInsertType> = (data) => console.log(data);
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-full flex flex-col items-center justify-center">
+        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
         {/* register your input into the hook by invoking the "register" function */}
         <TextFormField<CandidateInsertType>
           fieldKey="name"
