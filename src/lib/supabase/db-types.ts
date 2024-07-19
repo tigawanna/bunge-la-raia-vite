@@ -9,6 +9,50 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      candidate_aspirations: {
+        Row: {
+          candidate_id: string | null
+          created_at: string
+          embedding: string | null
+          gps: unknown | null
+          id: string
+          mission_statement: string
+          period: string
+          vibe_check: Json | null
+          vying_for: Database["public"]["Enums"]["positions"]
+        }
+        Insert: {
+          candidate_id?: string | null
+          created_at?: string
+          embedding?: string | null
+          gps?: unknown | null
+          id?: string
+          mission_statement: string
+          period: string
+          vibe_check?: Json | null
+          vying_for: Database["public"]["Enums"]["positions"]
+        }
+        Update: {
+          candidate_id?: string | null
+          created_at?: string
+          embedding?: string | null
+          gps?: unknown | null
+          id?: string
+          mission_statement?: string
+          period?: string
+          vibe_check?: Json | null
+          vying_for?: Database["public"]["Enums"]["positions"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "candidate_aspirations_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "candidates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       candidates: {
         Row: {
           account_id: string
@@ -16,12 +60,8 @@ export type Database = {
           bio: string | null
           created_at: string
           embedding: string | null
-          gps: unknown | null
-          id: number
+          id: string
           name: string
-          period: string
-          vibe_check: Json | null
-          vying_for: Database["public"]["Enums"]["positions"]
         }
         Insert: {
           account_id?: string
@@ -29,12 +69,8 @@ export type Database = {
           bio?: string | null
           created_at?: string
           embedding?: string | null
-          gps?: unknown | null
-          id?: number
+          id?: string
           name: string
-          period: string
-          vibe_check?: Json | null
-          vying_for: Database["public"]["Enums"]["positions"]
         }
         Update: {
           account_id?: string
@@ -42,18 +78,21 @@ export type Database = {
           bio?: string | null
           created_at?: string
           embedding?: string | null
-          gps?: unknown | null
-          id?: number
+          id?: string
           name?: string
-          period?: string
-          vibe_check?: Json | null
-          vying_for?: Database["public"]["Enums"]["positions"]
         }
         Relationships: [
           {
             foreignKeyName: "candidates_account_id_fkey"
             columns: ["account_id"]
             isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidates_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },

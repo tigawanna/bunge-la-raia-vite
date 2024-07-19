@@ -12,16 +12,11 @@ export function BasicDetails({ candidate }: BasicDetailsProps) {
   const { userQuery } = useViewer();
   const { location } = useCurrentLocation();
   const viewer = userQuery?.data?.data;
+  console.log(" =================  viewr  =================== ", viewer);
   const { register, handleSubmit, formState } = useForm<CandidateInsertType>({
     defaultValues: {
-      name: candidate?.name ?? "",
+      name: candidate?.name ?? viewer?.fullname ?? "",
       bio: candidate?.bio ?? "",
-      gps:
-        candidate?.gps ??
-        location?.latitude.toString() + "," + location?.longitude.toString() ??
-        "",
-      period: candidate?.period ?? "",
-      vying_for: candidate?.vying_for ?? "mca",
       account_id: viewer?.id ?? "",
     },
   });
