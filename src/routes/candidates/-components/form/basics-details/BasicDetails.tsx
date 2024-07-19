@@ -5,20 +5,23 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useCurrentLocation } from "@/utils/hooks/use-current-location";
 
 interface BasicDetailsProps {
-  candidates?: CandidateRowType;
+  candidate?: CandidateRowType | null;
+  formStep: number;
+  handleNextFormStep(): void;
+  handlePreviousFormStep(): void;
 }
 
-export function BasicDetails({ candidates }: BasicDetailsProps) {
+export function BasicDetails({ candidate }: BasicDetailsProps) {
   const { userQuery } = useViewer();
   const {location,error} = useCurrentLocation()
   const viewer = userQuery?.data?.data;
   const { register, handleSubmit,formState } = useForm<CandidateInsertType>({
     defaultValues: {
-      name: candidates?.name ?? "",
-      bio: candidates?.bio ?? "",
-      gps: candidates?.gps ??location?.latitude.toString() + "," + location?.longitude.toString() ?? "",
-      period: candidates?.period ?? "",
-      vying_for: candidates?.vying_for ?? "mca",
+      name: candidate?.name ?? "",
+      bio: candidate?.bio ?? "",
+      gps: candidate?.gps ??location?.latitude.toString() + "," + location?.longitude.toString() ?? "",
+      period: candidate?.period ?? "",
+      vying_for: candidate?.vying_for ?? "mca",
       account_id: viewer?.id ?? "",
     },
   });

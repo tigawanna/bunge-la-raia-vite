@@ -25,6 +25,7 @@ import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
+import { Route as CandidatesIdIndexImport } from './routes/candidates/$id/index'
 
 // Create/Update Routes
 
@@ -95,6 +96,11 @@ const CandidatesNewRoute = CandidatesNewImport.update({
 
 const AuthSignupRoute = AuthSignupImport.update({
   path: '/auth/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CandidatesIdIndexRoute = CandidatesIdIndexImport.update({
+  path: '/candidates/$id/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -200,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WardsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/candidates/$id/': {
+      id: '/candidates/$id/'
+      path: '/candidates/$id'
+      fullPath: '/candidates/$id'
+      preLoaderRoute: typeof CandidatesIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -219,6 +232,7 @@ export const routeTree = rootRoute.addChildren({
   MpsIndexRoute,
   ProfileIndexRoute,
   WardsIndexRoute,
+  CandidatesIdIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -242,7 +256,8 @@ export const routeTree = rootRoute.addChildren({
         "/mcas/",
         "/mps/",
         "/profile/",
-        "/wards/"
+        "/wards/",
+        "/candidates/$id/"
       ]
     },
     "/": {
@@ -286,6 +301,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/wards/": {
       "filePath": "wards/index.tsx"
+    },
+    "/candidates/$id/": {
+      "filePath": "candidates/$id/index.tsx"
     }
   }
 }

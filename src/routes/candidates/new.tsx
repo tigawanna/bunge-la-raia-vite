@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { BasicDetails } from './-components/form/basics-details/BasicDetails';
-import { VibecheckForm } from './-components/form/vibe-check/VibecheckForm';
+import { Suspense } from 'react';
+import { CandidateForm } from './-components/form/CandidateForm';
+import { Loader } from 'lucide-react';
 
 
 export const Route = createFileRoute('/candidates/new')({
@@ -15,8 +16,13 @@ interface NewCandidatePageProps {
 export function NewCandidatePage({}:NewCandidatePageProps){
 return (
  <div className='w-full h-full min-h-screen flex flex-col items-center justify-center'>
-    <BasicDetails/>
-    <VibecheckForm/>
+  <Suspense fallback={
+    <div className='w-full h-full flex items-center justify-center min-h-[60vh] skeleton'>
+      <Loader className='animate-spin'/>
+    </div>
+  }>
+    <CandidateForm id={undefined}/>
+  </Suspense>
  </div>
 );
 }
