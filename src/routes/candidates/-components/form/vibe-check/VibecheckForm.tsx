@@ -27,9 +27,6 @@ export const formSchema = z.array(
 export type VibesFormType = z.infer<typeof formSchema>;
 interface VibecheckFormProps {
   candidate?: CandidateRowType | null;
-  formStep: number;
-  handleNextFormStep():void;
-  handlePreviousFormStep():void;
 }
 
 export function VibecheckForm({candidate}: VibecheckFormProps) {

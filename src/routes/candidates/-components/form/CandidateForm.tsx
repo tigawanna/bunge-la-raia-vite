@@ -65,17 +65,13 @@ export function CandidateForm({ id }: CandidateFormProps) {
           {formStep === 1 && (
             <BasicDetails
               candidate={candidate}
-              formStep={formStep}
-              handleNextFormStep={handleNextFormStep}
-              handlePreviousFormStep={handlePreviousFormStep}
+
             />
           )}
           {formStep === 2 && (
             <VibecheckForm
               candidate={candidate}
-              formStep={formStep}
-              handleNextFormStep={handleNextFormStep}
-              handlePreviousFormStep={handlePreviousFormStep}
+
             />
           )}
 

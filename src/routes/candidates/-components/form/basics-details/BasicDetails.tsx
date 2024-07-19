@@ -6,26 +6,26 @@ import { useCurrentLocation } from "@/utils/hooks/use-current-location";
 
 interface BasicDetailsProps {
   candidate?: CandidateRowType | null;
-  formStep: number;
-  handleNextFormStep(): void;
-  handlePreviousFormStep(): void;
 }
 
 export function BasicDetails({ candidate }: BasicDetailsProps) {
   const { userQuery } = useViewer();
-  const {location,error} = useCurrentLocation()
+  const { location } = useCurrentLocation();
   const viewer = userQuery?.data?.data;
-  const { register, handleSubmit,formState } = useForm<CandidateInsertType>({
+  const { register, handleSubmit, formState } = useForm<CandidateInsertType>({
     defaultValues: {
       name: candidate?.name ?? "",
       bio: candidate?.bio ?? "",
-      gps: candidate?.gps ??location?.latitude.toString() + "," + location?.longitude.toString() ?? "",
+      gps:
+        candidate?.gps ??
+        location?.latitude.toString() + "," + location?.longitude.toString() ??
+        "",
       period: candidate?.period ?? "",
       vying_for: candidate?.vying_for ?? "mca",
       account_id: viewer?.id ?? "",
     },
   });
-  
+
   const onSubmit: SubmitHandler<CandidateInsertType> = (data) => console.log(data);
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
