@@ -1,8 +1,12 @@
-import { TextAreaFormField, TextFormField } from "@/lib/react-hook-form/TextFields";
+import { ResizeTextAreaFormField, TextFormField } from "@/lib/react-hook-form/TextFields";
 import { CandidateInsertType, CandidateRowType } from "../../types";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useCurrentLocation } from "@/utils/hooks/use-current-location";
+import { ImageURLInputField } from "@/lib/react-hook-form/ImageInput";
+import { useMutation } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase/client";
+import { MutationButton } from "@/lib/tanstack/query/MutationButton";
+import { useNavigate } from "@tanstack/react-router";
 
 interface BasicDetailsProps {
   candidate?: CandidateRowType | null;
@@ -10,23 +14,36 @@ interface BasicDetailsProps {
 
 export function BasicDetails({ candidate }: BasicDetailsProps) {
   const { userQuery } = useViewer();
-  const { location } = useCurrentLocation();
+  const navigate = useNavigate({
+    from: "/candidates/new",
+  });
   const viewer = userQuery?.data?.data;
-  console.log(" =================  viewr  =================== ", viewer);
-  const { register, handleSubmit, formState } = useForm<CandidateInsertType>({
+
+  const { register, handleSubmit, formState, watch } = useForm<CandidateInsertType>({
     defaultValues: {
       name: candidate?.name ?? viewer?.fullname ?? "",
-      bio: candidate?.bio ?? "",
-      account_id: viewer?.id ?? "",
+      bio: candidate?.bio ?? viewer?.bio ?? "",
+      account_id: candidate?.account_id ?? viewer?.id ?? "",
+      avatar_url: candidate?.avatar_url ?? viewer?.avatar_url ?? "",
     },
   });
-
-  const onSubmit: SubmitHandler<CandidateInsertType> = (data) => console.log(data);
+  const mutation = useMutation({
+    mutationFn: async (data: CandidateInsertType) => {
+      return await supabase.from("candidates").insert(data).returns();
+    },
+    onSuccess: (data) => {
+      console.log("================== return data ==============", data);
+      navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
+    },
+  });
+  const onSubmit: SubmitHandler<CandidateInsertType> = (data) => {
+    mutation.mutate(data);
+  };
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center p-5">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
+        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 overflow-auto">
         {/* register your input into the hook by invoking the "register" function */}
         <TextFormField<CandidateInsertType>
           fieldKey="name"
@@ -34,12 +51,20 @@ export function BasicDetails({ candidate }: BasicDetailsProps) {
           register={register}
           required
         />
-        <TextAreaFormField<CandidateInsertType>
+        <ResizeTextAreaFormField<CandidateInsertType>
           fieldKey="bio"
           formState={formState}
           register={register}
           required
         />
+        <ImageURLInputField<CandidateInsertType>
+          fieldKey="avatar_url"
+          formState={formState}
+          register={register}
+          watch={watch}
+          required
+        />
+        <MutationButton label="Save" type="submit" mutation={mutation} />
       </form>
     </div>
   );

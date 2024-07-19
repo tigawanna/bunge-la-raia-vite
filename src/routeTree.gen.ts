@@ -26,6 +26,7 @@ import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as CandidatesIdIndexImport } from './routes/candidates/$id/index'
+import { Route as CandidatesIdAspirationsIndexImport } from './routes/candidates/$id/aspirations/index'
 
 // Create/Update Routes
 
@@ -103,6 +104,12 @@ const CandidatesIdIndexRoute = CandidatesIdIndexImport.update({
   path: '/candidates/$id/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const CandidatesIdAspirationsIndexRoute =
+  CandidatesIdAspirationsIndexImport.update({
+    path: '/candidates/$id/aspirations/',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -213,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesIdIndexImport
       parentRoute: typeof rootRoute
     }
+    '/candidates/$id/aspirations/': {
+      id: '/candidates/$id/aspirations/'
+      path: '/candidates/$id/aspirations'
+      fullPath: '/candidates/$id/aspirations'
+      preLoaderRoute: typeof CandidatesIdAspirationsIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -233,6 +247,7 @@ export const routeTree = rootRoute.addChildren({
   ProfileIndexRoute,
   WardsIndexRoute,
   CandidatesIdIndexRoute,
+  CandidatesIdAspirationsIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -257,7 +272,8 @@ export const routeTree = rootRoute.addChildren({
         "/mps/",
         "/profile/",
         "/wards/",
-        "/candidates/$id/"
+        "/candidates/$id/",
+        "/candidates/$id/aspirations/"
       ]
     },
     "/": {
@@ -304,6 +320,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/candidates/$id/": {
       "filePath": "candidates/$id/index.tsx"
+    },
+    "/candidates/$id/aspirations/": {
+      "filePath": "candidates/$id/aspirations/index.tsx"
     }
   }
 }

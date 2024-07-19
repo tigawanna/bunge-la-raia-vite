@@ -4,7 +4,9 @@ import { queryOptions } from "@tanstack/react-query";
 export const candidatesQueryOptions = queryOptions({
   queryKey: ["candidates"],
   queryFn: async () => {
-    return await supabase.from("candidates").select("*").order("created_at", { ascending: false });
+    return await supabase.from("candidates").select("*")
+    .order("created_at", { ascending: false })
+    .limit(24)
   },
 });
 export const oneCandidatesQueryOptions =(id:string)=> queryOptions({
