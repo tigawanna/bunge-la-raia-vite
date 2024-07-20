@@ -30,8 +30,6 @@ import { Route as CandidatesIdUpdateIndexImport } from './routes/candidates/$id/
 import { Route as CandidatesIdAspirationsIndexImport } from './routes/candidates/$id/aspirations/index'
 import { Route as CandidatesIdAspirationsAspImport } from './routes/candidates/$id/aspirations/$asp'
 import { Route as CandidatesIdAspirationsAspFormImport } from './routes/candidates/$id/aspirations/$asp.form'
-import { Route as CandidatesIdAspirationsAspirantListOnecandidateAspirationsImport } from './routes/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations'
-import { Route as CandidatesIdAspirationsAspirantListOneCandidateAspirantListImport } from './routes/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList'
 
 // Create/Update Routes
 
@@ -132,18 +130,6 @@ const CandidatesIdAspirationsAspFormRoute =
   CandidatesIdAspirationsAspFormImport.update({
     path: '/form',
     getParentRoute: () => CandidatesIdAspirationsAspRoute,
-  } as any)
-
-const CandidatesIdAspirationsAspirantListOnecandidateAspirationsRoute =
-  CandidatesIdAspirationsAspirantListOnecandidateAspirationsImport.update({
-    path: '/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const CandidatesIdAspirationsAspirantListOneCandidateAspirantListRoute =
-  CandidatesIdAspirationsAspirantListOneCandidateAspirantListImport.update({
-    path: '/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList',
-    getParentRoute: () => rootRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -283,20 +269,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesIdAspirationsAspFormImport
       parentRoute: typeof CandidatesIdAspirationsAspImport
     }
-    '/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList': {
-      id: '/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList'
-      path: '/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList'
-      fullPath: '/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList'
-      preLoaderRoute: typeof CandidatesIdAspirationsAspirantListOneCandidateAspirantListImport
-      parentRoute: typeof rootRoute
-    }
-    '/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations': {
-      id: '/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations'
-      path: '/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations'
-      fullPath: '/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations'
-      preLoaderRoute: typeof CandidatesIdAspirationsAspirantListOnecandidateAspirationsImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -322,8 +294,6 @@ export const routeTree = rootRoute.addChildren({
   }),
   CandidatesIdAspirationsIndexRoute,
   CandidatesIdUpdateIndexRoute,
-  CandidatesIdAspirationsAspirantListOneCandidateAspirantListRoute,
-  CandidatesIdAspirationsAspirantListOnecandidateAspirationsRoute,
 })
 
 /* prettier-ignore-end */
@@ -351,9 +321,7 @@ export const routeTree = rootRoute.addChildren({
         "/candidates/$id/",
         "/candidates/$id/aspirations/$asp",
         "/candidates/$id/aspirations/",
-        "/candidates/$id/update/",
-        "/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList",
-        "/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations"
+        "/candidates/$id/update/"
       ]
     },
     "/": {
@@ -416,12 +384,6 @@ export const routeTree = rootRoute.addChildren({
     "/candidates/$id/aspirations/$asp/form": {
       "filePath": "candidates/$id/aspirations/$asp.form.tsx",
       "parent": "/candidates/$id/aspirations/$asp"
-    },
-    "/candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList": {
-      "filePath": "candidates/$id/aspirations/aspirant/list/OneCandidateAspirantList.tsx"
-    },
-    "/candidates/$id/aspirations/aspirant/list/OnecandidateAspirations": {
-      "filePath": "candidates/$id/aspirations/aspirant/list/OnecandidateAspirations.tsx"
     }
   }
 }

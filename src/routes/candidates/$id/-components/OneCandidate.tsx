@@ -1,7 +1,7 @@
-import { useParams } from "@tanstack/react-router";
+import { Link, useParams } from "@tanstack/react-router";
 import { oneCandidatesQueryOptions } from "../../-components/query";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { OneCandidateAspirations } from "../aspirations/aspirant/list/OnecandidateAspirations";
+
 
 interface OneCandidateProps {}
 
@@ -13,7 +13,8 @@ export function OneCandidate({}: OneCandidateProps) {
   return (
     <div className="w-full h-full flex flex-col p-2">
       <h1 className="text-xl">{data?.name}</h1>
-      <OneCandidateAspirations candidate_id={params.id} />
+      <Link to="/candidates/$id/aspirations" params={{ id: params.id }}>show more</Link>
+     
     </div>
   );
 }

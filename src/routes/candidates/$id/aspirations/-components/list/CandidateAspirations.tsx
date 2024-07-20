@@ -4,19 +4,19 @@ import { useListSearch } from "@/utils/hooks/use-list-search";
 import { Link, useSearch } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Suspense } from "react";
-import { OneCandidateAspirantList } from "./OneCandidateAspirantList";
+import { CandidateAspirantList } from "./CandidateAspirantList";
 
 
-interface OneCandidateAspirationsProps {
+interface CandidateAspirationsProps {
     candidate_id: string
 }
 
-export function OneCandidateAspirations({candidate_id}:OneCandidateAspirationsProps){
+export function CandidateAspirations({candidate_id}:CandidateAspirationsProps){
       const { aspsq } = useSearch({
-        from: "/candidates/$id/",
+        from: "/candidates/$id/aspirations/",
       });
       const { debouncedValue, isDebouncing, keyword, setKeyword } = useListSearch({
-        route: "/candidates/$id",
+        route: "/candidates/$id/aspirations",
         sq: aspsq ?? "",
       });
 return (
@@ -43,7 +43,7 @@ return (
 
     <div className="w-full h-full flex justify-center items-center m-3 p-5">
       <Suspense fallback={<CardsListSuspenseFallback />}>
-        <OneCandidateAspirantList q={debouncedValue} candidate_id={candidate_id}/>
+        <CandidateAspirantList q={debouncedValue} candidate_id={candidate_id}/>
       </Suspense>
     </div>
   </div>

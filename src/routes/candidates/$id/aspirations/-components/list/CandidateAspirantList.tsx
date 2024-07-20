@@ -3,12 +3,12 @@ import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-interface OneCandidateAspirantListProps {
+interface CandidateAspirantListProps {
   q?: string;
   candidate_id: string;
 }
 
-export function OneCandidateAspirantList({ q="", candidate_id }: OneCandidateAspirantListProps) {
+export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantListProps) {
   const query = useSuspenseQuery({
     queryKey: ["candidates",candidate_id,"candidate_aspirations", q],
     queryFn: async () => {
