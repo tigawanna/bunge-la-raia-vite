@@ -6,6 +6,7 @@ import { candidatesQueryOptions } from "./-components/query";
 
 const searchparams = z.object({
   sq: z.string().optional(),
+  
 });
 export const Route = createFileRoute("/candidates/")({
   component: CandidatesPage,

@@ -10,7 +10,7 @@ export const candidatesQueryOptions = queryOptions({
   },
 });
 export const oneCandidatesQueryOptions =(id:string)=> queryOptions({
-  queryKey: ["candidates"],
+  queryKey: ["candidates",id],
   queryFn: async () => {
     return await supabase.from("candidates").select("*").eq("id", id).single();
   },

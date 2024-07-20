@@ -1,4 +1,6 @@
+import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
 import { supabase } from "@/lib/supabase/client";
+import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
@@ -18,12 +20,19 @@ export function CandidatesList({ q }: CandidatesListProps) {
         .limit(24);
     },
   });
-  const candidates = query.data.data ?? [];
+  const data = query.data.data ?? [];
+    const error = query.data.error || query.error;
+    if (error) {
+      return <TanstackSupabaseError error={error} />;
+    }
+    if (data.length < 1) {
+      return <NoItemsFound />;
+    }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <ul className="w-full h-full flex flex-wrap items-center gap-2 p-2">
-        {candidates.map((item) => {
+        {data.map((item) => {
           return (
             <Link
               to="/candidates/$id"
