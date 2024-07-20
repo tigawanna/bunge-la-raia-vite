@@ -1,3 +1,5 @@
+import { Database } from "./db-types";
+
 export type VibeCheckType= {
     query: string;
     answer: string;
@@ -6,3 +8,5 @@ export type VibeCheckType= {
         key: string;
     }[] | undefined;
 }[]
+
+export type AspirationsRowType = Database["public"]["Tables"]["candidate_aspirations"];
