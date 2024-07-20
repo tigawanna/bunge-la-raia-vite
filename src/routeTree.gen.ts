@@ -28,6 +28,7 @@ import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as CandidatesIdIndexImport } from './routes/candidates/$id/index'
 import { Route as CandidatesIdUpdateIndexImport } from './routes/candidates/$id/update/index'
 import { Route as CandidatesIdAspirationsIndexImport } from './routes/candidates/$id/aspirations/index'
+import { Route as CandidatesIdAspirationsNewImport } from './routes/candidates/$id/aspirations/new'
 import { Route as CandidatesIdAspirationsAspImport } from './routes/candidates/$id/aspirations/$asp'
 import { Route as CandidatesIdAspirationsAspFormImport } from './routes/candidates/$id/aspirations/$asp.form'
 
@@ -118,6 +119,13 @@ const CandidatesIdAspirationsIndexRoute =
     path: '/candidates/$id/aspirations/',
     getParentRoute: () => rootRoute,
   } as any)
+
+const CandidatesIdAspirationsNewRoute = CandidatesIdAspirationsNewImport.update(
+  {
+    path: '/candidates/$id/aspirations/new',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const CandidatesIdAspirationsAspRoute = CandidatesIdAspirationsAspImport.update(
   {
@@ -248,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesIdAspirationsAspImport
       parentRoute: typeof rootRoute
     }
+    '/candidates/$id/aspirations/new': {
+      id: '/candidates/$id/aspirations/new'
+      path: '/candidates/$id/aspirations/new'
+      fullPath: '/candidates/$id/aspirations/new'
+      preLoaderRoute: typeof CandidatesIdAspirationsNewImport
+      parentRoute: typeof rootRoute
+    }
     '/candidates/$id/aspirations/': {
       id: '/candidates/$id/aspirations/'
       path: '/candidates/$id/aspirations'
@@ -292,6 +307,7 @@ export const routeTree = rootRoute.addChildren({
   CandidatesIdAspirationsAspRoute: CandidatesIdAspirationsAspRoute.addChildren({
     CandidatesIdAspirationsAspFormRoute,
   }),
+  CandidatesIdAspirationsNewRoute,
   CandidatesIdAspirationsIndexRoute,
   CandidatesIdUpdateIndexRoute,
 })
@@ -320,6 +336,7 @@ export const routeTree = rootRoute.addChildren({
         "/wards/",
         "/candidates/$id/",
         "/candidates/$id/aspirations/$asp",
+        "/candidates/$id/aspirations/new",
         "/candidates/$id/aspirations/",
         "/candidates/$id/update/"
       ]
@@ -374,6 +391,9 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/candidates/$id/aspirations/$asp/form"
       ]
+    },
+    "/candidates/$id/aspirations/new": {
+      "filePath": "candidates/$id/aspirations/new.tsx"
     },
     "/candidates/$id/aspirations/": {
       "filePath": "candidates/$id/aspirations/index.tsx"
