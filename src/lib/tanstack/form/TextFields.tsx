@@ -3,6 +3,7 @@ import { Input } from "@/components/park/ui/input";
 import { FormFieldProps, FieldInfo } from "./components";
 import { Textarea } from "@/components/park/ui/textarea";
 import { twMerge } from "tailwind-merge";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 export interface TextFormFieldProps<T> extends FormFieldProps<T> {
   inputOptions?: React.InputHTMLAttributes<HTMLInputElement>;
@@ -16,7 +17,7 @@ export function TextFormField<T>({
   className,
 }: TextFormFieldProps<T>) {
   const inputClassname = twMerge(
-    field.state.meta.touchedErrors.length>0 ? "border-error-content" : "",
+    field.state.meta.errors.length>0 ? "border-error-content" : "",
     className
   );
 
@@ -50,7 +51,9 @@ export function TextAreaFormField<T>({
   className,
 }: TextAreaFormFieldProps<T>) {
   const inputClassname = twMerge(
-    field.state.meta.touchedErrors ? "bg-bg-default border-error-content" : "bg-bg-default",
+    field.state.meta.errors
+      ? "min-h-[100px] p-1 rounded-lg border-error-content"
+      : "min-h-[100px] p-1 rounded-lg",
     className
   );
   return (
@@ -59,6 +62,39 @@ export function TextAreaFormField<T>({
         {fieldlabel || fieldKey}
       </FormLabel>
       <Textarea
+        id={fieldKey}
+        name={fieldKey}
+        placeholder={fieldlabel ? `enter ${fieldlabel}` : `enter ${fieldKey}`}
+        {...inputOptions}
+        className={inputClassname}
+        // @ts-expect-error
+        value={field.state.value}
+        onBlur={field.handleBlur}
+        //   @ts-expect-error
+        onChange={(e) => field.handleChange(e.target.value)}
+      />
+      <FieldInfo field={field} />
+    </div>
+  );
+}
+export function ResizeTextAreaFormField<T>({
+  field,
+  fieldKey,
+  fieldlabel,
+  inputOptions,
+  className,
+}: TextAreaFormFieldProps<T>) {
+  const inputClassname = twMerge(
+    field.state.meta.errors ?"min-h-[100px] p-1 rounded-lg border-error-content"
+      : "min-h-[100px] p-1 rounded-lg",
+    className
+  );
+  return (
+    <div className="w-full">
+      <FormLabel htmlFor={fieldKey} className="capitalize">
+        {fieldlabel || fieldKey}
+      </FormLabel>
+      <ReactTextareaAutosize
         id={fieldKey}
         name={fieldKey}
         placeholder={fieldlabel ? `enter ${fieldlabel}` : `enter ${fieldKey}`}

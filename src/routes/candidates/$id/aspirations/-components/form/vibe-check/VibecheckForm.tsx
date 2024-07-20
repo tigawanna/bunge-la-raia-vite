@@ -8,7 +8,7 @@ import { Button } from "@/components/park/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useVibeCheckMutation } from "./use-mutate-vibecheck";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-import { CandidateRowType } from "../../types";
+import { CandidateRowType } from "../../../../../-components/types";
 
 export const formSchema = z.array(
   z.object({
@@ -26,7 +26,7 @@ export const formSchema = z.array(
 );
 export type VibesFormType = z.infer<typeof formSchema>;
 interface VibecheckFormProps {
-  candidate?: CandidateRowType | null;
+  candidate: CandidateRowType
 }
 
 export function VibecheckForm({candidate}: VibecheckFormProps) {

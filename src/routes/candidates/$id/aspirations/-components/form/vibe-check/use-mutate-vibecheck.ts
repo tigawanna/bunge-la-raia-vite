@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { VibesFormType } from "./VibecheckForm";
 import { supabase } from "@/lib/supabase/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
-import { CandidateRowType } from "../../types";
+import { CandidateRowType } from "../../../../../-components/types";
 
 interface VibecheckFormProps {
   vibe: VibesFormType;

@@ -32,7 +32,6 @@ export function BasicDetails({ candidate }: BasicDetailsProps) {
       return await supabase.from("candidates").insert(data).returns();
     },
     onSuccess: (data) => {
-      console.log("================== return data ==============", data);
       navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
     },
   });

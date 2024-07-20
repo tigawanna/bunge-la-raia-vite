@@ -15,7 +15,7 @@ export function FieldInfo({ field }: { field: FieldApi<any, any, any, any> }) {
 
 export interface FormFieldProps<T> {
   field: FieldApi<T, any, any>;
-  fieldKey: string extends keyof T ? string : Extract<keyof T, string>;
+  fieldKey: keyof T extends string ? keyof T : never;
   fieldlabel?:string;
   className?: string;
 }
