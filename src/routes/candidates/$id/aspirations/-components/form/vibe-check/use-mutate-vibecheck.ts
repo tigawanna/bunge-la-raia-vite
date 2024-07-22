@@ -9,7 +9,7 @@ interface VibecheckFormProps {
   candidate: CandidateRowType
 }
 export function useVibeCheckMutation() {
-  const qc = useQueryClient();
+
   return useMutation({
     mutationFn: async ({ candidate, vibe }: VibecheckFormProps) => {
       return supabase.from("candidates").update({
@@ -18,9 +18,7 @@ export function useVibeCheckMutation() {
       });
     },
     onSuccess: () => {
-      qc.invalidateQueries({
-        queryKey: ["candidates"],
-      });
+
       toaster.create({
         title: "Vibe checked",
         type: "success",

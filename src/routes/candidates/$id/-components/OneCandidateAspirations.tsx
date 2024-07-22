@@ -36,7 +36,7 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
       <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center bg-bg-muted">
         <Link
           className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
-          to="/candidates/$id/aspirations/new"
+          to="/candidates/$id/aspirations/form"
           params={{ id: candidate_id }}>
           add your candidate aspiration <Plus />
         </Link>
@@ -44,12 +44,28 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
     );
   }
   if (data.length < 1) {
-    return <NoItemsFound />;
+    return (
+      <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center bg-bg-muted">
+        <Link
+          className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
+          to="/candidates/$id/aspirations/form"
+          params={{ id: candidate_id }}>
+          add your candidate aspiration <Plus />
+        </Link>
+
+      </div>
+    );
   }
   const item = data[0];
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
+      <Link
+        className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
+        to="/candidates/$id/aspirations/form"
+        params={{ id: candidate_id }}>
+        add your candidate aspiration <Plus />
+      </Link>
       <AspirationsView aspiration={item} />
       <Link to="/candidates/$id/aspirations" params={{ id: candidate_id }}>
         show more

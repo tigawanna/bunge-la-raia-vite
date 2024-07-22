@@ -27,7 +27,7 @@ export function OneCandidate({}: OneCandidateProps) {
           <h1 className="text-2xl text-accent-text">{data?.name}</h1>
           <p className="text-sm md:line-clamp-6">{data?.bio}</p>
         </div>
-        {viewer?.id !== params.id && (
+        {viewer?.id === params.id && (
           <div className="absolute top-[2%] right-[2%]">
             <CandidateBasicDetailsDialog candidate={data} />
           </div>

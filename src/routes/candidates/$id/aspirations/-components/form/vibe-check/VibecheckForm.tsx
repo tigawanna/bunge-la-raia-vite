@@ -6,9 +6,11 @@ import { OpenEndedVibeCheck } from "./OpenEndedVibeCheck";
 import { YesNoChoicevibecheck } from "./YesNoChoicevibecheck";
 import { Button } from "@/components/park/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useVibeCheckMutation } from "./use-mutate-vibecheck";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-import { CandidateRowType } from "../../../../../-components/types";
+import { useMutation } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase/client";
+import { toaster } from "@/components/navigation/ParkuiToast";
+import { CandidateAspirationRowType } from "../../types";
 
 export const formSchema = z.array(
   z.object({
@@ -26,11 +28,16 @@ export const formSchema = z.array(
 );
 export type VibesFormType = z.infer<typeof formSchema>;
 interface VibecheckFormProps {
-  candidate: CandidateRowType
+  candidate_id: string;
+  aspiration: CandidateAspirationRowType;
+  next: () => void;
 }
 
-export function VibecheckForm({candidate}: VibecheckFormProps) {
-  const [vibes, setVibes] = useState<z.infer<typeof formSchema>>([]);
+interface VibecheckFormMutationProps {
+  vibe: VibesFormType;
+}
+export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormProps) {
+  const [vibes, setVibes] = useState<z.infer<typeof formSchema>>(aspiration.vibe_check??[]);
   const [currentStep, setCurrentStep] = useState(0);
   function handleNext() {
     setCurrentStep(currentStep + 1);
@@ -40,7 +47,33 @@ export function VibecheckForm({candidate}: VibecheckFormProps) {
     setCurrentStep(currentStep - 1);
   }
   const currentQuestion = questions[currentStep];
-  const mutation = useVibeCheckMutation();
+
+  const mutation = useMutation({
+    mutationFn: async ({ vibe }: VibecheckFormMutationProps) => {
+      const { error } = await supabase.from("candidate_aspirations").update({
+        vibe_check: vibe,
+      });
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      toaster.create({
+        title: "Vibe checked",
+        type: "success",
+      });
+      next();
+    },
+    onError: (error) => {
+      toaster.create({
+        title: "Something went wrong",
+        description: `${error.message}`,
+        type: "error",
+        duration: 20000,
+      });
+    },
+    meta: {
+      invalidates: ["candidates", candidate_id, "candidate_aspirations"],
+    },
+  });
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
@@ -115,9 +148,12 @@ export function VibecheckForm({candidate}: VibecheckFormProps) {
                   Previous
                 </Button>
               )}
-              {candidate &&
-              <MutationButton mutation={mutation} onClick={() => mutation.mutate({candidate,vibe:vibes})}/>
-              }</div>
+
+              <MutationButton
+                mutation={mutation}
+                onClick={() => mutation.mutate({ vibe: vibes })}
+              />
+            </div>
           </div>
         )}
       </form>
