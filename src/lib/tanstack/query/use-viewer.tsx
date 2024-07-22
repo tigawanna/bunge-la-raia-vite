@@ -1,5 +1,5 @@
 import {
-  getSupabaseUser,
+
   getSupabaseViewer,
   supabase,
   SupabaseUser,
@@ -13,7 +13,6 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
-
 import { BeforeLoadContext } from "node_modules/@tanstack/react-router/dist/esm/route";
 import { RecordAuthResponse } from "pocketbase";
 
