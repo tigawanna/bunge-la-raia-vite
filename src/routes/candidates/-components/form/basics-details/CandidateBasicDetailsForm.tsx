@@ -7,12 +7,13 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { useNavigate } from "@tanstack/react-router";
+import { toaster } from "@/components/navigation/ParkuiToast";
 
-interface CandidateBasicDetailsProps {
+interface CandidateBasicDetailsFormProps {
   candidate?: CandidateRowType | null;
 }
 
-export function CandidateBasicDetails({ candidate }: CandidateBasicDetailsProps) {
+export function CandidateBasicDetailsForm({ candidate }: CandidateBasicDetailsFormProps) {
   const { userQuery } = useViewer();
   const navigate = useNavigate({
     from: "/candidates/new",
@@ -29,23 +30,36 @@ export function CandidateBasicDetails({ candidate }: CandidateBasicDetailsProps)
   });
   const mutation = useMutation({
     mutationFn: async (data: CandidateInsertType) => {
-      return await supabase.from("candidates").upsert(data).returns();
+      const { error } = await supabase.from("candidates").upsert(data).returns();
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
     },
     onSuccess: () => {
       navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
     },
-    meta:{
-      invalidates:["candidates",viewer?.id]
-    }
+    onError: (error) => {
+      toaster.create({
+        title: "Something went wrong",
+        description: `${error.message}`,
+        type: "error",
+        duration: 20000,
+      });
+    },
+    meta: {
+      invalidates: ["candidates", viewer?.id],
+    },
   });
   const onSubmit: SubmitHandler<CandidateInsertType> = (data) => {
     mutation.mutate(data);
   };
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-5">
+    <div className="w-full h-full flex flex-col items-center justify-center ">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 overflow-auto">
+        className="w-[90%] md:w-[60%] lg:w-[50%] h-fit flex flex-col items-center bg-bg-emphasized justify-center p-[5%] lg:p-[3%] rounded-lg gap-4 overflow-auto">
+        <h1 className="text-2xl">Basic Details</h1>
         {/* register your input into the hook by invoking the "register" function */}
         <TextFormField<CandidateInsertType>
           fieldKey="name"
