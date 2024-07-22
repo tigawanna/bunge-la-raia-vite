@@ -8,11 +8,11 @@ import { supabase } from "@/lib/supabase/client";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { useNavigate } from "@tanstack/react-router";
 
-interface BasicDetailsProps {
+interface CandidateBasicDetailsProps {
   candidate?: CandidateRowType | null;
 }
 
-export function BasicDetails({ candidate }: BasicDetailsProps) {
+export function CandidateBasicDetails({ candidate }: CandidateBasicDetailsProps) {
   const { userQuery } = useViewer();
   const navigate = useNavigate({
     from: "/candidates/new",
@@ -29,11 +29,14 @@ export function BasicDetails({ candidate }: BasicDetailsProps) {
   });
   const mutation = useMutation({
     mutationFn: async (data: CandidateInsertType) => {
-      return await supabase.from("candidates").insert(data).returns();
+      return await supabase.from("candidates").upsert(data).returns();
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
     },
+    meta:{
+      invalidates:["candidates",viewer?.id]
+    }
   });
   const onSubmit: SubmitHandler<CandidateInsertType> = (data) => {
     mutation.mutate(data);
