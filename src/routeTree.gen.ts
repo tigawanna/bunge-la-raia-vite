@@ -29,8 +29,8 @@ import { Route as CandidatesCandidateIndexImport } from './routes/candidates/$ca
 import { Route as CandidatesCandidateUpdateIndexImport } from './routes/candidates/$candidate/update/index'
 import { Route as CandidatesCandidateAspirationsIndexImport } from './routes/candidates/$candidate/aspirations/index'
 import { Route as CandidatesCandidateAspirationsNewImport } from './routes/candidates/$candidate/aspirations/new'
-import { Route as CandidatesCandidateAspirationsAspirationImport } from './routes/candidates/$candidate/aspirations/$aspiration'
-import { Route as CandidatesCandidateAspirationsAspirationUpdateImport } from './routes/candidates/$candidate/aspirations/$aspiration.update'
+import { Route as CandidatesCandidateAspirationsAspirationIndexImport } from './routes/candidates/$candidate/aspirations/$aspiration/index'
+import { Route as CandidatesCandidateAspirationsAspirationUpdateImport } from './routes/candidates/$candidate/aspirations/$aspiration/update'
 
 // Create/Update Routes
 
@@ -127,16 +127,16 @@ const CandidatesCandidateAspirationsNewRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
-const CandidatesCandidateAspirationsAspirationRoute =
-  CandidatesCandidateAspirationsAspirationImport.update({
-    path: '/candidates/$candidate/aspirations/$aspiration',
+const CandidatesCandidateAspirationsAspirationIndexRoute =
+  CandidatesCandidateAspirationsAspirationIndexImport.update({
+    path: '/candidates/$candidate/aspirations/$aspiration/',
     getParentRoute: () => rootRoute,
   } as any)
 
 const CandidatesCandidateAspirationsAspirationUpdateRoute =
   CandidatesCandidateAspirationsAspirationUpdateImport.update({
-    path: '/update',
-    getParentRoute: () => CandidatesCandidateAspirationsAspirationRoute,
+    path: '/candidates/$candidate/aspirations/$aspiration/update',
+    getParentRoute: () => rootRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -248,13 +248,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesCandidateIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$candidate/aspirations/$aspiration': {
-      id: '/candidates/$candidate/aspirations/$aspiration'
-      path: '/candidates/$candidate/aspirations/$aspiration'
-      fullPath: '/candidates/$candidate/aspirations/$aspiration'
-      preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationImport
-      parentRoute: typeof rootRoute
-    }
     '/candidates/$candidate/aspirations/new': {
       id: '/candidates/$candidate/aspirations/new'
       path: '/candidates/$candidate/aspirations/new'
@@ -278,10 +271,17 @@ declare module '@tanstack/react-router' {
     }
     '/candidates/$candidate/aspirations/$aspiration/update': {
       id: '/candidates/$candidate/aspirations/$aspiration/update'
-      path: '/update'
+      path: '/candidates/$candidate/aspirations/$aspiration/update'
       fullPath: '/candidates/$candidate/aspirations/$aspiration/update'
       preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationUpdateImport
-      parentRoute: typeof CandidatesCandidateAspirationsAspirationImport
+      parentRoute: typeof rootRoute
+    }
+    '/candidates/$candidate/aspirations/$aspiration/': {
+      id: '/candidates/$candidate/aspirations/$aspiration/'
+      path: '/candidates/$candidate/aspirations/$aspiration'
+      fullPath: '/candidates/$candidate/aspirations/$aspiration'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationIndexImport
+      parentRoute: typeof rootRoute
     }
   }
 }
@@ -303,13 +303,11 @@ export const routeTree = rootRoute.addChildren({
   ProfileIndexRoute,
   WardsIndexRoute,
   CandidatesCandidateIndexRoute,
-  CandidatesCandidateAspirationsAspirationRoute:
-    CandidatesCandidateAspirationsAspirationRoute.addChildren({
-      CandidatesCandidateAspirationsAspirationUpdateRoute,
-    }),
   CandidatesCandidateAspirationsNewRoute,
   CandidatesCandidateAspirationsIndexRoute,
   CandidatesCandidateUpdateIndexRoute,
+  CandidatesCandidateAspirationsAspirationUpdateRoute,
+  CandidatesCandidateAspirationsAspirationIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -335,10 +333,11 @@ export const routeTree = rootRoute.addChildren({
         "/profile/",
         "/wards/",
         "/candidates/$candidate/",
-        "/candidates/$candidate/aspirations/$aspiration",
         "/candidates/$candidate/aspirations/new",
         "/candidates/$candidate/aspirations/",
-        "/candidates/$candidate/update/"
+        "/candidates/$candidate/update/",
+        "/candidates/$candidate/aspirations/$aspiration/update",
+        "/candidates/$candidate/aspirations/$aspiration/"
       ]
     },
     "/": {
@@ -386,12 +385,6 @@ export const routeTree = rootRoute.addChildren({
     "/candidates/$candidate/": {
       "filePath": "candidates/$candidate/index.tsx"
     },
-    "/candidates/$candidate/aspirations/$aspiration": {
-      "filePath": "candidates/$candidate/aspirations/$aspiration.tsx",
-      "children": [
-        "/candidates/$candidate/aspirations/$aspiration/update"
-      ]
-    },
     "/candidates/$candidate/aspirations/new": {
       "filePath": "candidates/$candidate/aspirations/new.tsx"
     },
@@ -402,8 +395,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "candidates/$candidate/update/index.tsx"
     },
     "/candidates/$candidate/aspirations/$aspiration/update": {
-      "filePath": "candidates/$candidate/aspirations/$aspiration.update.tsx",
-      "parent": "/candidates/$candidate/aspirations/$aspiration"
+      "filePath": "candidates/$candidate/aspirations/$aspiration/update.tsx"
+    },
+    "/candidates/$candidate/aspirations/$aspiration/": {
+      "filePath": "candidates/$candidate/aspirations/$aspiration/index.tsx"
     }
   }
 }

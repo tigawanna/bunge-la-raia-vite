@@ -10,7 +10,7 @@ interface AspirationsPageProps {}
 
 export function AspirationsPage({}: AspirationsPageProps) {
   const params = useParams({ from: "/candidates/$candidate/" });
-  const query = useSuspenseQuery(oneCandidatesQueryOptions(params.id));
+  const query = useSuspenseQuery(oneCandidatesQueryOptions(params.candidate));
   const data = query.data.data;
   return (
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-center">

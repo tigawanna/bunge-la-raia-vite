@@ -120,6 +120,7 @@ return (
                 fieldlabel="Period"
                 inputOptions={{
                   type: "date",
+                  value:new Date(field.state.value??"").toISOString().substring(0, 10),
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),
                 }}

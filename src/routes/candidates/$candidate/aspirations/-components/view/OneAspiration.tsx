@@ -3,6 +3,8 @@ import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AspirationsView } from "./AspirationsView";
+import { Link } from "@tanstack/react-router";
+import { Edit } from "lucide-react";
 
 interface OneAspirationProps {
   candidate_id: string;
@@ -30,6 +32,11 @@ export function OneAspiration({ aspiration_id, candidate_id }: OneAspirationProp
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
+      <Link
+        to="/candidates/$candidate/aspirations/$aspiration/update"
+        params={{ candidate: candidate_id, aspiration: aspiration_id }}>
+        <Edit/>
+      </Link>
       <AspirationsView aspiration={data} />
     </div>
   );

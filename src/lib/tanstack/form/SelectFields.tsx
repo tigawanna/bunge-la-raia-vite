@@ -4,30 +4,28 @@ import * as Select from "@/components/park/ui/select";
 export interface SelectFieldsProps<T, K extends keyof T> extends FormFieldProps<T> {
   inputOptions?: React.InputHTMLAttributes<HTMLTextAreaElement>;
   items: {
-    label: string
+    label: string;
     value: T[K] extends string ? T[K] : string;
   }[];
 }
 
-export function SelectFields<T,K extends keyof T>({
+export function SelectFields<T, K extends keyof T>({
   items,
   field,
   fieldKey,
   fieldlabel,
   inputOptions,
 }: SelectFieldsProps<T, K>) {
+
   return (
     <Select.Root
       name={fieldKey}
-    //   @ts-expect-error
-      defaultValue={field.state.value}
+      value={[field.state.value as string]}
       positioning={{ sameWidth: true }}
       items={items}
-      onValueChange={({value}) => {
-        console.log("================== onValueChange ==============",value[0]);
+      onValueChange={({ value }) => {
         if (field) {
-          // @ts-expect-error
-          field.handleChange(value[0]);
+          field.handleChange(value[0] as any);
         }
       }}>
       <Select.Label>{fieldlabel}</Select.Label>
