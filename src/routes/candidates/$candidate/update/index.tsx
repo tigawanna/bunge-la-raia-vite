@@ -2,14 +2,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { oneCandidatesQueryOptions } from "../../-components/query";
 
-export const Route = createFileRoute("/candidates/$id/update/")({
+export const Route = createFileRoute("/candidates/$candidate/update/")({
   component: AspirationsPage,
 });
 
 interface AspirationsPageProps {}
 
 export function AspirationsPage({}: AspirationsPageProps) {
-  const params = useParams({ from: "/candidates/$id/" });
+  const params = useParams({ from: "/candidates/$candidate/" });
   const query = useSuspenseQuery(oneCandidatesQueryOptions(params.id));
   const data = query.data.data;
   return (

@@ -29,7 +29,7 @@ export const formSchema = z.array(
 export type VibesFormType = z.infer<typeof formSchema>;
 interface VibecheckFormProps {
   candidate_id: string;
-  aspiration: CandidateAspirationRowType;
+  aspiration?: CandidateAspirationRowType;
   next: () => void;
 }
 
@@ -37,7 +37,7 @@ interface VibecheckFormMutationProps {
   vibe: VibesFormType;
 }
 export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormProps) {
-  const [vibes, setVibes] = useState<z.infer<typeof formSchema>>(aspiration.vibe_check??[]);
+  const [vibes, setVibes] = useState<z.infer<typeof formSchema>>(aspiration?.vibe_check??[]);
   const [currentStep, setCurrentStep] = useState(0);
   function handleNext() {
     setCurrentStep(currentStep + 1);

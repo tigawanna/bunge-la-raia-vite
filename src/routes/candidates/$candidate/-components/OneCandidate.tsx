@@ -8,8 +8,8 @@ import { useViewer } from "@/lib/tanstack/query/use-viewer";
 interface OneCandidateProps {}
 
 export function OneCandidate({}: OneCandidateProps) {
-  const params = useParams({ from: "/candidates/$id/" });
-  const query = useSuspenseQuery(oneCandidatesQueryOptions(params.id));
+  const params = useParams({ from: "/candidates/$candidate/" });
+  const query = useSuspenseQuery(oneCandidatesQueryOptions(params.candidate));
   const data = query.data.data;
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
@@ -27,13 +27,13 @@ export function OneCandidate({}: OneCandidateProps) {
           <h1 className="text-2xl text-accent-text">{data?.name}</h1>
           <p className="text-sm md:line-clamp-6">{data?.bio}</p>
         </div>
-        {viewer?.id === params.id && (
+        {viewer?.id === params.candidate && (
           <div className="absolute top-[2%] right-[2%]">
             <CandidateBasicDetailsDialog candidate={data} />
           </div>
         )}
       </div>
-      <OneCandidateAspirations candidate_id={params.id} />
+      <OneCandidateAspirations candidate_id={params.candidate} />
     </div>
   );
 }

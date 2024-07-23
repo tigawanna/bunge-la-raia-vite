@@ -35,8 +35,8 @@ export function CandidatesList({ q }: CandidatesListProps) {
         {data.map((item) => {
           return (
             <Link
-              to="/candidates/$id"
-              params={{ id: item.id }}
+              to="/candidates/$candidate"
+              params={{ candidate: item.id }}
               key={item.id}
               className="w-[95%] sm:w-[45%] md:w-[30%] lg:w-[25%] p-2 bg-bg-muted rounded-lg flex flex-col gap-2">
               <div className="w-full flex items-center justify-between ">

@@ -5,11 +5,11 @@ import { OneCandidate } from "./-components/OneCandidate";
 
 
 
-export const Route = createFileRoute("/candidates/$id/")({
+export const Route = createFileRoute("/candidates/$candidate/")({
   component: OneCandidatePage,
 
   loader: async ({ params, context }) => {
-    context.queryClient.ensureQueryData(oneCandidatesQueryOptions(params.id));
+    context.queryClient.ensureQueryData(oneCandidatesQueryOptions(params.candidate));
   },
 });
 

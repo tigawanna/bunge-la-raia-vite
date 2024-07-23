@@ -25,12 +25,12 @@ import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
-import { Route as CandidatesIdIndexImport } from './routes/candidates/$id/index'
-import { Route as CandidatesIdUpdateIndexImport } from './routes/candidates/$id/update/index'
-import { Route as CandidatesIdAspirationsIndexImport } from './routes/candidates/$id/aspirations/index'
-import { Route as CandidatesIdAspirationsFormImport } from './routes/candidates/$id/aspirations/form'
-import { Route as CandidatesIdAspirationsAspImport } from './routes/candidates/$id/aspirations/$asp'
-import { Route as CandidatesIdAspirationsAspFormImport } from './routes/candidates/$id/aspirations/$asp.form'
+import { Route as CandidatesCandidateIndexImport } from './routes/candidates/$candidate/index'
+import { Route as CandidatesCandidateUpdateIndexImport } from './routes/candidates/$candidate/update/index'
+import { Route as CandidatesCandidateAspirationsIndexImport } from './routes/candidates/$candidate/aspirations/index'
+import { Route as CandidatesCandidateAspirationsNewImport } from './routes/candidates/$candidate/aspirations/new'
+import { Route as CandidatesCandidateAspirationsAspirationImport } from './routes/candidates/$candidate/aspirations/$aspiration'
+import { Route as CandidatesCandidateAspirationsAspirationUpdateImport } from './routes/candidates/$candidate/aspirations/$aspiration.update'
 
 // Create/Update Routes
 
@@ -104,39 +104,39 @@ const AuthSignupRoute = AuthSignupImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const CandidatesIdIndexRoute = CandidatesIdIndexImport.update({
-  path: '/candidates/$id/',
+const CandidatesCandidateIndexRoute = CandidatesCandidateIndexImport.update({
+  path: '/candidates/$candidate/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const CandidatesIdUpdateIndexRoute = CandidatesIdUpdateIndexImport.update({
-  path: '/candidates/$id/update/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const CandidatesIdAspirationsIndexRoute =
-  CandidatesIdAspirationsIndexImport.update({
-    path: '/candidates/$id/aspirations/',
+const CandidatesCandidateUpdateIndexRoute =
+  CandidatesCandidateUpdateIndexImport.update({
+    path: '/candidates/$candidate/update/',
     getParentRoute: () => rootRoute,
   } as any)
 
-const CandidatesIdAspirationsFormRoute =
-  CandidatesIdAspirationsFormImport.update({
-    path: '/candidates/$id/aspirations/form',
+const CandidatesCandidateAspirationsIndexRoute =
+  CandidatesCandidateAspirationsIndexImport.update({
+    path: '/candidates/$candidate/aspirations/',
     getParentRoute: () => rootRoute,
   } as any)
 
-const CandidatesIdAspirationsAspRoute = CandidatesIdAspirationsAspImport.update(
-  {
-    path: '/candidates/$id/aspirations/$asp',
+const CandidatesCandidateAspirationsNewRoute =
+  CandidatesCandidateAspirationsNewImport.update({
+    path: '/candidates/$candidate/aspirations/new',
     getParentRoute: () => rootRoute,
-  } as any,
-)
+  } as any)
 
-const CandidatesIdAspirationsAspFormRoute =
-  CandidatesIdAspirationsAspFormImport.update({
-    path: '/form',
-    getParentRoute: () => CandidatesIdAspirationsAspRoute,
+const CandidatesCandidateAspirationsAspirationRoute =
+  CandidatesCandidateAspirationsAspirationImport.update({
+    path: '/candidates/$candidate/aspirations/$aspiration',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CandidatesCandidateAspirationsAspirationUpdateRoute =
+  CandidatesCandidateAspirationsAspirationUpdateImport.update({
+    path: '/update',
+    getParentRoute: () => CandidatesCandidateAspirationsAspirationRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -241,47 +241,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WardsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/': {
-      id: '/candidates/$id/'
-      path: '/candidates/$id'
-      fullPath: '/candidates/$id'
-      preLoaderRoute: typeof CandidatesIdIndexImport
+    '/candidates/$candidate/': {
+      id: '/candidates/$candidate/'
+      path: '/candidates/$candidate'
+      fullPath: '/candidates/$candidate'
+      preLoaderRoute: typeof CandidatesCandidateIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/aspirations/$asp': {
-      id: '/candidates/$id/aspirations/$asp'
-      path: '/candidates/$id/aspirations/$asp'
-      fullPath: '/candidates/$id/aspirations/$asp'
-      preLoaderRoute: typeof CandidatesIdAspirationsAspImport
+    '/candidates/$candidate/aspirations/$aspiration': {
+      id: '/candidates/$candidate/aspirations/$aspiration'
+      path: '/candidates/$candidate/aspirations/$aspiration'
+      fullPath: '/candidates/$candidate/aspirations/$aspiration'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/aspirations/form': {
-      id: '/candidates/$id/aspirations/form'
-      path: '/candidates/$id/aspirations/form'
-      fullPath: '/candidates/$id/aspirations/form'
-      preLoaderRoute: typeof CandidatesIdAspirationsFormImport
+    '/candidates/$candidate/aspirations/new': {
+      id: '/candidates/$candidate/aspirations/new'
+      path: '/candidates/$candidate/aspirations/new'
+      fullPath: '/candidates/$candidate/aspirations/new'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsNewImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/aspirations/': {
-      id: '/candidates/$id/aspirations/'
-      path: '/candidates/$id/aspirations'
-      fullPath: '/candidates/$id/aspirations'
-      preLoaderRoute: typeof CandidatesIdAspirationsIndexImport
+    '/candidates/$candidate/aspirations/': {
+      id: '/candidates/$candidate/aspirations/'
+      path: '/candidates/$candidate/aspirations'
+      fullPath: '/candidates/$candidate/aspirations'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/update/': {
-      id: '/candidates/$id/update/'
-      path: '/candidates/$id/update'
-      fullPath: '/candidates/$id/update'
-      preLoaderRoute: typeof CandidatesIdUpdateIndexImport
+    '/candidates/$candidate/update/': {
+      id: '/candidates/$candidate/update/'
+      path: '/candidates/$candidate/update'
+      fullPath: '/candidates/$candidate/update'
+      preLoaderRoute: typeof CandidatesCandidateUpdateIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$id/aspirations/$asp/form': {
-      id: '/candidates/$id/aspirations/$asp/form'
-      path: '/form'
-      fullPath: '/candidates/$id/aspirations/$asp/form'
-      preLoaderRoute: typeof CandidatesIdAspirationsAspFormImport
-      parentRoute: typeof CandidatesIdAspirationsAspImport
+    '/candidates/$candidate/aspirations/$aspiration/update': {
+      id: '/candidates/$candidate/aspirations/$aspiration/update'
+      path: '/update'
+      fullPath: '/candidates/$candidate/aspirations/$aspiration/update'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationUpdateImport
+      parentRoute: typeof CandidatesCandidateAspirationsAspirationImport
     }
   }
 }
@@ -302,13 +302,14 @@ export const routeTree = rootRoute.addChildren({
   MpsIndexRoute,
   ProfileIndexRoute,
   WardsIndexRoute,
-  CandidatesIdIndexRoute,
-  CandidatesIdAspirationsAspRoute: CandidatesIdAspirationsAspRoute.addChildren({
-    CandidatesIdAspirationsAspFormRoute,
-  }),
-  CandidatesIdAspirationsFormRoute,
-  CandidatesIdAspirationsIndexRoute,
-  CandidatesIdUpdateIndexRoute,
+  CandidatesCandidateIndexRoute,
+  CandidatesCandidateAspirationsAspirationRoute:
+    CandidatesCandidateAspirationsAspirationRoute.addChildren({
+      CandidatesCandidateAspirationsAspirationUpdateRoute,
+    }),
+  CandidatesCandidateAspirationsNewRoute,
+  CandidatesCandidateAspirationsIndexRoute,
+  CandidatesCandidateUpdateIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -333,11 +334,11 @@ export const routeTree = rootRoute.addChildren({
         "/mps/",
         "/profile/",
         "/wards/",
-        "/candidates/$id/",
-        "/candidates/$id/aspirations/$asp",
-        "/candidates/$id/aspirations/form",
-        "/candidates/$id/aspirations/",
-        "/candidates/$id/update/"
+        "/candidates/$candidate/",
+        "/candidates/$candidate/aspirations/$aspiration",
+        "/candidates/$candidate/aspirations/new",
+        "/candidates/$candidate/aspirations/",
+        "/candidates/$candidate/update/"
       ]
     },
     "/": {
@@ -382,27 +383,27 @@ export const routeTree = rootRoute.addChildren({
     "/wards/": {
       "filePath": "wards/index.tsx"
     },
-    "/candidates/$id/": {
-      "filePath": "candidates/$id/index.tsx"
+    "/candidates/$candidate/": {
+      "filePath": "candidates/$candidate/index.tsx"
     },
-    "/candidates/$id/aspirations/$asp": {
-      "filePath": "candidates/$id/aspirations/$asp.tsx",
+    "/candidates/$candidate/aspirations/$aspiration": {
+      "filePath": "candidates/$candidate/aspirations/$aspiration.tsx",
       "children": [
-        "/candidates/$id/aspirations/$asp/form"
+        "/candidates/$candidate/aspirations/$aspiration/update"
       ]
     },
-    "/candidates/$id/aspirations/form": {
-      "filePath": "candidates/$id/aspirations/form.tsx"
+    "/candidates/$candidate/aspirations/new": {
+      "filePath": "candidates/$candidate/aspirations/new.tsx"
     },
-    "/candidates/$id/aspirations/": {
-      "filePath": "candidates/$id/aspirations/index.tsx"
+    "/candidates/$candidate/aspirations/": {
+      "filePath": "candidates/$candidate/aspirations/index.tsx"
     },
-    "/candidates/$id/update/": {
-      "filePath": "candidates/$id/update/index.tsx"
+    "/candidates/$candidate/update/": {
+      "filePath": "candidates/$candidate/update/index.tsx"
     },
-    "/candidates/$id/aspirations/$asp/form": {
-      "filePath": "candidates/$id/aspirations/$asp.form.tsx",
-      "parent": "/candidates/$id/aspirations/$asp"
+    "/candidates/$candidate/aspirations/$aspiration/update": {
+      "filePath": "candidates/$candidate/aspirations/$aspiration.update.tsx",
+      "parent": "/candidates/$candidate/aspirations/$aspiration"
     }
   }
 }

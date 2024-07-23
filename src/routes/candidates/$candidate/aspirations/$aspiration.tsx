@@ -3,7 +3,7 @@ import { createFileRoute, useParams } from '@tanstack/react-router'
 import { Suspense } from 'react';
 import { OneAspiration } from './-components/view/OneAspiration';
 
-export const Route = createFileRoute("/candidates/$id/aspirations/$asp")({
+export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspiration")({
   component:OneAspirationPage,
 });
 
@@ -12,11 +12,11 @@ interface OneAspirationPageProps {
 }
 
 export function OneAspirationPage({}:OneAspirationPageProps){
-  const {asp,id} = useParams({ from: "/candidates/$id/aspirations/$asp" });
+  const {candidate,aspiration} = useParams({ from: "/candidates/$candidate/aspirations/$aspiration" });
 return (
   <div className="w-full h-full flex flex-col items-center justify-center">
     <Suspense fallback={<CardsListSuspenseFallback />}>
-      <OneAspiration candidate_id={id}  aspiration_id={asp} />
+      <OneAspiration candidate_id={candidate}  aspiration_id={aspiration} />
     </Suspense>
   </div>
 );

@@ -6,7 +6,7 @@ import { VibecheckForm } from "./vibe-check/VibecheckForm";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface AspirationsFormProps {
-  aspiration: CandidateAspirationRowType;
+  aspiration?: CandidateAspirationRowType;
 }
 
 export function AspirationsForm({ aspiration }: AspirationsFormProps) {

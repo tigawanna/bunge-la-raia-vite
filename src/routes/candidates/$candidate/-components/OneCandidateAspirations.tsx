@@ -1,4 +1,3 @@
-import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
 import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
@@ -36,8 +35,8 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
       <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center bg-bg-muted">
         <Link
           className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
-          to="/candidates/$id/aspirations/form"
-          params={{ id: candidate_id }}>
+          to="/candidates/$candidate/aspirations/new"
+          params={{ candidate: candidate_id }}>
           add your candidate aspiration <Plus />
         </Link>
       </div>
@@ -48,11 +47,10 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
       <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center bg-bg-muted">
         <Link
           className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
-          to="/candidates/$id/aspirations/form"
-          params={{ id: candidate_id }}>
+          to="/candidates/$candidate/aspirations/new"
+          params={{ candidate: candidate_id }}>
           add your candidate aspiration <Plus />
         </Link>
-
       </div>
     );
   }
@@ -62,12 +60,12 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
     <div className="w-full h-full flex flex-col items-center justify-center">
       <Link
         className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
-        to="/candidates/$id/aspirations/form"
-        params={{ id: candidate_id }}>
+        to="/candidates/$candidate/aspirations/new"
+        params={{ candidate: candidate_id }}>
         add your candidate aspiration <Plus />
       </Link>
       <AspirationsView aspiration={item} />
-      <Link to="/candidates/$id/aspirations" params={{ id: candidate_id }}>
+      <Link to="/candidates/$candidate/aspirations" params={{ candidate: candidate_id }}>
         show more
       </Link>
     </div>

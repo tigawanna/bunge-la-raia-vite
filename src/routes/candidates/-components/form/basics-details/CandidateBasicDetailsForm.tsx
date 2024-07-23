@@ -37,7 +37,7 @@ export function CandidateBasicDetailsForm({ candidate }: CandidateBasicDetailsFo
       return data;
     },
     onSuccess: () => {
-      navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
+      navigate({ to: "/candidates/$candidate", params: { candidate: viewer?.id! } });
     },
     onError: (error) => {
       toaster.create({

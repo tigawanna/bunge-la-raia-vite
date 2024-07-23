@@ -13,10 +13,10 @@ interface CandidateAspirationsProps {
 
 export function CandidateAspirations({candidate_id}:CandidateAspirationsProps){
       const { aspsq } = useSearch({
-        from: "/candidates/$id/aspirations/",
+        from: "/candidates/$candidate/aspirations/",
       });
       const { debouncedValue, isDebouncing, keyword, setKeyword } = useListSearch({
-        route: "/candidates/$id/aspirations",
+        route: "/candidates/$candidate/aspirations",
         sq: aspsq ?? "",
       });
 return (

@@ -10,7 +10,7 @@ import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 
 interface AspirationBasicsFormProps {
-  aspiration: CandidateAspirationRowType;
+  aspiration?: CandidateAspirationRowType;
   viewer: {id: string};
   next:()=>void
 }
@@ -24,7 +24,7 @@ export function AspirationBasicsForm({aspiration,viewer,next}:AspirationBasicsFo
           }
         },
         onSuccess: () => {
-          //   navigate({ to: "/candidates/$id", params: { id: viewer?.id! } });
+          //   navigate({ to: "/candidates/$candidate", params: { id: viewer?.id! } });
           toaster.create({
             title: "Success",
             description: `Aspiration created successfully`,
@@ -42,11 +42,11 @@ export function AspirationBasicsForm({aspiration,viewer,next}:AspirationBasicsFo
       });
       const form = useForm<CandidateAspirationInsertType>({
         defaultValues: {
-          candidate_id: viewer?.id ?? aspiration.candidate_id,
-          mission_statement: aspiration.mission_statement ?? "",
-          period: aspiration.period ?? "",
-          vying_for: aspiration.vying_for ?? "",
-          vibe_check: aspiration.vibe_check ?? [],
+          candidate_id: viewer?.id ?? aspiration?.candidate_id,
+          mission_statement: aspiration?.mission_statement ?? "",
+          period: aspiration?.period ?? "",
+          vying_for: aspiration?.vying_for ?? "mca",
+          vibe_check: aspiration?.vibe_check ?? [],
         },
         onSubmit: async ({ value }) => {
           await mutation.mutate(value);

@@ -6,7 +6,7 @@ const searchparams = z.object({
   aspsq: z.string().optional(),
 });
 
-export const Route = createFileRoute("/candidates/$id/aspirations/")({
+export const Route = createFileRoute("/candidates/$candidate/aspirations/")({
   component: OneCandidateAspirationsPage,
   validateSearch: (search) => searchparams.parse(search),
 });
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/candidates/$id/aspirations/")({
 interface OneCandidateAspirationsPageProps {}
 
 export function OneCandidateAspirationsPage({}: OneCandidateAspirationsPageProps) {
-  const params = useParams({ from: "/candidates/$id/aspirations/" });
+  const params = useParams({ from: "/candidates/$candidate/aspirations/" });
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
