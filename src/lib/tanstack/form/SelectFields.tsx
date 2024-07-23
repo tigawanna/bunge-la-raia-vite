@@ -14,7 +14,6 @@ export function SelectFields<T,K extends keyof T>({
   field,
   fieldKey,
   fieldlabel,
-  className,
   inputOptions,
 }: SelectFieldsProps<T, K>) {
   return (
@@ -24,10 +23,11 @@ export function SelectFields<T,K extends keyof T>({
       defaultValue={field.state.value}
       positioning={{ sameWidth: true }}
       items={items}
-      onValueChange={(value) => {
+      onValueChange={({value}) => {
+        console.log("================== onValueChange ==============",value[0]);
         if (field) {
           // @ts-expect-error
-          field.handleChange(value);
+          field.handleChange(value[0]);
         }
       }}>
       <Select.Label>{fieldlabel}</Select.Label>

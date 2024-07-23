@@ -90,7 +90,7 @@ export function ResizeTextAreaFormField<T>({
     className
   );
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-1">
       <FormLabel htmlFor={fieldKey} className="capitalize">
         {fieldlabel || fieldKey}
       </FormLabel>

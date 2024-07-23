@@ -12,25 +12,29 @@ import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 interface AspirationBasicsFormProps {
   aspiration?: CandidateAspirationRowType;
   viewer: {id: string};
-  next:()=>void
+  next:(aspiration: CandidateAspirationRowType)=>void
 }
 
 export function AspirationBasicsForm({aspiration,viewer,next}:AspirationBasicsFormProps){
       const mutation = useMutation({
-        mutationFn: async (data: CandidateAspirationInsertType) => {
-          const { error } = await supabase.from("candidate_aspirations").upsert(data).returns();
+        mutationFn: async (vars: CandidateAspirationInsertType) => {
+          const { error,data } = await supabase.from("candidate_aspirations").upsert(vars)
+          .select()
+          .single()
+          ;
           if (error) {
             throw new Error(error.message);
           }
+          return data
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
           //   navigate({ to: "/candidates/$candidate", params: { id: viewer?.id! } });
           toaster.create({
             title: "Success",
             description: `Aspiration created successfully`,
             type: "success",
           });
-          next()
+          next(data as CandidateAspirationRowType)
         },
         onError: (error) => {
           toaster.create({
@@ -61,12 +65,12 @@ return (
         form.handleSubmit();
       }}
       className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
-      <div className="w-full flex justify-center gap-3">
+      <div className="w-full flex flex-col lg:flex-row justify-center gap-3">
         <form.Field
           name="vying_for"
           validatorAdapter={zodValidator()}
           validators={{
-            onChange: z.string().email(),
+            onChange: z.enum(["president", "governor", "mp", "mca"]),
           }}
           children={(field) => {
             return (
@@ -106,7 +110,7 @@ return (
           name="period"
           validatorAdapter={zodValidator()}
           validators={{
-            onChange: z.string().email(),
+            onChange: z.string(),
           }}
           children={(field) => {
             return (
@@ -128,7 +132,7 @@ return (
         name="mission_statement"
         validatorAdapter={zodValidator()}
         validators={{
-          onChange: z.string().email(),
+          onChange: z.string().min(50).max(700),
         }}
         children={(field) => {
           return (
@@ -144,7 +148,7 @@ return (
           );
         }}
       />
-      <MutationButton label="Save" type="submit" mutation={mutation} />
+      <MutationButton label="Save and continue" type="submit" mutation={mutation} />
     </form>
   </div>
 );

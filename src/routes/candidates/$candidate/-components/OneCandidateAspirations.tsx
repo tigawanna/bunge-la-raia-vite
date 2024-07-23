@@ -11,6 +11,7 @@ interface OneCandidateAspirationsProps {
 }
 
 export function OneCandidateAspirations({ candidate_id }: OneCandidateAspirationsProps) {
+  console.log("candidate_id", candidate_id);
   const { userQuery } = useViewer();
   const viewer = userQuery.data.data;
   const query = useSuspenseQuery({
@@ -19,7 +20,7 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
       return await supabase
         .from("candidate_aspirations")
         .select("*")
-        .eq("id", candidate_id)
+        .eq("candidate_id", candidate_id)
         // .ilike("name", `%${q}%`)
         .order("created_at", { ascending: false })
         .limit(1);

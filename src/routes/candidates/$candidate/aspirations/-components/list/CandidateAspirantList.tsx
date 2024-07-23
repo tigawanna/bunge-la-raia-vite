@@ -15,7 +15,7 @@ export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantL
       return await supabase
         .from("candidate_aspirations")
         .select("*")
-        .eq("id", candidate_id)
+        .eq("candidate_id", candidate_id)
         // .ilike("name", `%${q}%`)
         .order("created_at", { ascending: false })
         .limit(24);
@@ -31,19 +31,21 @@ export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantL
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
+    <ul className="w-full h-full flex flex-wrap items-center justify-center gap-2">
       {data?.map((item, idx) => {
         return (
-          <div
+          <li
             key={idx}
-            className="w-[95%]  flex flex-col gap-2">
-            <div className="w-full flex flex-col items-center justify-evenly ">
-              <h1 className="text-2xl">{item.vying_for}</h1>
-              <h1 className="text-2xl">{item.period}</h1>
-              <h1 className="text-2xl">{item.created_at}</h1>
+            className="w-[95%] sm:w-[45%] md:w-[30%]  flex flex-col justify-center gap-2 bg-bg-emphasized p-1 rounded-lg">
+            <div className="w-full flex gap-2 p-1 ">
+              <h1 className="font-bold">{item.vying_for}</h1>
+              <h1 className="l">{item.period}</h1>
+
             </div>
-          </div>
+          </li>
         );
       })}
+    </ul>
     </div>
   );
 }

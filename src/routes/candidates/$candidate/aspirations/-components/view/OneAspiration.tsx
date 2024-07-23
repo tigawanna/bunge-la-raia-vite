@@ -16,7 +16,6 @@ export function OneAspiration({ aspiration_id, candidate_id }: OneAspirationProp
       return await supabase
         .from("candidate_aspirations")
         .select("*")
-        .eq("id", candidate_id)
         .eq("id", aspiration_id)
         .single();
     },

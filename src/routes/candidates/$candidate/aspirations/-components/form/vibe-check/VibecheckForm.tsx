@@ -29,7 +29,7 @@ export const formSchema = z.array(
 export type VibesFormType = z.infer<typeof formSchema>;
 interface VibecheckFormProps {
   candidate_id: string;
-  aspiration?: CandidateAspirationRowType;
+  aspiration: CandidateAspirationRowType;
   next: () => void;
 }
 
@@ -52,7 +52,8 @@ export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormPr
     mutationFn: async ({ vibe }: VibecheckFormMutationProps) => {
       const { error } = await supabase.from("candidate_aspirations").update({
         vibe_check: vibe,
-      });
+      })
+      .eq("id",aspiration.id)
       if (error) throw new Error(error.message);
     },
     onSuccess: () => {
