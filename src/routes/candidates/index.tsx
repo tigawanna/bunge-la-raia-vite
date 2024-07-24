@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { Candidates } from "./-components/list/Candidates";
-import { candidatesQueryOptions } from "./-components/query";
+import { listCandidateQueryOptions } from "./-components/candidate-query-options";
+
 
 
 const searchparams = z.object({
@@ -12,7 +13,9 @@ export const Route = createFileRoute("/candidates/")({
   component: CandidatesPage,
   validateSearch: (search) => searchparams.parse(search),
   async loader({context}) {
-    return context.queryClient.ensureQueryData(candidatesQueryOptions)
+    return context.queryClient.ensureQueryData(listCandidateQueryOptions({
+      search_query:""
+    }));
   },
 });
 

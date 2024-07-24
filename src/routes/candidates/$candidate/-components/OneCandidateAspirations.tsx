@@ -23,7 +23,7 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
         .eq("candidate_id", candidate_id)
         // .ilike("name", `%${q}%`)
         .order("created_at", { ascending: false })
-        .limit(1);
+        .limit(12);
     },
   });
   const data = query.data.data ?? [];
@@ -55,17 +55,29 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
       </div>
     );
   }
-  const item = data[0];
+  // const item = data[0];
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center relative">
-      <Link
-        className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-1 hover:bg-accent-emphasized absolute top-3 right-[5%]"
-        to="/candidates/$candidate/aspirations/new"
-        params={{ candidate: candidate_id }}>
-        <Plus /> new
-      </Link>
-      <AspirationsView aspiration={item} />
+      {viewer?.id === candidate_id && (
+        <Link
+          className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-1 hover:bg-accent-emphasized absolute top-3 right-[5%]"
+          to="/candidates/$candidate/aspirations/new"
+          params={{ candidate: candidate_id }}>
+          <Plus /> new
+        </Link>
+      )}
+      {/* <AspirationsView aspiration={item} /> */}
+      {data?.map((item, idx) => {
+        return (
+          <Link
+            to="/candidates/$candidate/aspirations/$aspiration"
+            params={{ candidate: candidate_id, aspiration: item.id }}
+            key={idx}>
+            <AspirationsView aspiration={item}  candidate_id={candidate_id} viewer_id={viewer?.id}/>
+          </Link>
+        );
+      })}
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: candidate_id }}>
         show more
       </Link>

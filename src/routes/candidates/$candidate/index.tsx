@@ -1,15 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { oneCandidatesQueryOptions } from "../-components/query";
 import { OneCandidate } from "./-components/OneCandidate";
-
-
-
+import { oneCandidateQueryOptions } from "../-components/candidate-query-options";
 
 export const Route = createFileRoute("/candidates/$candidate/")({
   component: OneCandidatePage,
 
   loader: async ({ params, context }) => {
-    context.queryClient.ensureQueryData(oneCandidatesQueryOptions(params.candidate));
+    context.queryClient.ensureQueryData(oneCandidateQueryOptions({candidate_id:params.candidate}));
   },
 });
 

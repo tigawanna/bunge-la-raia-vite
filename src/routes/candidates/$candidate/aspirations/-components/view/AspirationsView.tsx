@@ -1,10 +1,14 @@
 import { AspirationsRowType, VibeCheckType } from "@/lib/supabase/extra-db-types";
+import { Link } from "@tanstack/react-router";
+import { Edit } from "lucide-react";
 
 interface AspirationsViewProps {
   aspiration: AspirationsRowType["Row"];
+  candidate_id: string;
+  viewer_id?: string;
 }
 
-export function AspirationsView({ aspiration }: AspirationsViewProps) {
+export function AspirationsView({ aspiration, candidate_id, viewer_id }: AspirationsViewProps) {
   const vibes = aspiration.vibe_check as VibeCheckType;
   return (
     <div className="w-full h-full  flex flex-col gap-2">
@@ -13,6 +17,13 @@ export function AspirationsView({ aspiration }: AspirationsViewProps) {
           <h1 className="">
             vying for {aspiration.vying_for} {new Date(aspiration.period).getFullYear()}
           </h1>
+          {viewer_id === candidate_id && (
+            <Link
+              to="/candidates/$candidate/aspirations/$aspiration/update"
+              params={{ candidate: candidate_id, aspiration: aspiration.id }}>
+              <Edit />
+            </Link>
+          )}
         </div>
 
         <div className="flex flex-col items-center justify-items-start gap-1 p-3">

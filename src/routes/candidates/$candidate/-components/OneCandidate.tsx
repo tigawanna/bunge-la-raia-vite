@@ -1,15 +1,15 @@
-import {  useParams } from "@tanstack/react-router";
-import { oneCandidatesQueryOptions } from "../../-components/query";
+import { useParams } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { OneCandidateAspirations } from "./OneCandidateAspirations";
 import { CandidateBasicDetailsDialog } from "../../-components/form/basics-details/CandidateBasicDetailsDialog";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
+import { oneCandidateQueryOptions } from "../../-components/candidate-query-options";
 
 interface OneCandidateProps {}
 
 export function OneCandidate({}: OneCandidateProps) {
   const params = useParams({ from: "/candidates/$candidate/" });
-  const query = useSuspenseQuery(oneCandidatesQueryOptions(params.candidate));
+  const query = useSuspenseQuery(oneCandidateQueryOptions({ candidate_id: params.candidate }));
   const data = query.data.data;
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;

@@ -1,10 +1,10 @@
 import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
-import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AspirationsView } from "./AspirationsView";
-import { Link } from "@tanstack/react-router";
-import { Edit } from "lucide-react";
+import { Loader } from "lucide-react";
+import { useViewer } from "@/lib/tanstack/query/use-viewer";
+import { oneCandidateAspirationsQueryOptions } from "../aspiration-query-options";
 
 interface OneAspirationProps {
   candidate_id: string;
@@ -12,32 +12,32 @@ interface OneAspirationProps {
 }
 
 export function OneAspiration({ aspiration_id, candidate_id }: OneAspirationProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["candidates", candidate_id, "candidate_aspirations", aspiration_id],
-    queryFn: async () => {
-      return await supabase
-        .from("candidate_aspirations")
-        .select("*")
-        .eq("id", aspiration_id)
-        .single();
-    },
-  });
+  const { userQuery } = useViewer();
+  const viewer = userQuery.data.data;
+  const query = useSuspenseQuery(
+    oneCandidateAspirationsQueryOptions({
+      candidate_id,
+      aspiration_id,
+    })
+  );
   const data = query.data.data;
   const error = query.data.error || query.error;
   if (error) {
     return <TanstackSupabaseError error={error} />;
+  }
+  if (query.isPending) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center min-h-screen">
+        <Loader className="animate-spin" />
+      </div>
+    );
   }
   if (!data) {
     return <NoItemsFound />;
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <Link
-        to="/candidates/$candidate/aspirations/$aspiration/update"
-        params={{ candidate: candidate_id, aspiration: aspiration_id }}>
-        <Edit/>
-      </Link>
-      <AspirationsView aspiration={data} />
+      <AspirationsView aspiration={data} candidate_id={candidate_id} viewer_id={viewer?.id} />
     </div>
   );
 }

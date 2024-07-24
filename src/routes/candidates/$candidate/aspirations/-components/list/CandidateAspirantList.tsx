@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { listCandidateAspirationsQueryOptions } from "../aspiration-query-options";
 
 interface CandidateAspirantListProps {
   q?: string;
@@ -10,18 +11,7 @@ interface CandidateAspirantListProps {
 }
 
 export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantListProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["candidates",candidate_id,"candidate_aspirations", q],
-    queryFn: async () => {
-      return await supabase
-        .from("candidate_aspirations")
-        .select("*")
-        .eq("candidate_id", candidate_id)
-        // .ilike("name", `%${q}%`)
-        .order("created_at", { ascending: false })
-        .limit(24);
-    },
-  });
+  const query = useSuspenseQuery(listCandidateAspirationsQueryOptions(candidate_id, q));
   const data = query.data.data ?? [];
   const error = query.data.error || query.error
   if(error){
