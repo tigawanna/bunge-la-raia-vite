@@ -1,5 +1,5 @@
 import * as Dialog from "~/components/park/ui/dialog";
-import { UserCircleIcon, XIcon } from "lucide-react";
+import { LogIn, UserCircleIcon, XIcon } from "lucide-react";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Avatar } from "@/components/park/ui/avatar";
@@ -22,20 +22,18 @@ export function NavbarUser({}: NavbarUserProps) {
         </Dialog.Trigger>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content className="absolute top-[10%] right-[2%] w-[40%] h-fit p-5 bg-bg-muted">
-            <div className="flex flex-col gap-2 h-full w-full  p-5">
-              <div className="flex flex-col gap-2 w-full justify-end">
-                <Dialog.CloseTrigger asChild>
+          <Dialog.Content className="absolute top-[10%] right-[2%]  h-fit p-5 bg-bg-muted">
+            <div className="flex gap-2 h-full w-full p-5">
+              <div className="flex flex-col w-full justify-end gap-5 ">
+                <Dialog.CloseTrigger asChild className="">
                   <Link
                     to="/auth"
-                    className="bg-accent-emphasized p-2"
+                    className=" p-1 flex justify-between "
                     search={{ returnTo: location.pathname }}>
-                    Login
+                    Login <LogIn/>
                   </Link>
                 </Dialog.CloseTrigger>
-                <Dialog.CloseTrigger asChild>
-                  <Button variant="outline">Cancel</Button>
-                </Dialog.CloseTrigger>
+
               </div>
             </div>
             <Dialog.CloseTrigger asChild className="absolute top-[2%] right-[2%]">
