@@ -12,9 +12,10 @@ interface AspirationsFormProps {
 }
 
 export function AspirationsForm({ aspiration, navigate }: AspirationsFormProps) {
+
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState(0);
+  const [formStep, setFormStep] = useState(aspiration?1:0);
   const canGoToNext = formStep < 1 && aspiration;
   const canGoToPrevious = formStep > 0 && aspiration;
   function handleNext() {
@@ -62,6 +63,15 @@ export function AspirationsForm({ aspiration, navigate }: AspirationsFormProps) 
             candidate_id={viewer?.id}
             aspiration={aspiration}
             next={() => {
+              if (navigate) {
+                navigate({
+                  to: "/candidates/$candidate/aspirations/$aspiration",
+                  params: {
+                    candidate: viewer?.id,
+                    aspiration: aspiration.id,
+                  },
+                });
+              }
               handleNext();
             }}
           />

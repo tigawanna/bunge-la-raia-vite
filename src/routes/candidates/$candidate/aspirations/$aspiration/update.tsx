@@ -10,8 +10,8 @@ export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspira
 
 export function UpdateAspirationPage() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-      <Suspense fallback={<CardsListSuspenseFallback cardClassName="w-[40%]" cards={2} />}>
+    <div className="w-full h-full min-h-screen flex flex-col items-center justify-center gap-2">
+    <Suspense fallback={<CardsListSuspenseFallback cardClassName="w-[40%]" cards={2} />}>
         <UpdateAspirations />
       </Suspense>
     </div>

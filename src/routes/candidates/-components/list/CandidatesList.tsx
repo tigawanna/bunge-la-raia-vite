@@ -1,26 +1,20 @@
 import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
-import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { listCandidateQueryOptions } from "../candidate-query-options";
 
 interface CandidatesListProps {
   q: string;
 }
 
 export function CandidatesList({ q }: CandidatesListProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["candidates", q],
-    queryFn: async () => {
-      return await supabase
-        .from("candidates")
-        .select("*")
-        .ilike("name", `%${q}%`)
-        .order("created_at", { ascending: false })
-        .limit(24);
-    },
-  });
-  const data = query.data.data ?? [];
+  const query = useSuspenseQuery(
+    listCandidateQueryOptions({
+      search_query: q,
+    })
+  );
+  const data = query.data?.data ?? [];
     const error = query.data.error || query.error;
     if (error) {
       return <TanstackSupabaseError error={error} />;

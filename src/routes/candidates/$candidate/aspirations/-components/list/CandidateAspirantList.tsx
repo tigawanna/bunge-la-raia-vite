@@ -1,5 +1,4 @@
 import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
-import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
@@ -11,7 +10,7 @@ interface CandidateAspirantListProps {
 }
 
 export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantListProps) {
-  const query = useSuspenseQuery(listCandidateAspirationsQueryOptions(candidate_id, q));
+  const query = useSuspenseQuery(listCandidateAspirationsQueryOptions({candidate_id,search_query:q}));
   const data = query.data.data ?? [];
   const error = query.data.error || query.error
   if(error){

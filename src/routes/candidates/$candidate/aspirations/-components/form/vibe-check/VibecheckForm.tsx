@@ -61,7 +61,7 @@ export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormPr
         title: "Vibe checked",
         type: "success",
       });
-      // next();
+      next();
     },
     onError: (error) => {
       toaster.create({

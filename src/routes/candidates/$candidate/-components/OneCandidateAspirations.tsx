@@ -1,31 +1,24 @@
-import { supabase } from "@/lib/supabase/client";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { AspirationsView } from "../aspirations/-components/view/AspirationsView";
+import { listCandidateAspirationsQueryOptions } from "../aspirations/-components/aspiration-query-options";
 
 interface OneCandidateAspirationsProps {
   candidate_id: string;
 }
 
 export function OneCandidateAspirations({ candidate_id }: OneCandidateAspirationsProps) {
-  console.log("candidate_id", candidate_id);
   const { userQuery } = useViewer();
   const viewer = userQuery.data.data;
-  const query = useSuspenseQuery({
-    queryKey: ["candidates", candidate_id, "candidate_aspirations"],
-    queryFn: async () => {
-      return await supabase
-        .from("candidate_aspirations")
-        .select("*")
-        .eq("candidate_id", candidate_id)
-        // .ilike("name", `%${q}%`)
-        .order("created_at", { ascending: false })
-        .limit(12);
-    },
-  });
+  const query = useSuspenseQuery(
+    listCandidateAspirationsQueryOptions({
+      candidate_id,
+      search_query: "",
+    })
+  );
   const data = query.data.data ?? [];
   const error = query.data.error || query.error;
   if (error) {
@@ -74,7 +67,7 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
             to="/candidates/$candidate/aspirations/$aspiration"
             params={{ candidate: candidate_id, aspiration: item.id }}
             key={idx}>
-            <AspirationsView aspiration={item}  candidate_id={candidate_id} viewer_id={viewer?.id}/>
+            <AspirationsView aspiration={item} candidate_id={candidate_id} viewer_id={viewer?.id} />
           </Link>
         );
       })}

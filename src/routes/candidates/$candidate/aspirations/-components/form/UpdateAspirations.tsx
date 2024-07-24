@@ -1,8 +1,8 @@
 import { useParams, Navigate } from "@tanstack/react-router";
 import { AspirationsForm } from "./AspirationsForm";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
+import { oneCandidateAspirationsQueryOptions } from "../aspiration-query-options";
 
 interface UpdateAspirationsProps {}
 
@@ -11,22 +11,10 @@ export function UpdateAspirations({}: UpdateAspirationsProps) {
     from: "/candidates/$candidate/aspirations/$aspiration/update",
   });
 
-  const query = useSuspenseQuery({
-    queryKey: ["candidates", candidate, "candidate_aspirations", aspiration],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("candidate_aspirations")
-        .select("*")
-        .eq("id", aspiration)
-        .single();
-
-      if (error) {
-        throw new Error(error.message);
-      }
-      return data;
-    },
-  });
-  const one_aspiration = query.data;
+  const query = useSuspenseQuery(
+    oneCandidateAspirationsQueryOptions({ aspiration_id: aspiration, candidate_id: candidate })
+  );
+  const one_aspiration = query.data?.data;
 
   if (!one_aspiration) {
     toaster.create({
@@ -38,8 +26,7 @@ export function UpdateAspirations({}: UpdateAspirationsProps) {
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      {/* @ts-expect-error */}
-      <AspirationsForm aspiration={one_aspiration} />
+        <AspirationsForm aspiration={one_aspiration as any} />
     </div>
   );
 }

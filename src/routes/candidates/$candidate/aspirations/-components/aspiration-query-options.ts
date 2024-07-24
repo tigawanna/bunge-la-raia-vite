@@ -10,7 +10,7 @@ export function listCandidateAspirationsQueryOptions({candidate_id,search_query}
           .from("candidate_aspirations")
           .select("*")
           .eq("candidate_id", candidate_id)
-          .ilike("name", `%${search_query}%`)
+          // .ilike("name", `%${search_query}%`)
           .order("created_at", { ascending: false })
           .limit(24);
       },
