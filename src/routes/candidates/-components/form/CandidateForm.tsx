@@ -1,31 +1,12 @@
-import { supabase } from "@/lib/supabase/client";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { CandidateBasicDetailsForm } from "./basics-details/CandidateBasicDetailsForm";
 
-interface CandidateFormProps {
-  id?: string;
-}
+interface CandidateFormProps {}
 
-export function CandidateForm({ id }: CandidateFormProps) {
-  const query = useSuspenseQuery({
-    queryKey: ["candidates", id],
-    queryFn: async () => {
-      if (!id) {
-        return new Promise<{ data: undefined }>((resolve, _) => {
-          resolve({ data: undefined });
-        });
-      } else {
-        const candidate = await supabase.from("candidates").select("*").eq("id", id).single();
-        return candidate;
-      }
-    },
-  });
-  const candidate = query?.data?.data;
-
+export function CandidateForm({}: CandidateFormProps) {
   return (
     <div className="w-full h-full flex flex-col p-2 gap-4 items-center justify-center">
       <div className="w-full h-full flex p-2 gap-4 items-center justify-center ">
-        <CandidateBasicDetailsForm candidate={candidate} />
+        <CandidateBasicDetailsForm />
       </div>
     </div>
   );

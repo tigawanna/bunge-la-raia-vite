@@ -1,4 +1,4 @@
-import { Link, useParams } from "@tanstack/react-router";
+import {  useParams } from "@tanstack/react-router";
 import { oneCandidatesQueryOptions } from "../../-components/query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { OneCandidateAspirations } from "./OneCandidateAspirations";
