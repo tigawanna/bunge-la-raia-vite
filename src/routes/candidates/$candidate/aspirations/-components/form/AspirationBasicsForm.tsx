@@ -98,8 +98,7 @@ return (
                 ]}
                 inputOptions={{
                   onBlur: field.handleBlur,
-                  //   @ts-expect-error
-                  onChange: (e) => field.handleChange(e.target.value),
+                onChange: (e) => field.handleChange(e.target.value as "president" | "governor" | "mp" | "mca"),
                 }}
               />
             );
@@ -113,6 +112,8 @@ return (
             onChange: z.string(),
           }}
           children={(field) => {
+            const default_date = aspiration?.period?new Date(aspiration?.period).toISOString().substring(0, 10):new Date().toISOString().substring(0, 10)
+            console.log("current time = ", default_date);
             return (
               <TextFormField<CandidateAspirationInsertType>
                 field={field}
@@ -120,7 +121,7 @@ return (
                 fieldlabel="Period"
                 inputOptions={{
                   type: "date",
-                  value:new Date(field.state.value??"").toISOString().substring(0, 10),
+                  value: default_date,
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),
                 }}

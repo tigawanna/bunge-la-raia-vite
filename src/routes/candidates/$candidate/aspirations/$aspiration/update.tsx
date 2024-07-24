@@ -11,7 +11,6 @@ export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspira
 export function UpdateAspirationPage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-      <h2 className="text-2xl font-bold">update aspiration</h2>
       <Suspense fallback={<CardsListSuspenseFallback cardClassName="w-[40%]" cards={2} />}>
         <UpdateAspirations />
       </Suspense>

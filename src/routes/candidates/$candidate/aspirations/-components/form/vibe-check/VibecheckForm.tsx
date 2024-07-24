@@ -61,7 +61,7 @@ export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormPr
         title: "Vibe checked",
         type: "success",
       });
-      next();
+      // next();
     },
     onError: (error) => {
       toaster.create({
@@ -78,7 +78,7 @@ export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormPr
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <h1 className="H1">Vibecheck</h1>
+      <h1 className="text-2xl">Vibecheck</h1>
 
       <form className="flex h-full w-full flex-col items-center justify-center">
         {currentStep < questions.length && (
@@ -151,6 +151,7 @@ export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormPr
               )}
 
               <MutationButton
+              type="button"
                 mutation={mutation}
                 onClick={() => mutation.mutate({ vibe: vibes })}
               />

@@ -58,12 +58,12 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
   const item = data[0];
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center relative">
       <Link
-        className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-3 hover:bg-accent-emphasized "
+        className="flex gap-2 items-center justify-center rounded-lg bg-accent-default p-1 hover:bg-accent-emphasized absolute top-3 right-[5%]"
         to="/candidates/$candidate/aspirations/new"
         params={{ candidate: candidate_id }}>
-        add your candidate aspiration <Plus />
+        <Plus /> new
       </Link>
       <AspirationsView aspiration={item} />
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: candidate_id }}>
