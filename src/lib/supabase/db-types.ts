@@ -137,10 +137,26 @@ export type Database = {
             referencedRelation: "counties"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
         ]
       }
       counties: {
         Row: {
+          capital: string | null
+          code: number | null
           contribution_status: Database["public"]["Enums"]["contribution_status"]
           created_at: string
           entry_contributed_by: string
@@ -148,8 +164,11 @@ export type Database = {
           gps: unknown | null
           id: number
           name: string
+          sub_counties: Json | null
         }
         Insert: {
+          capital?: string | null
+          code?: number | null
           contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
           entry_contributed_by: string
@@ -157,8 +176,11 @@ export type Database = {
           gps?: unknown | null
           id?: number
           name: string
+          sub_counties?: Json | null
         }
         Update: {
+          capital?: string | null
+          code?: number | null
           contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
           entry_contributed_by?: string
@@ -166,8 +188,24 @@ export type Database = {
           gps?: unknown | null
           id?: number
           name?: string
+          sub_counties?: Json | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       governors: {
         Row: {
@@ -204,6 +242,20 @@ export type Database = {
           to?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "governors_county_id_fkey"
             columns: ["county_id"]
@@ -249,6 +301,20 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "mcas_ward_id_fkey"
             columns: ["ward_id"]
             isOneToOne: false
@@ -292,6 +358,20 @@ export type Database = {
           to?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "mps_contituency_id_fkey"
             columns: ["contituency_id"]
@@ -421,6 +501,20 @@ export type Database = {
           name?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_entry_contributed_by"
+            columns: ["entry_contributed_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_entry_verified_by"
+            columns: ["entry_verified_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "wards_constituency_id_fkey"
             columns: ["constituency_id"]
