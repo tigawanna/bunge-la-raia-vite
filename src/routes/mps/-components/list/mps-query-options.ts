@@ -1,16 +1,16 @@
 import { supabase } from "@/lib/supabase/client";
 import { queryOptions } from "@tanstack/react-query";
 
-interface ListMCAsQueryOptions {
+interface ListMPsQueryOptions {
   search_query: string;
 }
 
-export function listMCAsQueryOptions({ search_query }: ListMCAsQueryOptions) {
+export function listMPsQueryOptions({ search_query }: ListMPsQueryOptions) {
   return queryOptions({
-    queryKey: ["mcas", search_query],
+    queryKey: ["mps", search_query],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("mcas")
+        .from("mps")
         .select("*")
         .ilike("name", `%${search_query}%`)
         // .order("code", { ascending: true })
@@ -24,18 +24,18 @@ export function listMCAsQueryOptions({ search_query }: ListMCAsQueryOptions) {
   });
 }
 
-interface OneMCAsQueryOptions {
-  mca_id: string;
+interface OneMPsQueryOptions {
+  mp_id: string;
 }
 
-export function oneMCAsQueryOptions({ mca_id }: OneMCAsQueryOptions) {
+export function oneMPsQueryOptions({ mp_id }: OneMPsQueryOptions) {
   return queryOptions({
-    queryKey: ["mcas", mca_id],
+    queryKey: ["mps", mp_id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("mcas")
+        .from("mps")
         .select("*")
-        .eq("id", mca_id)
+        .eq("id", mp_id)
         .single();
 
       if (error) {

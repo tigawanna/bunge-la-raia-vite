@@ -15,7 +15,7 @@ export const Route = createFileRoute('/mcas/')({
 
 export function MCAsPage(){
 return (
- <div className='w-full min-h-screen h-full flex flex-col items-center justify-center'>
+ <div className='w-full min-h-screen h-full flex flex-col items-center '>
   <MCAs/>
  </div>
 );

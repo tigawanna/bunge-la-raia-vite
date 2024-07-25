@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 
 
-export const Route = createFileRoute("/mcas/$mcas")({
+export const Route = createFileRoute("/mcas/$mca")({
   component: OneMCAPage,
 });
 

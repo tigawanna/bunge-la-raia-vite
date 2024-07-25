@@ -24,7 +24,8 @@ import { Route as CandidatesIndexImport } from './routes/candidates/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as WardsWardImport } from './routes/wards/$ward'
-import { Route as McasMcasImport } from './routes/mcas/$mcas'
+import { Route as MpsMpImport } from './routes/mps/$mp'
+import { Route as McasMcaImport } from './routes/mcas/$mca'
 import { Route as GovernorsGovernorImport } from './routes/governors/$governor'
 import { Route as CountiesCountyImport } from './routes/counties/$county'
 import { Route as ConstituenciesConstituencyImport } from './routes/constituencies/$constituency'
@@ -104,8 +105,13 @@ const WardsWardRoute = WardsWardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const McasMcasRoute = McasMcasImport.update({
-  path: '/mcas/$mcas',
+const MpsMpRoute = MpsMpImport.update({
+  path: '/mps/$mp',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const McasMcaRoute = McasMcaImport.update({
+  path: '/mcas/$mca',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -224,11 +230,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovernorsGovernorImport
       parentRoute: typeof rootRoute
     }
-    '/mcas/$mcas': {
-      id: '/mcas/$mcas'
-      path: '/mcas/$mcas'
-      fullPath: '/mcas/$mcas'
-      preLoaderRoute: typeof McasMcasImport
+    '/mcas/$mca': {
+      id: '/mcas/$mca'
+      path: '/mcas/$mca'
+      fullPath: '/mcas/$mca'
+      preLoaderRoute: typeof McasMcaImport
+      parentRoute: typeof rootRoute
+    }
+    '/mps/$mp': {
+      id: '/mps/$mp'
+      path: '/mps/$mp'
+      fullPath: '/mps/$mp'
+      preLoaderRoute: typeof MpsMpImport
       parentRoute: typeof rootRoute
     }
     '/wards/$ward': {
@@ -362,7 +375,8 @@ export const routeTree = rootRoute.addChildren({
   ConstituenciesConstituencyRoute,
   CountiesCountyRoute,
   GovernorsGovernorRoute,
-  McasMcasRoute,
+  McasMcaRoute,
+  MpsMpRoute,
   WardsWardRoute,
   AdminIndexRoute,
   AuthIndexRoute,
@@ -397,7 +411,8 @@ export const routeTree = rootRoute.addChildren({
         "/constituencies/$constituency",
         "/counties/$county",
         "/governors/$governor",
-        "/mcas/$mcas",
+        "/mcas/$mca",
+        "/mps/$mp",
         "/wards/$ward",
         "/admin/",
         "/auth/",
@@ -438,8 +453,11 @@ export const routeTree = rootRoute.addChildren({
     "/governors/$governor": {
       "filePath": "governors/$governor.tsx"
     },
-    "/mcas/$mcas": {
-      "filePath": "mcas/$mcas.tsx"
+    "/mcas/$mca": {
+      "filePath": "mcas/$mca.tsx"
+    },
+    "/mps/$mp": {
+      "filePath": "mps/$mp.tsx"
     },
     "/wards/$ward": {
       "filePath": "wards/$ward.tsx"
