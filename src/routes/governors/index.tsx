@@ -1,16 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
-
+import { z } from 'zod';
+const searchparams = z.object({
+  govsq: z.string().optional(),
+});
 export const Route = createFileRoute('/governors/')({
-  component: GovernorsPage
+  component: GovernorsPage,
+  validateSearch(input) {
+    return searchparams.parse(input);
+  },
 })
-interface GovernorsPageProps {
 
-}
 
-export function GovernorsPage({}:GovernorsPageProps){
+
+export function GovernorsPage(){
 return (
- <div className='w-full h-full min-h-screen flex flex-col items-center justify-center'>
-  <h1 className='text-xl'>Governors</h1>
+ <div className='w-full min-h-screen h-full flex flex-col items-center justify-center'>
+
  </div>
 );
 }
