@@ -1,7 +1,7 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { CandidateAspirations } from "./-components/list/CandidateAspirations";
 import { z } from "zod";
-import { listCandidateAspirationsQueryOptions } from "./-components/aspiration-query-options";
+import { listCandidateAspirationsQueryOptions } from "./-components/list/aspiration-query-options";
 
 const searchparams = z.object({
   aspsq: z.string().optional(),

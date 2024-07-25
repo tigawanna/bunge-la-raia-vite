@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { AspirationsView } from "../aspirations/-components/view/AspirationsView";
-import { listCandidateAspirationsQueryOptions } from "../aspirations/-components/aspiration-query-options";
+import { listCandidateAspirationsQueryOptions } from "../aspirations/-components/list/aspiration-query-options";
 
 interface OneCandidateAspirationsProps {
   candidate_id: string;

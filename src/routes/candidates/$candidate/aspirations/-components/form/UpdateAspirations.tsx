@@ -2,7 +2,7 @@ import { useParams, Navigate } from "@tanstack/react-router";
 import { AspirationsForm } from "./AspirationsForm";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { toaster } from "@/components/navigation/ParkuiToast";
-import { oneCandidateAspirationsQueryOptions } from "../aspiration-query-options";
+import { oneCandidateAspirationsQueryOptions } from "../list/aspiration-query-options";
 
 interface UpdateAspirationsProps {}
 

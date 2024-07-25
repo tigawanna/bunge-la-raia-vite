@@ -2,7 +2,7 @@ import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { listCandidateAspirationsQueryOptions } from "../aspiration-query-options";
+import { listCandidateAspirationsQueryOptions } from "./aspiration-query-options";
 
 interface CandidateAspirantListProps {
   q?: string;
