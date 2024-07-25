@@ -23,6 +23,8 @@ import { Route as ConstituenciesIndexImport } from './routes/constituencies/inde
 import { Route as CandidatesIndexImport } from './routes/candidates/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as CountiesCountyImport } from './routes/counties/$county'
+import { Route as ConstituenciesConstituencyImport } from './routes/constituencies/$constituency'
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as CandidatesCandidateIndexImport } from './routes/candidates/$candidate/index'
@@ -93,6 +95,18 @@ const AdminIndexRoute = AdminIndexImport.update({
   path: '/admin/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const CountiesCountyRoute = CountiesCountyImport.update({
+  path: '/counties/$county',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConstituenciesConstituencyRoute = ConstituenciesConstituencyImport.update(
+  {
+    path: '/constituencies/$constituency',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const CandidatesNewRoute = CandidatesNewImport.update({
   path: '/candidates/new',
@@ -169,6 +183,20 @@ declare module '@tanstack/react-router' {
       path: '/candidates/new'
       fullPath: '/candidates/new'
       preLoaderRoute: typeof CandidatesNewImport
+      parentRoute: typeof rootRoute
+    }
+    '/constituencies/$constituency': {
+      id: '/constituencies/$constituency'
+      path: '/constituencies/$constituency'
+      fullPath: '/constituencies/$constituency'
+      preLoaderRoute: typeof ConstituenciesConstituencyImport
+      parentRoute: typeof rootRoute
+    }
+    '/counties/$county': {
+      id: '/counties/$county'
+      path: '/counties/$county'
+      fullPath: '/counties/$county'
+      preLoaderRoute: typeof CountiesCountyImport
       parentRoute: typeof rootRoute
     }
     '/admin/': {
@@ -292,6 +320,8 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   AuthSignupRoute,
   CandidatesNewRoute,
+  ConstituenciesConstituencyRoute,
+  CountiesCountyRoute,
   AdminIndexRoute,
   AuthIndexRoute,
   CandidatesIndexRoute,
@@ -322,6 +352,8 @@ export const routeTree = rootRoute.addChildren({
         "/_layout",
         "/auth/signup",
         "/candidates/new",
+        "/constituencies/$constituency",
+        "/counties/$county",
         "/admin/",
         "/auth/",
         "/candidates/",
@@ -351,6 +383,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/candidates/new": {
       "filePath": "candidates/new.tsx"
+    },
+    "/constituencies/$constituency": {
+      "filePath": "constituencies/$constituency.tsx"
+    },
+    "/counties/$county": {
+      "filePath": "counties/$county.tsx"
     },
     "/admin/": {
       "filePath": "admin/index.tsx"
