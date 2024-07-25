@@ -8,6 +8,7 @@ import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/Text
 import { z } from "zod";
 import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
+import { TableRelationInput } from "@/lib/supabase/components/TableRelationInput";
 
 interface AspirationBasicsFormProps {
   aspiration?: CandidateAspirationRowType;
@@ -16,7 +17,6 @@ interface AspirationBasicsFormProps {
 }
 
 export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBasicsFormProps) {
-    console.log(" ============================ aspiration =========================  ", aspiration);
   const mutation = useMutation({
     mutationFn: async (vars: CandidateAspirationInsertType) => {
       const { error, data } = await supabase
@@ -58,6 +58,9 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
       await mutation.mutate(value);
     },
   });
+  // const vyingfor = form.store.state.values.vying_for
+  const vyingfor = form.store.state
+  console.log({vyingfor})
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
@@ -107,6 +110,13 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
               );
             }}
           />
+          <div className="w-full flex flex-col">
+            <TableRelationInput
+              filterBy="mission_statement"
+              table="candidate_aspirations"
+              searchQuery=""
+            />
+          </div>
 
           <form.Field
             name="period"

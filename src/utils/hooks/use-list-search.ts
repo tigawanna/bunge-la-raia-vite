@@ -1,9 +1,9 @@
-import { routeTree } from "@/routeTree.gen";
-import { ParseRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useTransition, useState, useEffect } from "react";
 import { useDebouncedValue } from "./use-debouncer";
+import { ValidRoutes } from "@/lib/tanstack/types";
 
-type ValidRoutes = ParseRoute<typeof routeTree>["fullPath"];
+
 interface UseListSearchProps {
   route: ValidRoutes;
   sq: string;
