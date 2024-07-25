@@ -1,7 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-
+import { z } from 'zod';
+const searchparams = z.object({
+  wardsq: z.string().optional(),
+});
 export const Route = createFileRoute('/wards/')({
-  component: () => <div>Hello /wards/!</div>
+  component: WardsPage,
+  validateSearch(input) {
+    return searchparams.parse(input);
+  },
 })
 
 interface WardsPageProps {
