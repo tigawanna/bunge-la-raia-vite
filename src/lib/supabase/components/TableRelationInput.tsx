@@ -52,7 +52,7 @@ export function TableRelationInput<T extends TableType>({
         </div>
         <SearchBox
           inputProps={{
-            placeholder: "Search by name",
+            placeholder:`search by ${filterBy as string}`,
           }}
           debouncedValue={debouncedValue}
           isDebouncing={isDebouncing}

@@ -59,8 +59,8 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
     },
   });
   // const vyingfor = form.store.state.values.vying_for
-  const vyingfor = form.store.state
-  console.log({vyingfor})
+  const vyingfor = form.store.state;
+  console.log({ vyingfor });
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
@@ -111,10 +111,20 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
             }}
           />
           <div className="w-full flex flex-col">
-            <TableRelationInput
-              filterBy="mission_statement"
-              table="candidate_aspirations"
-              searchQuery=""
+            <form.Subscribe
+            selector={(form) => form.values.vying_for}
+              children={(field) => {
+                const areaLeader={
+                  president: "country",
+                  governor: "counties",
+                  mp:"constituencies",
+                  mca:"wards"
+                } as const
+                if (areaLeader[field] === "country") return
+                  return (
+                    <TableRelationInput filterBy={"name"} table={areaLeader[field]} searchQuery="" />
+                  );
+              }}
             />
           </div>
 
