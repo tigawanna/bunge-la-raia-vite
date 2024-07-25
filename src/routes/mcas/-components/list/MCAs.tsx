@@ -4,25 +4,26 @@ import { CardsListSuspenseFallback } from "@/components/loaders/GenericDataCards
 import { SearchBox } from "@/components/search/SearchBox";
 import { Plus } from "lucide-react";
 import { Suspense } from "react";
-import { GovernorList } from "./GovernorsList";
+import { MCAList } from "./MCAsList";
 
-interface GovernorsProps {}
 
-export function Governors({}: GovernorsProps) {
-  const { govsq } = useSearch({
-    from: "/governors/",
+interface MCAsProps {}
+
+export function MCAs({}: MCAsProps) {
+  const { mcasq } = useSearch({
+    from: "/mcas/",
   });
   const { debouncedValue, isDebouncing, keyword, setKeyword } = useListSearch({
-    route: "/governors",
-    sq: govsq ?? "",
+    route: "/mcas",
+    sq: mcasq ?? "",
   });
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <div className="w-full z-20 sticky top-[9%] p-2 px-3 flex flex-col md:flex-row justify-evenly gap-1 pr-5">
         <div className="w-full flex gap-5 p-1">
-          <h1 className="font-bold  ">Governors</h1>
+          <h1 className="font-bold  ">MCAs</h1>
           <Link
-            to="/governors"
+            to="/candidates/new"
             className="flex justify-center items-center gap-2 border rounded-lg px-2 hover:text-accent-text">
             <Plus /> add
           </Link>
@@ -39,7 +40,7 @@ export function Governors({}: GovernorsProps) {
       </div>
       <div className="w-full h-full flex justify-center items-center m-3 p-5">
         <Suspense fallback={<CardsListSuspenseFallback />}>
-          <GovernorList q={debouncedValue} />
+          <MCAList q={debouncedValue} />
         </Suspense>
       </div>
     </div>

@@ -2,14 +2,14 @@ import { createFileRoute } from '@tanstack/react-router'
 
 
 
-export const Route = createFileRoute("/governors/$ward")({
-  component: OneGovernorPage,
+export const Route = createFileRoute("/mcas/$mcas")({
+  component: OneMCAPage,
 });
 
-export function OneGovernorPage(){
+export function OneMCAPage(){
 return (
  <div className='w-full h-full min-h-screen flex flex-col items-center justify-center'>
-  <h1 className='text-xl'>One Governor</h1>
+  <h1 className='text-xl'>One MCA</h1>
  </div>
 );
 }

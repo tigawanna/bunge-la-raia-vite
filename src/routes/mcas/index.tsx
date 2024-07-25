@@ -1,17 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router'
-
+import { z } from 'zod';
+import { MCAs } from './-components/list/MCAs';
+const searchparams = z.object({
+  mcasq: z.string().optional(),
+});
 export const Route = createFileRoute('/mcas/')({
-  component:WardsPage
+  component: MCAsPage,
+  validateSearch(input) {
+    return searchparams.parse(input);
+  },
 })
 
-interface WardsPageProps {
 
-}
 
-export function WardsPage({}:WardsPageProps){
+export function MCAsPage(){
 return (
  <div className='w-full min-h-screen h-full flex flex-col items-center justify-center'>
-  <h1 className='text-xl'>Wards</h1>
+  <MCAs/>
  </div>
 );
 }
