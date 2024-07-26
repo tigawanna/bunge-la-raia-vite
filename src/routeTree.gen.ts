@@ -32,7 +32,6 @@ import { Route as ConstituenciesConstituencyImport } from './routes/constituenci
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as CandidatesCandidateIndexImport } from './routes/candidates/$candidate/index'
-import { Route as CandidatesCandidateUpdateIndexImport } from './routes/candidates/$candidate/update/index'
 import { Route as CandidatesCandidateAspirationsIndexImport } from './routes/candidates/$candidate/aspirations/index'
 import { Route as CandidatesCandidateAspirationsNewImport } from './routes/candidates/$candidate/aspirations/new'
 import { Route as CandidatesCandidateAspirationsAspirationIndexImport } from './routes/candidates/$candidate/aspirations/$aspiration/index'
@@ -146,12 +145,6 @@ const CandidatesCandidateIndexRoute = CandidatesCandidateIndexImport.update({
   path: '/candidates/$candidate/',
   getParentRoute: () => rootRoute,
 } as any)
-
-const CandidatesCandidateUpdateIndexRoute =
-  CandidatesCandidateUpdateIndexImport.update({
-    path: '/candidates/$candidate/update/',
-    getParentRoute: () => rootRoute,
-  } as any)
 
 const CandidatesCandidateAspirationsIndexRoute =
   CandidatesCandidateAspirationsIndexImport.update({
@@ -342,13 +335,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesCandidateAspirationsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/candidates/$candidate/update/': {
-      id: '/candidates/$candidate/update/'
-      path: '/candidates/$candidate/update'
-      fullPath: '/candidates/$candidate/update'
-      preLoaderRoute: typeof CandidatesCandidateUpdateIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/candidates/$candidate/aspirations/$aspiration/update': {
       id: '/candidates/$candidate/aspirations/$aspiration/update'
       path: '/candidates/$candidate/aspirations/$aspiration/update'
@@ -391,7 +377,6 @@ export const routeTree = rootRoute.addChildren({
   CandidatesCandidateIndexRoute,
   CandidatesCandidateAspirationsNewRoute,
   CandidatesCandidateAspirationsIndexRoute,
-  CandidatesCandidateUpdateIndexRoute,
   CandidatesCandidateAspirationsAspirationUpdateRoute,
   CandidatesCandidateAspirationsAspirationIndexRoute,
 })
@@ -427,7 +412,6 @@ export const routeTree = rootRoute.addChildren({
         "/candidates/$candidate/",
         "/candidates/$candidate/aspirations/new",
         "/candidates/$candidate/aspirations/",
-        "/candidates/$candidate/update/",
         "/candidates/$candidate/aspirations/$aspiration/update",
         "/candidates/$candidate/aspirations/$aspiration/"
       ]
@@ -500,9 +484,6 @@ export const routeTree = rootRoute.addChildren({
     },
     "/candidates/$candidate/aspirations/": {
       "filePath": "candidates/$candidate/aspirations/index.tsx"
-    },
-    "/candidates/$candidate/update/": {
-      "filePath": "candidates/$candidate/update/index.tsx"
     },
     "/candidates/$candidate/aspirations/$aspiration/update": {
       "filePath": "candidates/$candidate/aspirations/$aspiration/update.tsx"
