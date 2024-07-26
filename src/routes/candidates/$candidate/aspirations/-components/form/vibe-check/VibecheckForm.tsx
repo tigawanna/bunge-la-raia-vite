@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { CandidateAspirationRowType } from "../../types";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 
 export const formSchema = z.array(
   z.object({
@@ -37,16 +38,37 @@ interface VibecheckFormMutationProps {
   vibe: VibesFormType;
 }
 export function VibecheckForm({ candidate_id, aspiration,next }: VibecheckFormProps) {
+    const { v_step } = useSearch({
+      from: "/candidates/$candidate/aspirations/$aspiration/update",
+    });
+    const navigate = useNavigate({
+      from: "/candidates/$candidate/aspirations/$aspiration/update",
+    });
   const [vibes, setVibes] = useState<z.infer<typeof formSchema>>(aspiration?.vibe_check??[]);
-  const [currentStep, setCurrentStep] = useState(0);
+
   function handleNext() {
-    setCurrentStep(currentStep + 1);
+    // setCurrentStep(currentStep + 1);
+    if (v_step < questions.length) {
+      navigate({
+        search: {
+          v_step: v_step + 1,
+        },
+      });
+    }
+    
+
   }
   function handlePrevious() {
-    if (currentStep === 0) return;
-    setCurrentStep(currentStep - 1);
+    if (v_step === 0) return;
+          navigate({
+            search: {
+              v_step: v_step - 1,
+            },
+          });
+    // setCurrentStep(currentStep - 1);
   }
-  const currentQuestion = questions[currentStep];
+  const currentStep = v_step;
+  const currentQuestion = questions[v_step];
 
   const mutation = useMutation({
     mutationFn: async ({ vibe }: VibecheckFormMutationProps) => {

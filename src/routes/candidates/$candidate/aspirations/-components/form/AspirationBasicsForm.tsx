@@ -2,16 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import { CandidateAspirationInsertType, CandidateAspirationRowType } from "../types";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
-import { useForm, useField } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
 import { z } from "zod";
 import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-
 import { AspirationToLeadModal } from "./AspirationToLeadCounty";
 import { Search } from "lucide-react";
-import { useEffect } from "react";
+
 
 interface AspirationBasicsFormProps {
   aspiration?: CandidateAspirationRowType;

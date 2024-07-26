@@ -15,7 +15,7 @@ export function NewAspirationPage({}:NewAspirationPageProps){
   })
 return (
   <div className="w-full h-full min-h-screen flex flex-col items-center justify-center">
-    <AspirationsForm navigate={navigate} />
+    <AspirationsForm navigate={navigate} justCreated/>
   </div>
 );
 }

@@ -4,18 +4,21 @@ import { useState } from "react";
 import { AspirationBasicsForm } from "./AspirationBasicsForm";
 import { VibecheckForm } from "./vibe-check/VibecheckForm";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { UseNavigateResult } from "@tanstack/react-router";
+import { UseNavigateResult, useSearch } from "@tanstack/react-router";
 
 interface AspirationsFormProps {
   aspiration?: CandidateAspirationRowType;
   navigate?: UseNavigateResult<"/candidates/$candidate/aspirations/new">;
+  justCreated?: boolean;
 }
 
-export function AspirationsForm({ aspiration, navigate }: AspirationsFormProps) {
-
+export function AspirationsForm({ aspiration, navigate, justCreated }: AspirationsFormProps) {
+  const {is_fresh} = useSearch({
+    from:"/candidates/$candidate/aspirations/$aspiration/update",
+  });
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState(aspiration?1:0);
+  const [formStep, setFormStep] = useState((aspiration && !is_fresh) ? 1 : 0);
   const canGoToNext = formStep < 1 && aspiration;
   const canGoToPrevious = formStep > 0 && aspiration;
   function handleNext() {
@@ -44,8 +47,19 @@ export function AspirationsForm({ aspiration, navigate }: AspirationsFormProps) 
             }}
             next={(asp) => {
               if (navigate && !aspiration) {
+                if (justCreated) {
+                  navigate({
+                    to: "/candidates/$candidate/aspirations/$aspiration/update",
+                    search:{is_fresh:true,v_step:0},
+                    params: {
+                      candidate: viewer?.id,
+                      aspiration: asp.id,
+                    },
+                  });
+                }
                 navigate({
                   to: "/candidates/$candidate/aspirations/$aspiration/update",
+                  search: { is_fresh: false, v_step: 0 },
                   params: {
                     candidate: viewer?.id,
                     aspiration: asp.id,
