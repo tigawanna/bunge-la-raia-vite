@@ -31,6 +31,10 @@ export function MultileChoicevibecheck({
     <div className="flex h-full w-full flex-col items-center justify-center gap-5 p-2">
       <div className="flex h-full w-[90%] flex-col items-center justify-center gap-5 rounded-lg bg-base-200/40 p-5 md:w-[60%]">
         <h4 className="H5 w-full">{question.query}</h4>
+        <div className={checkedOption.length === 0 ? "text-error flex text-sm" : "hidden"}>
+          Please select an option
+        </div>
+
         <div className="flex h-full w-full flex-col items-center justify-center gap-2  ">
           {question.options?.map((item) => {
             return (
@@ -71,26 +75,28 @@ export function MultileChoicevibecheck({
               Previous
             </Button>
           )}
-          <Button
-            type="button"
-            variant="outline"
-            className="iyems-center  btn flex justify-center gap-2 text-base-content"
-            onClick={() => {
-              setVibes((prev) => {
-                return [
-                  ...prev,
-                  {
-                    answer: checkedOption,
-                    query: question.query,
-                    options: question.options,
-                  },
-                ];
-              });
-              handleNext();
-            }}>
-            Next
-            <ChevronRight />
-          </Button>
+          {checkedOption.length !== 0 && (
+            <Button
+              type="button"
+              variant="outline"
+              className="iyems-center  btn flex justify-center gap-2 text-base-content"
+              onClick={() => {
+                setVibes((prev) => {
+                  return [
+                    ...prev,
+                    {
+                      answer: checkedOption,
+                      query: question.query,
+                      options: question.options,
+                    },
+                  ];
+                });
+                handleNext();
+              }}>
+              Next
+              <ChevronRight />
+            </Button>
+          )}
         </div>
       </div>
     </div>
