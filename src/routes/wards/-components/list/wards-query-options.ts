@@ -5,7 +5,7 @@ interface ListWardQueryOptions {
   search_query: string;
 }
 
-export function listWardQueryOptions({ search_query }: ListWardQueryOptions) {
+export function listWardsQueryOptions({ search_query }: ListWardQueryOptions) {
   return queryOptions({
     queryKey: ["wards", search_query],
     queryFn: async () => {
@@ -28,7 +28,7 @@ interface OneWardQueryOptions {
   ward_id: string;
 }
 
-export function oneCountiesQueryOptions({ ward_id }: OneWardQueryOptions) {
+export function oneWardsQueryOptions({ ward_id }: OneWardQueryOptions) {
   return queryOptions({
     queryKey: ["wards", ward_id],
     queryFn: async () => {

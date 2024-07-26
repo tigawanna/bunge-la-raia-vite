@@ -1,7 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/constituencies/$constituency")({
+export const Route = createFileRoute('/constituencies/$constituency')({
+  component: () => <div>Hello /constituencies/$constituency!</div>
+})tuencies/$constituency")({
   component: OneConstituencyPage,
+  loader({ context, params: { constituency } }) {
+    context.queryClient.ensureQueryData(oneConstituenciesQueryOptions({ constituency_id: constituency }));
+  },
 });
 
 export function OneConstituencyPage() {

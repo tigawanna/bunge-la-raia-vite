@@ -1,9 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-
-
-export const Route = createFileRoute("/wards/$ward")({
+export const Route = createFileRoute('/wards/$ward')({
+  component: () => <div>Hello /wards/$ward!</div>
+})eFileRoute("/wards/$ward")({
   component: OneWardPage,
+  loader({ context, params: { ward } }) {
+    context.queryClient.ensureQueryData(oneWardsQueryOptions({ ward_id: ward }));
+  },
 });
 
 export function OneWardPage(){

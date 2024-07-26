@@ -1,9 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { oneMPsQueryOptions } from './-components/list/mps-query-options';
 
 
 
 export const Route = createFileRoute("/mps/$mp")({
   component: OneMPPage,
+  loader({ context, params: { mp } }) {
+    context.queryClient.ensureQueryData(oneMPsQueryOptions({ mp_id: mp }));
+  },
 });
 
 export function OneMPPage(){

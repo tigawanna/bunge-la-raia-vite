@@ -28,7 +28,7 @@ interface OneConstituencyQueryOptions {
   constituency_id: string;
 }
 
-export function oneCountiesQueryOptions({ constituency_id }: OneConstituencyQueryOptions) {
+export function oneConstituenciesQueryOptions({ constituency_id }: OneConstituencyQueryOptions) {
   return queryOptions({
     queryKey: ["constituencies", constituency_id],
     queryFn: async () => {

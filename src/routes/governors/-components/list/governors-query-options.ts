@@ -25,17 +25,17 @@ export function listGovernorsQueryOptions({ search_query }: ListGovernorsQueryOp
 }
 
 interface OneGovernorsQueryOptions {
-  ward_id: string;
+  governor_id: string;
 }
 
-export function oneCountiesQueryOptions({ ward_id }: OneGovernorsQueryOptions) {
+export function oneGovernorQueryOptions({ governor_id }: OneGovernorsQueryOptions) {
   return queryOptions({
-    queryKey: ["governors", ward_id],
+    queryKey: ["governors", governor_id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("governors")
         .select("*")
-        .eq("id", ward_id)
+        .eq("id", governor_id)
         .single();
 
       if (error) {
