@@ -106,6 +106,14 @@ export function TableRelationInputList<T extends TableType>({
   });
   const data = query.data;
 
+if(!data || data.length === 0) {
+    return (
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <h1 className="p-[5%] bg-bg-subtle text-center min-w-[70%] rounded-lg ">No data</h1>
+    </div>
+  )
+}
+
   return (
     <div className="w-full h-full flex flex-col overflow-y-scroll">
       <ul className="w-full flex flex-wrap gap-2 justify-center p-1">

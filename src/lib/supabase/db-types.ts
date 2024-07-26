@@ -12,8 +12,6 @@ export type Database = {
       candidate_aspirations: {
         Row: {
           candidate_id: string | null
-          constituency_id: number | null
-          county_id: number | null
           created_at: string
           embedding: string | null
           gps: unknown | null
@@ -22,12 +20,10 @@ export type Database = {
           period: string
           vibe_check: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
-          ward_id: number | null
+          vying_in: string | null
         }
         Insert: {
           candidate_id?: string | null
-          constituency_id?: number | null
-          county_id?: number | null
           created_at?: string
           embedding?: string | null
           gps?: unknown | null
@@ -36,12 +32,10 @@ export type Database = {
           period: string
           vibe_check?: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
-          ward_id?: number | null
+          vying_in?: string | null
         }
         Update: {
           candidate_id?: string | null
-          constituency_id?: number | null
-          county_id?: number | null
           created_at?: string
           embedding?: string | null
           gps?: unknown | null
@@ -50,7 +44,7 @@ export type Database = {
           period?: string
           vibe_check?: Json | null
           vying_for?: Database["public"]["Enums"]["positions"]
-          ward_id?: number | null
+          vying_in?: string | null
         }
         Relationships: [
           {
@@ -58,27 +52,6 @@ export type Database = {
             columns: ["candidate_id"]
             isOneToOne: false
             referencedRelation: "candidates"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "candidate_aspirations_constituency_id_fkey"
-            columns: ["constituency_id"]
-            isOneToOne: false
-            referencedRelation: "constituencies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "candidate_aspirations_county_id_fkey"
-            columns: ["county_id"]
-            isOneToOne: false
-            referencedRelation: "counties"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "candidate_aspirations_ward_id_fkey"
-            columns: ["ward_id"]
-            isOneToOne: false
-            referencedRelation: "wards"
             referencedColumns: ["id"]
           },
         ]

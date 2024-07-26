@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CandidateAspirationInsertType, CandidateAspirationRowType } from "../types";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
-import { useForm,useField } from "@tanstack/react-form";
+import { useForm, useField } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
 import { z } from "zod";
@@ -10,6 +10,8 @@ import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 
 import { AspirationToLeadModal } from "./AspirationToLeadCounty";
+import { Search } from "lucide-react";
+import { useEffect } from "react";
 
 interface AspirationBasicsFormProps {
   aspiration?: CandidateAspirationRowType;
@@ -53,32 +55,16 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
       mission_statement: aspiration?.mission_statement ?? "",
       period: aspiration?.period ?? "",
       vying_for: aspiration?.vying_for ?? "mca",
+      vying_in: aspiration?.vying_in ?? "undiscussed",
       vibe_check: aspiration?.vibe_check ?? [],
-      constituency_id: aspiration?.constituency_id ?? null,
-      county_id: aspiration?.county_id ?? null,
-      ward_id: aspiration?.ward_id ?? null,
     },
     onSubmit: async ({ value }) => {
       await mutation.mutate(value);
     },
   });
 
-form.store.subscribe(() => {
-  console.log("watch county id  ======== ",form.store.state.values.county_id);
-});
 
-  function setVyingIn(vying_for: "president" | "governor" | "mp" | "mca",vying_in_id:number) {
-    if(vying_for === "president") return
-    if(vying_for === "governor"){
-      form.setFieldValue("county_id",vying_in_id)
-    }
-    if(vying_for === "mp"){
-      form.setFieldValue("constituency_id",vying_in_id)
-    }
-    if(vying_for === "mca"){
-      form.setFieldValue("ward_id",vying_in_id)
-    }
-  }
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
@@ -88,68 +74,93 @@ form.store.subscribe(() => {
           form.handleSubmit();
         }}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
-        <div className="w-full flex flex-col lg:flex-row justify-center gap-3">
-          <form.Field
-            name="vying_for"
-            validatorAdapter={zodValidator()}
-            validators={{
-              onChange: z.enum(["president", "governor", "mp", "mca"]),
-            }}
-            children={(field) => {
-              return (
-                <SelectFields<CandidateAspirationInsertType, "vying_for">
-                  field={field}
-                  fieldKey="vying_for"
-                  fieldlabel="Vying For"
-                  items={[
-                    {
-                      label: "President",
-                      value: "president",
-                    },
-                    {
-                      label: "Governor",
-                      value: "governor",
-                    },
-                    {
-                      label: "MP",
-                      value: "mp",
-                    },
-                    {
-                      label: "MCA",
-                      value: "mca",
-                    },
-                  ]}
-                  inputOptions={{
-                    onBlur: field.handleBlur,
-                    onChange: (e) =>
-                      field.handleChange(e.target.value as "president" | "governor" | "mp" | "mca"),
-                  }}
-                />
-              );
-            }}
-          />
-          <div className="w-full flex flex-col">
-            <form.Subscribe
-            selector={(form) => form.values.vying_for}
+        <div className="w-full flex flex-col justify-center gap-3">
+          <div className="w-full flex gap-2">
+            <form.Field
+              name="vying_for"
+              validatorAdapter={zodValidator()}
+              validators={{
+                onChange: z.enum(["president", "governor", "mp", "mca"]),
+              }}
               children={(field) => {
-                const areaLeader={
+                return (
+                  <SelectFields<CandidateAspirationInsertType, "vying_for">
+                    field={field}
+                    fieldKey="vying_for"
+                    fieldlabel="Vying For"
+                    items={[
+                      {
+                        label: "President",
+                        value: "president",
+                      },
+                      {
+                        label: "Governor",
+                        value: "governor",
+                      },
+                      {
+                        label: "MP",
+                        value: "mp",
+                      },
+                      {
+                        label: "MCA",
+                        value: "mca",
+                      },
+                    ]}
+                    inputOptions={{
+                      onBlur: field.handleBlur,
+                      onChange: (e) =>{
+                        field.handleChange(
+                          e.target.value as "president" | "governor" | "mp" | "mca"
+                        )
+                        form.setFieldValue("vying_in", "")
+                      },
+                    }}
+                  />
+                );
+              }}
+            />
+
+            <form.Subscribe
+              selector={(form) => form.values.vying_for}
+              children={(field) => {
+                const areaLeader = {
                   president: "country",
                   governor: "counties",
-                  mp:"constituencies",
-                  mca:"wards"
-                } as const
-          
-                if (areaLeader[field] === "country") return
-    
-                  return (
-                    <AspirationToLeadModal
-                      route="/"
-                      setItem={(item) => setVyingIn(field, item.id)}
-                      filterBy={"name"}
-                      table={areaLeader[field]}
-                      searchQuery=""
-                    />
-                  );
+                  mp: "constituencies",
+                  mca: "wards",
+                } as const;
+
+                if (areaLeader[field] === "country") return;
+
+                return (
+                  <AspirationToLeadModal
+                    triggerComponent={
+                      <button className="w-full">
+                        <form.Field
+                          name="vying_in"
+                          children={(field) => {
+                            return (
+                              <div className="w-full p-1 flex flex-col items-start">
+                                <div className="text-sm font-bold">Vying in</div>
+                                <div className="flex  justify-between gap-2 w-full border-[1px] p-2 rounded-lg">
+                                  <div className="">{field.state.value}</div>
+                                  <Search />
+                                </div>
+                              </div>
+                            );
+                          }}
+                        />
+                      </button>
+                    }
+                    route="/"
+                    setItem={(item) => {
+                      form.setFieldValue("vying_in", item.name);
+                    }}
+                    filterBy={"name"}
+                    table={areaLeader[field]}
+                    searchQuery=""
+                  />
+                );
               }}
             />
           </div>

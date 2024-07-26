@@ -15,6 +15,7 @@ interface AspirationToLeadModalProps<T extends TableType> {
   searchQuery: string;
   setItem: (row: Database["public"]["Tables"][T]["Row"]) => void;
   createNewRoute?: ValidRoutes;
+  triggerComponent?: React.ReactNode;
 }
 
 export function AspirationToLeadModal<T extends TableType>({
@@ -24,11 +25,13 @@ export function AspirationToLeadModal<T extends TableType>({
   setItem,
   table,
   createNewRoute,
+  triggerComponent
 }: AspirationToLeadModalProps<T>) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Search />
+        {triggerComponent?triggerComponent:<Search />}
+        {/* <Search/> */}
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
