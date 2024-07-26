@@ -12,6 +12,8 @@ export type Database = {
       candidate_aspirations: {
         Row: {
           candidate_id: string | null
+          constituency_id: number | null
+          county_id: number | null
           created_at: string
           embedding: string | null
           gps: unknown | null
@@ -20,9 +22,12 @@ export type Database = {
           period: string
           vibe_check: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
+          ward_id: number | null
         }
         Insert: {
           candidate_id?: string | null
+          constituency_id?: number | null
+          county_id?: number | null
           created_at?: string
           embedding?: string | null
           gps?: unknown | null
@@ -31,9 +36,12 @@ export type Database = {
           period: string
           vibe_check?: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
+          ward_id?: number | null
         }
         Update: {
           candidate_id?: string | null
+          constituency_id?: number | null
+          county_id?: number | null
           created_at?: string
           embedding?: string | null
           gps?: unknown | null
@@ -42,6 +50,7 @@ export type Database = {
           period?: string
           vibe_check?: Json | null
           vying_for?: Database["public"]["Enums"]["positions"]
+          ward_id?: number | null
         }
         Relationships: [
           {
@@ -49,6 +58,27 @@ export type Database = {
             columns: ["candidate_id"]
             isOneToOne: false
             referencedRelation: "candidates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_aspirations_constituency_id_fkey"
+            columns: ["constituency_id"]
+            isOneToOne: false
+            referencedRelation: "constituencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_aspirations_county_id_fkey"
+            columns: ["county_id"]
+            isOneToOne: false
+            referencedRelation: "counties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_aspirations_ward_id_fkey"
+            columns: ["ward_id"]
+            isOneToOne: false
+            referencedRelation: "wards"
             referencedColumns: ["id"]
           },
         ]
@@ -215,7 +245,7 @@ export type Database = {
           entry_contributed_by: string
           entry_verified_by: string | null
           from: string
-          id: number
+          id: string
           name: string
           to: string | null
         }
@@ -226,7 +256,7 @@ export type Database = {
           entry_contributed_by: string
           entry_verified_by?: string | null
           from: string
-          id?: number
+          id?: string
           name: string
           to?: string | null
         }
@@ -237,7 +267,7 @@ export type Database = {
           entry_contributed_by?: string
           entry_verified_by?: string | null
           from?: string
-          id?: number
+          id?: string
           name?: string
           to?: string | null
         }
@@ -272,7 +302,7 @@ export type Database = {
           entry_contributed_by: string
           entry_verified_by: string | null
           from: string
-          id: number
+          id: string | null
           name: string
           to: string | null
           ward_id: number | null
@@ -283,7 +313,7 @@ export type Database = {
           entry_contributed_by: string
           entry_verified_by?: string | null
           from: string
-          id?: number
+          id?: string | null
           name: string
           to?: string | null
           ward_id?: number | null
@@ -294,7 +324,7 @@ export type Database = {
           entry_contributed_by?: string
           entry_verified_by?: string | null
           from?: string
-          id?: number
+          id?: string | null
           name?: string
           to?: string | null
           ward_id?: number | null
@@ -328,10 +358,10 @@ export type Database = {
           contituency_id: number | null
           contribution_status: Database["public"]["Enums"]["contribution_status"]
           created_at: string
-          entry_contributed_by: string | null
+          entry_contributed_by: string
           entry_verified_by: string | null
           from: string
-          id: number
+          id: string | null
           name: string
           to: string | null
         }
@@ -339,10 +369,10 @@ export type Database = {
           contituency_id?: number | null
           contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
-          entry_contributed_by?: string | null
+          entry_contributed_by: string
           entry_verified_by?: string | null
           from: string
-          id?: number
+          id?: string | null
           name: string
           to?: string | null
         }
@@ -350,10 +380,10 @@ export type Database = {
           contituency_id?: number | null
           contribution_status?: Database["public"]["Enums"]["contribution_status"]
           created_at?: string
-          entry_contributed_by?: string | null
+          entry_contributed_by?: string
           entry_verified_by?: string | null
           from?: string
-          id?: number
+          id?: string | null
           name?: string
           to?: string | null
         }

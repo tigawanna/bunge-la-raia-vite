@@ -1,10 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { z } from 'zod';
+import { Governors } from './-components/list/Governors';
 
-export const Route = createFileRoute('/governors/')({
-  component: () => <div>Hello /governors/!</div>
-})object({
+const searchparams = z.object({
   govsq: z.string().optional(),
 });
+
 export const Route = createFileRoute('/governors/')({
   component: GovernorsPage,
   validateSearch(input) {

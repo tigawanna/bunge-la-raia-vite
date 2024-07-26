@@ -2,13 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import { CandidateAspirationInsertType, CandidateAspirationRowType } from "../types";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
-import { useForm } from "@tanstack/react-form";
+import { useForm,useField } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
 import { z } from "zod";
 import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-import { TableRelationInput } from "@/lib/supabase/components/TableRelationInput";
+
+import { AspirationToLeadModal } from "./AspirationToLeadCounty";
 
 interface AspirationBasicsFormProps {
   aspiration?: CandidateAspirationRowType;
@@ -53,14 +54,31 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
       period: aspiration?.period ?? "",
       vying_for: aspiration?.vying_for ?? "mca",
       vibe_check: aspiration?.vibe_check ?? [],
+      constituency_id: aspiration?.constituency_id ?? null,
+      county_id: aspiration?.county_id ?? null,
+      ward_id: aspiration?.ward_id ?? null,
     },
     onSubmit: async ({ value }) => {
       await mutation.mutate(value);
     },
   });
-  // const vyingfor = form.store.state.values.vying_for
-  const vyingfor = form.store.state;
-  console.log({ vyingfor });
+
+form.store.subscribe(() => {
+  console.log("watch county id  ======== ",form.store.state.values.county_id);
+});
+
+  function setVyingIn(vying_for: "president" | "governor" | "mp" | "mca",vying_in_id:number) {
+    if(vying_for === "president") return
+    if(vying_for === "governor"){
+      form.setFieldValue("county_id",vying_in_id)
+    }
+    if(vying_for === "mp"){
+      form.setFieldValue("constituency_id",vying_in_id)
+    }
+    if(vying_for === "mca"){
+      form.setFieldValue("ward_id",vying_in_id)
+    }
+  }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
@@ -120,9 +138,17 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
                   mp:"constituencies",
                   mca:"wards"
                 } as const
+          
                 if (areaLeader[field] === "country") return
+    
                   return (
-                    <TableRelationInput filterBy={"name"} table={areaLeader[field]} searchQuery="" />
+                    <AspirationToLeadModal
+                      route="/"
+                      setItem={(item) => setVyingIn(field, item.id)}
+                      filterBy={"name"}
+                      table={areaLeader[field]}
+                      searchQuery=""
+                    />
                   );
               }}
             />

@@ -8,7 +8,7 @@
     "serve": "vite preview",
     "start": "vite",
     "pb-types": "tsx src/lib/pb/scripts/gen-pb-types.ts property",
-    "supabase-types": "supabase gen types --lang=typescript --project-id 'rkbhyhctbdyypucjercs' --schema public > src/lib/supabase/db-types.ts",
+    "supa-types": "supabase gen types --lang=typescript --project-id 'rkbhyhctbdyypucjercs' --schema public > src/lib/supabase/db-types.ts",
     "park": "npx @park-ui/cli"
   },
   "dependencies": {

@@ -8,6 +8,7 @@ import { Plus } from "lucide-react";
 import { ValidRoutes } from "@/lib/tanstack/types";
 import { CardsListSuspenseFallback } from "@/components/loaders/GenericDataCardsListSuspenseFallback";
 import { Suspense } from "react";
+import { CloseTrigger } from "@/components/park/ui/dialog";
 
 export type TableType = keyof Database["public"]["Tables"];
 export type DatabaseTableType = Database["public"]["Tables"];
@@ -39,7 +40,7 @@ export function TableRelationInput<T extends TableType>({
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <div className="w-full z-20 sticky top-[9%] p-2 px-3 flex flex-col md:flex-row justify-evenly gap-1 pr-5">
+      <div className="w-full z-20 sticky top-0 md:top-[9%] p-2 px-3 flex flex-col md:flex-row justify-evenly gap-1 pr-5">
         <div className="w-full flex gap-5 p-1">
           <h1 className="font-bold  ">{table}</h1>
           {createNewRoute && (
@@ -52,7 +53,7 @@ export function TableRelationInput<T extends TableType>({
         </div>
         <SearchBox
           inputProps={{
-            placeholder:`search by ${filterBy as string}`,
+            placeholder: `search by ${filterBy as string}`,
           }}
           debouncedValue={debouncedValue}
           isDebouncing={isDebouncing}
@@ -65,7 +66,7 @@ export function TableRelationInput<T extends TableType>({
           <TableRelationInputList
             table={table}
             filterBy={filterBy}
-            keyword={keyword}
+            keyword={debouncedValue}
             setItem={setItem}
           />
         </Suspense>
@@ -93,7 +94,8 @@ export function TableRelationInputList<T extends TableType>({
       const { data, error } = await supabase
         .from(table)
         .select("*")
-        .ilike(filterBy as string, keyword)
+        .ilike("name", `%${keyword}%`)
+        .order("name", { ascending: true })
         .limit(10);
 
       if (error) {
@@ -103,16 +105,22 @@ export function TableRelationInputList<T extends TableType>({
     },
   });
   const data = query.data;
+
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
-      <ul className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col overflow-y-scroll">
+      <ul className="w-full flex flex-wrap gap-2 justify-center p-1">
         {data?.map((row) => (
-          <li
-            key={row.id}
-            onClick={() => setItem(row)}
-            className="w-full h-full flex items-center justify-center">
-            {row[filterBy as keyof typeof row]}
-          </li>
+          <CloseTrigger key={row.id} asChild className="">
+            <li
+              key={row.id}
+              onClick={() => setItem(row)}
+              className="border min-w-[100px] bg-bg-default hover:bg-accent-emphasized 
+              cursor-pointer border-accent-text rounded-lg  p-2 flex items-center justify-center
+              h-16 w-[95%] md:w-[40%] lg:w-[30%]  flex-col   gap-2 
+              ">
+              {row[filterBy as keyof typeof row]}
+            </li>
+          </CloseTrigger>
         ))}
       </ul>
     </div>
