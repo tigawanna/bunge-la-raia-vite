@@ -133,22 +133,20 @@
   right: var(--spacing-3);
 }
 
+.toast--type__info {
+  @apply bg-bg-muted;
+}
+/* Base styles for toast types (assuming Tailwind CSS) */
+.toast--type__success {
+  @apply text-success-content bg-success;
+}
 
-  .toast--type__info {
-    @apply bg-bg-muted;
-  }
-  /* Base styles for toast types (assuming Tailwind CSS) */
-  .toast--type__success {
-    @apply text-success-content bg-success;
-  }
-
-  .toast--type__error {
-    @apply text-error-content bg-error;
-  }
-  .toast--type__loading {
-    @apply text-loading-content bg-loading;
-  }
-
+.toast--type__error {
+  @apply text-error-content bg-error;
+}
+.toast--type__loading {
+  @apply text-loading-content bg-loading;
+}
 
 *::before,
 *::after {
@@ -255,31 +253,33 @@ h6 {
 }
 
 .shimmerBG {
-    animation-duration: 8s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: shimmer;
-    animation-timing-function: linear;
-    @apply bg-bg-muted bg-gradient-to-r from-bg-default to-bg-emphasized;
-    background-size: 1200px 100%;
+  animation-duration: 8s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  @apply bg-bg-muted bg-gradient-to-r from-bg-default to-bg-emphasized;
+  background-size: 1200px 100%;
 }
 
-
 @-webkit-keyframes shimmer {
-    0% {
-        background-position: -100% 0;
-    }
-    100% {
-        background-position: 100% 0;
-    }
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 @keyframes shimmer {
-    0% {
-        background-position: -1200px 0;
-    }
-    100% {
-        background-position: 1200px 0;
-    }
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
 }
-  
+
+.skew {
+  @apply shadow-[2px_3px_0px_0px_#e53e3e];
+}

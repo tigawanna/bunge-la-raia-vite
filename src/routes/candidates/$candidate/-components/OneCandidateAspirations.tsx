@@ -61,16 +61,16 @@ export function OneCandidateAspirations({ candidate_id }: OneCandidateAspiration
         </Link>
       )}
       {/* <AspirationsView aspiration={item} /> */}
+      <ul className="w-full h-full flex flex-col items-center  gap-2 p-2">
       {data?.map((item, idx) => {
         return (
-          <Link
-            to="/candidates/$candidate/aspirations/$aspiration"
-            params={{ candidate: candidate_id, aspiration: item.id }}
-            key={idx}>
+          <li key={idx} className="list-none">
             <AspirationsView aspiration={item} candidate_id={candidate_id} viewer_id={viewer?.id} />
-          </Link>
+          </li>
         );
       })}
+
+      </ul>
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: candidate_id }}>
         show more
       </Link>
