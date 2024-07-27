@@ -15,8 +15,7 @@ export const questions: VibeCheckQuestions[] = [
     type: "open_ended", // optional field to specify the query type
   },
   {
-    query:
-      "Which of the following taxation strategies makes most sense to you?",
+    query: "Which of the following taxation strategies makes most sense to you?",
     type: "multiple_choice",
     options: [
       { key: "a", value: "a flat tax on everyone " },
@@ -25,8 +24,7 @@ export const questions: VibeCheckQuestions[] = [
     ],
   },
   {
-    query:
-      "Besides taxation, what other ideas do you have for revenue generation?",
+    query: "Besides taxation, what other ideas do you have for revenue generation?",
     type: "open_ended",
   },
   {
@@ -43,8 +41,20 @@ export const questions: VibeCheckQuestions[] = [
     type: "open_ended",
   },
   {
-    query: `Which one of your body parts would you sacrifice if a school full 
-      of children was held hostage by people who demand a show of commitment?`,
+    query: `What constitutional ammendments do you think would be most helpful to the country?`,
     type: "open_ended",
+  },
+  {
+    query: `What is your idea of an inclusive goverment?`,
+    type: "open_ended",
+  },
+  {
+    query: `Unemployment and an ever growing young population are common challenges in most countries , 
+    what would be your high level idea on how to fix it?`,
+    type: "open_ended",
+  },
+  {
+    query: `All public servants should exclusively use public transport ,hospitals and schools.`,
+    type: "yes_no",
   },
 ];

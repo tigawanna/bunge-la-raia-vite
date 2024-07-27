@@ -174,7 +174,6 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
               const default_date = aspiration?.period
                 ? new Date(aspiration?.period).toISOString().substring(0, 10)
                 : new Date().toISOString().substring(0, 10);
-              console.log("current time = ", default_date);
               return (
                 <TextFormField<CandidateAspirationInsertType>
                   field={field}
