@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { oneWardsQueryOptions } from './-components/list/wards-query-options';
 
 export const Route = createFileRoute('/wards/$ward')({
-  component: () => <div>Hello /wards/$ward!</div>
-})eFileRoute("/wards/$ward")({
-  component: OneWardPage,
+component: OneWardPage,
   loader({ context, params: { ward } }) {
     context.queryClient.ensureQueryData(oneWardsQueryOptions({ ward_id: ward }));
   },

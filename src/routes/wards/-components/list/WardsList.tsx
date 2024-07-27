@@ -1,14 +1,14 @@
 import { NoItemsFound } from "@/components/wrappers/NoItemsFond";
 import { TanstackSupabaseError } from "@/lib/supabase/components/TanstackSupabaseError";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { listWardQueryOptions } from "./wards-query-options";
+import { listWardsQueryOptions } from "./wards-query-options";
 
 interface WardListProps {
   q: string;
 }
 
 export function WardList({ q = "" }: WardListProps) {
-  const query = useSuspenseQuery(listWardQueryOptions({ search_query: q }));
+  const query = useSuspenseQuery(listWardsQueryOptions({ search_query: q }));
   const data = query.data ?? [];
   const error = query.error ?? null;
   if (error) {

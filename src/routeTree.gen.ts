@@ -36,6 +36,7 @@ import { Route as CandidatesCandidateAspirationsIndexImport } from './routes/can
 import { Route as CandidatesCandidateAspirationsNewImport } from './routes/candidates/$candidate/aspirations/new'
 import { Route as CandidatesCandidateAspirationsAspirationIndexImport } from './routes/candidates/$candidate/aspirations/$aspiration/index'
 import { Route as CandidatesCandidateAspirationsAspirationUpdateImport } from './routes/candidates/$candidate/aspirations/$aspiration/update'
+import { Route as CandidatesCandidateAspirationsAspirationChatImport } from './routes/candidates/$candidate/aspirations/$aspiration/chat'
 
 // Create/Update Routes
 
@@ -167,6 +168,12 @@ const CandidatesCandidateAspirationsAspirationIndexRoute =
 const CandidatesCandidateAspirationsAspirationUpdateRoute =
   CandidatesCandidateAspirationsAspirationUpdateImport.update({
     path: '/candidates/$candidate/aspirations/$aspiration/update',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CandidatesCandidateAspirationsAspirationChatRoute =
+  CandidatesCandidateAspirationsAspirationChatImport.update({
+    path: '/candidates/$candidate/aspirations/$aspiration/chat',
     getParentRoute: () => rootRoute,
   } as any)
 
@@ -335,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesCandidateAspirationsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/candidates/$candidate/aspirations/$aspiration/chat': {
+      id: '/candidates/$candidate/aspirations/$aspiration/chat'
+      path: '/candidates/$candidate/aspirations/$aspiration/chat'
+      fullPath: '/candidates/$candidate/aspirations/$aspiration/chat'
+      preLoaderRoute: typeof CandidatesCandidateAspirationsAspirationChatImport
+      parentRoute: typeof rootRoute
+    }
     '/candidates/$candidate/aspirations/$aspiration/update': {
       id: '/candidates/$candidate/aspirations/$aspiration/update'
       path: '/candidates/$candidate/aspirations/$aspiration/update'
@@ -377,6 +391,7 @@ export const routeTree = rootRoute.addChildren({
   CandidatesCandidateIndexRoute,
   CandidatesCandidateAspirationsNewRoute,
   CandidatesCandidateAspirationsIndexRoute,
+  CandidatesCandidateAspirationsAspirationChatRoute,
   CandidatesCandidateAspirationsAspirationUpdateRoute,
   CandidatesCandidateAspirationsAspirationIndexRoute,
 })
@@ -412,6 +427,7 @@ export const routeTree = rootRoute.addChildren({
         "/candidates/$candidate/",
         "/candidates/$candidate/aspirations/new",
         "/candidates/$candidate/aspirations/",
+        "/candidates/$candidate/aspirations/$aspiration/chat",
         "/candidates/$candidate/aspirations/$aspiration/update",
         "/candidates/$candidate/aspirations/$aspiration/"
       ]
@@ -484,6 +500,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/candidates/$candidate/aspirations/": {
       "filePath": "candidates/$candidate/aspirations/index.tsx"
+    },
+    "/candidates/$candidate/aspirations/$aspiration/chat": {
+      "filePath": "candidates/$candidate/aspirations/$aspiration/chat.tsx"
     },
     "/candidates/$candidate/aspirations/$aspiration/update": {
       "filePath": "candidates/$candidate/aspirations/$aspiration/update.tsx"
