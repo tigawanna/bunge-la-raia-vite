@@ -63,7 +63,7 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
   });
 
 
-
+// console.log("aspiration in string format  =========== ",JSON.stringify(aspiration?.vibe_check))
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <form
