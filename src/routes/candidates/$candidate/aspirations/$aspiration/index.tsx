@@ -1,6 +1,7 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { OneAspiration } from "../-components/view/OneAspiration";
-import { oneCandidateAspirationsQueryOptions } from "../-components/list/aspiration-query-options";
+import { oneCandidateAspirationsQueryOptions } from "../../../-components/aspirations/list/aspiration-query-options";
+import { OneAspiration } from "../../../-components/aspirations/view/OneAspiration";
+
 
 export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspiration/")({
   component: OneAspirationPage,

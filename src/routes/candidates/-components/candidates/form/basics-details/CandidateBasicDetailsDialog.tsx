@@ -2,7 +2,7 @@ import { IconButton } from "@/components/park/ui/icon-button";
 import { EditIcon, XIcon } from "lucide-react";
 import * as Dialog from "~/components/park/ui/dialog";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
-import { CandidateRowType } from "../../types";
+import { CandidateRowType } from "../../../types";
 
 interface CandidateBasicDetailsDialogProps {
   candidate?: CandidateRowType | null;

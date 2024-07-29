@@ -1,7 +1,7 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { CandidateAspirations } from "./-components/list/CandidateAspirations";
 import { z } from "zod";
-import { listCandidateAspirationsQueryOptions } from "./-components/list/aspiration-query-options";
+import { listCandidateAspirationsQueryOptions } from "../../-components/aspirations/list/aspiration-query-options";
+import { CandidateAspirations } from "../../-components/aspirations/list/CandidateAspirations";
 
 const searchparams = z.object({
   aspsq: z.string().optional(),
@@ -10,9 +10,10 @@ const searchparams = z.object({
 export const Route = createFileRoute("/candidates/$candidate/aspirations/")({
   component: OneCandidateAspirationsPage,
   validateSearch: (search) => searchparams.parse(search),
-  async loader({ context,params }) {
-    return context.queryClient.ensureQueryData(listCandidateAspirationsQueryOptions(
-      {candidate_id:params.candidate,search_query:""}));
+  async loader({ context, params }) {
+    return context.queryClient.ensureQueryData(
+      listCandidateAspirationsQueryOptions({ candidate_id: params.candidate, search_query: "" })
+    );
   },
 });
 

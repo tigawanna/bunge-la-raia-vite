@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { Candidates } from "./-components/list/Candidates";
+import { Candidates } from "./-components/candidates/list/Candidates";
 import { listCandidateQueryOptions } from "./-components/candidate-query-options";
 
 

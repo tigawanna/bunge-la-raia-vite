@@ -1,9 +1,8 @@
-import {  useParams } from "@tanstack/react-router";
+import {  Link, useParams } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { OneCandidateAspirations } from "./OneCandidateAspirations";
-import { CandidateBasicDetailsDialog } from "../../-components/form/basics-details/CandidateBasicDetailsDialog";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
-import { oneCandidateQueryOptions } from "../../-components/candidate-query-options";
+import { oneCandidateQueryOptions } from "../../candidate-query-options";
+import { CandidateBasicDetailsDialog } from "../form/basics-details/CandidateBasicDetailsDialog";
 
 interface OneCandidateProps {}
 
@@ -33,7 +32,10 @@ export function OneCandidate({}: OneCandidateProps) {
           </div>
         )}
       </div>
-      <OneCandidateAspirations candidate_id={params.candidate} />
+      <Link to="/candidates/$candidate/aspirations" params={{ candidate: params.candidate }}>
+        show more
+      </Link>
+      {/* <OneCandidateAspirations candidate_id={params.candidate} /> */}
     </div>
   );
 }

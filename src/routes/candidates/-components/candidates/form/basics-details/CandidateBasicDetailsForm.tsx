@@ -1,5 +1,5 @@
 import { ResizeTextAreaFormField, TextFormField } from "@/lib/react-hook-form/TextFields";
-import { CandidateInsertType, CandidateRowType } from "../../types";
+import { CandidateInsertType, CandidateRowType } from "../../../types";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ImageURLInputField } from "@/lib/react-hook-form/ImageInput";

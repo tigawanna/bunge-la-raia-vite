@@ -2,7 +2,6 @@ import { z } from "zod";
 import { formSchema } from "./VibecheckForm";
 import { Button } from "@/components/park/ui/button";
 import { Checkbox } from "@/components/park/ui/checkbox";
-
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { VibeCheckQuestions } from "./data";
