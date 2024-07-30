@@ -127,8 +127,8 @@ importers:
         specifier: ^0.6.5
         version: 0.6.5(prettier@3.3.2)
       supabase:
-        specifier: '^1.187.8 '
-        version: 1.187.8
+        specifier: '^1.187.10 '
+        version: 1.187.10
       tailwindcss:
         specifier: ^3.4.4
         version: 3.4.4
@@ -1805,8 +1805,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  supabase@1.187.8:
-    resolution: {integrity: sha512-uHWa94ELOuv9y/vXx4jvCVtl5fHbpqMlIWTtPwjPj60A6tnfL2jyxZ7RnU2DspUWh+NC579r8mEpyDq6yJt0oA==}
+  supabase@1.187.10:
+    resolution: {integrity: sha512-7Nc50xN0k/G5fX3bpa+ZaulBoK/i5jwdjXhiNzyZhUf8qEWQnSsT1LTidCvpzuGt+8Gi6G3aMAh/5GlRdBLIoQ==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -1840,8 +1840,8 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  tar@7.4.2:
-    resolution: {integrity: sha512-pP4ToLATHpXOrbxOZudW6rnfyPWJZoyERNrpTpQEtW6LkvpXw+WDnpj2GBQX9tyQ6teUyPESyyiOCFgp6HnGdw==}
+  tar@7.4.3:
+    resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
   thenify-all@1.6.0:
@@ -3942,12 +3942,12 @@ snapshots:
       pirates: 4.0.6
       ts-interface-checker: 0.1.13
 
-  supabase@1.187.8:
+  supabase@1.187.10:
     dependencies:
       bin-links: 4.0.4
       https-proxy-agent: 7.0.5
       node-fetch: 3.3.2
-      tar: 7.4.2
+      tar: 7.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3999,7 +3999,7 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  tar@7.4.2:
+  tar@7.4.3:
     dependencies:
       '@isaacs/fs-minipass': 4.0.1
       chownr: 3.0.0

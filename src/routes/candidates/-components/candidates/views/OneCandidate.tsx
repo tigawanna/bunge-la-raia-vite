@@ -12,6 +12,7 @@ export function OneCandidate({}: OneCandidateProps) {
   const data = query.data.data;
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
+  console.log(" =================== one candidate  =================== ", data);
   return (
     <div className="w-full h-full flex flex-col p-2">
       <div className="w-full h-full flex flex-col justify-center items-center sm:flex-row gap-2 p-2 relative">
@@ -32,6 +33,9 @@ export function OneCandidate({}: OneCandidateProps) {
           </div>
         )}
       </div>
+      <p>
+        {data?.candidate_summary}
+      </p>
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: params.candidate }}>
         show more
       </Link>

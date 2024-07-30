@@ -2,12 +2,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
 import { Database } from "../database.ts";
-import { validateAspiration } from "../helpers/validate-aspiration.ts";
+import { CandidateAspirationRecordType, validateAspiration } from "../helpers/validate-record.ts";
 
-interface GenerateVibeSummaryBody {
-  record: Database["public"]["Tables"]["candidate_aspirations"]["Row"] & {
-    vibe_check: Array<{ query: string; answer: string }>;
-  };
+interface RequestBody {
+  record: CandidateAspirationRecordType
 }
 Deno.serve(async (req) => {
   try {
@@ -17,7 +15,7 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_ANON_KEY") ?? "",
       { global: { headers: { Authorization: authHeader } } },
     );
-    const { record } = (await req.json()) as GenerateVibeSummaryBody;
+    const { record } = (await req.json()) as RequestBody;
     const raw_string_input = validateAspiration(record);
     if (raw_string_input instanceof Response) {
       return raw_string_input;

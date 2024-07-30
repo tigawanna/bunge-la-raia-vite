@@ -1,27 +1,28 @@
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { geminiEmbedding } from "../helpers/generate-embedding.ts";
-import { Database } from "../database.ts";
+
+import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+import { PublicUserRecordType, validateUser } from "../helpers/validate-record.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
-import { validateAspiration } from "../helpers/validate-aspiration.ts";
+import { Database } from "../database.ts";
+import { geminiEmbedding } from "../helpers/generate-embedding.ts";
+
 
 interface RequestBody {
-  record: Database["public"]["Tables"]["candidate_aspirations"]["Row"] & {
-    vibe_check: Array<{ query: string; answer: string }>;
-  };
+  record: PublicUserRecordType
 }
 
 Deno.serve(async (req) => {
   try {
     const { record } = (await req.json()) as RequestBody;
 
-   
-    const raw_string_input = validateAspiration(record)
-    if(raw_string_input instanceof Response) {
-      return raw_string_input
+    const raw_string_input = validateUser(record);
+    if (raw_string_input instanceof Response) {
+      return raw_string_input;
     }
-    
+
     const authHeader = req.headers.get("Authorization")!;
-    const embeddingResult = await geminiEmbedding({ inputText: raw_string_input });
+    const embeddingResult = await geminiEmbedding({
+      inputText: raw_string_input,
+    });
     const supabaseClient = createClient<Database>(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_ANON_KEY") ?? "",
@@ -29,7 +30,7 @@ Deno.serve(async (req) => {
     );
 
     const { data, error } = await supabaseClient
-      .from("candidate_aspirations")
+      .from("users")
       .update({
         embedding: embeddingResult,
       })
@@ -50,4 +51,5 @@ Deno.serve(async (req) => {
       status: 500,
     });
   }
-});
+})
+
