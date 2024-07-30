@@ -7,16 +7,9 @@
  * https://ai.google.dev/gemini-api/docs/get-started/node
  */
 
-import  { GoogleGenerativeAI } from "npm:@google/generative-ai"
+import { genAI } from "./gemini-genai-instance.ts";
 
 
-
-const apiKey = Deno.env.get("GEMINI_API_KEY");
-console.log(apiKey)
-if(!apiKey) {
-  throw new Error("GEMINI_API_KEY is not set");
-}
-const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",

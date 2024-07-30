@@ -1,7 +1,8 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
-import { Database } from "../../../src/lib/supabase/db-types.ts";
+import { Database } from "../database.ts";
+
 interface GenerateVibeSummaryBody {
   // deno-lint-ignore no-explicit-any
   record: Record<string, any> & {
