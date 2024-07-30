@@ -1,5 +1,5 @@
 import { Hono } from "jsr:@hono/hono";
-import { generateVibeSummary } from "./generate-vibe-summary.ts";
+import { generateVibeSummary } from "../../../helpers/generate-vibe-summary.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
 
 const app = new Hono();

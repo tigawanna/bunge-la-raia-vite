@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       candidate_aspirations: {
         Row: {
+          aspiration_summary: string | null
           candidate_id: string | null
           created_at: string
           embedding: string | null
@@ -18,11 +19,13 @@ export type Database = {
           id: string
           mission_statement: string
           period: string
+          updated_at: string | null
           vibe_check: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
           vying_in: string | null
         }
         Insert: {
+          aspiration_summary?: string | null
           candidate_id?: string | null
           created_at?: string
           embedding?: string | null
@@ -30,11 +33,13 @@ export type Database = {
           id?: string
           mission_statement: string
           period: string
+          updated_at?: string | null
           vibe_check?: Json | null
           vying_for: Database["public"]["Enums"]["positions"]
           vying_in?: string | null
         }
         Update: {
+          aspiration_summary?: string | null
           candidate_id?: string | null
           created_at?: string
           embedding?: string | null
@@ -42,6 +47,7 @@ export type Database = {
           id?: string
           mission_statement?: string
           period?: string
+          updated_at?: string | null
           vibe_check?: Json | null
           vying_for?: Database["public"]["Enums"]["positions"]
           vying_in?: string | null
@@ -61,28 +67,34 @@ export type Database = {
           account_id: string
           avatar_url: string | null
           bio: string | null
+          candidate_summary: string | null
           created_at: string
           embedding: string | null
           id: string
           name: string
+          updated_at: string | null
         }
         Insert: {
           account_id?: string
           avatar_url?: string | null
           bio?: string | null
+          candidate_summary?: string | null
           created_at?: string
           embedding?: string | null
           id?: string
           name: string
+          updated_at?: string | null
         }
         Update: {
           account_id?: string
           avatar_url?: string | null
           bio?: string | null
+          candidate_summary?: string | null
           created_at?: string
           embedding?: string | null
           id?: string
           name?: string
+          updated_at?: string | null
         }
         Relationships: [
           {

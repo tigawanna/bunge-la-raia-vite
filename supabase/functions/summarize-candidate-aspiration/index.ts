@@ -1,12 +1,9 @@
-// deno-lint-ignore-file no-explicit-any
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
-
-// Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-console.log("Hello from Functions!");
+import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
+import { createClient } from "jsr:@supabase/supabase-js";
+import { Database } from "../../../src/lib/supabase/db-types.ts";
 interface GenerateVibeSummaryBody {
+  // deno-lint-ignore no-explicit-any
   record: Record<string, any> & {
     id: string;
     updated_at: string;
@@ -14,20 +11,55 @@ interface GenerateVibeSummaryBody {
   };
 }
 Deno.serve(async (req) => {
-  const {record} = await req.json() as GenerateVibeSummaryBody;
-  if(!record){
-    return new Response("No record found", { status: 404 });
+  try {
+    const authHeader = req.headers.get("Authorization")!;
+    const supabaseClient = createClient<Database>(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      { global: { headers: { Authorization: authHeader } } },
+    );
+    const { record } = (await req.json()) as GenerateVibeSummaryBody;
+    if (!record) {
+      return new Response("No record found", { status: 400 });
+    }
+    if (!record.vibe_check || record.vibe_check.length === 0) {
+      return new Response("No vibe check found", { status: 400 });
+    }
+    const vibe_check = JSON.stringify(record?.vibe_check);
+    if (vibe_check.length < 100) {
+      return new Response("Not enough vibe check data ", { status: 400 });
+    }
+
+    const summary = await generateVibeSummary({ inputText: vibe_check });
+    const summary_text = summary.response.text();
+
+    if (!summary || !summary?.response) {
+      return new Response("aspiration summary generation failed", {
+        status: 400,
+      });
+    }
+    const { data, error } = await supabaseClient.from("candidate_aspirations")
+      .update({
+        aspiration_summary: summary_text,
+      })
+      .eq("id", record.id)
+      .select("*")
+      .single();
+    if (error) {
+      return new Response(
+        "updating aspiration summary failed :" + error.message,
+        { status: 400 },
+      );
+    }
+    return new Response(
+      "aspiration summary " + data?.id + " updated successfully",
+      { status: 200 },
+    );
+  } catch (error) {
+    return new Response("Something went wrong: " + error.message, {
+      status: 500,
+    });
   }
-  if(!record.vibe_check){
-    return new Response("No vibe check found", { status: 404 });
-  }
-  if(!record.updated_at){
-    return new Response("No updated at found", { status: 404 });
-  }
-  if(new Date(record.updated_at)){
-    
-  }
-  return new Response("Hello my friend");
 });
 
 /* To invoke locally:
