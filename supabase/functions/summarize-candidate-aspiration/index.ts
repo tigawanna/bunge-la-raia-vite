@@ -2,6 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
 import { Database } from "../database.ts";
+import { validateAspiration } from "../helpers/validate-aspiration.ts";
 
 interface GenerateVibeSummaryBody {
   record: Database["public"]["Tables"]["candidate_aspirations"]["Row"] & {
@@ -17,26 +18,10 @@ Deno.serve(async (req) => {
       { global: { headers: { Authorization: authHeader } } },
     );
     const { record } = (await req.json()) as GenerateVibeSummaryBody;
-    if (!record) {
-      return new Response("No record found", { status: 400 });
+    const raw_string_input = validateAspiration(record);
+    if (raw_string_input instanceof Response) {
+      return raw_string_input;
     }
-    if (record?.mission_statement.length < 10) {
-      return new Response("Not enough mission statement data ", {
-        status: 400,
-      });
-    }
-    if (!record.vibe_check || record.vibe_check.length === 0) {
-      return new Response("No vibe check found", { status: 400 });
-    }
-    const vibe_check = JSON.stringify(record?.vibe_check);
-
-    if (vibe_check.length < 100) {
-      return new Response("Not enough vibe check data ", { status: 400 });
-    }
-    const raw_string_input = `i am vying for ${record.vying_for} in
-     ${record.vying_in} period ${record.period}
-    my mission statement is : ${record.mission_statement}
-    my vibe check quiz questions and answers are ${vibe_check}`;
 
     const summary = await generateVibeSummary({ inputText: raw_string_input });
     const summary_text = summary.response.text();
@@ -70,14 +55,4 @@ Deno.serve(async (req) => {
   }
 });
 
-/* To invoke locally:
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/summarize-candidate-aspiration' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
-
-*/
