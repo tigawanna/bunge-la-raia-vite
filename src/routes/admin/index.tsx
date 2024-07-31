@@ -17,19 +17,5 @@ export function AdminPage({}: AdminPageProps) {
   );
 }
 
-const { data: aspirations, error: aspirationError } = await supabase
-  .from("candidate_aspirations")
-  .select("*")
-  .eq("id", "uwu")
-  .select("*")
-  .order("created_at", { ascending: false })
-  .limit(20);
-const aspirations_text = aspirations?.reduce(
-  (acc, curr, idx) => {
-    const aspiration = `period: ${curr.period} vying_for: ${curr.vying_for} vying in ${curr.vying_in} 
-    mission statement: ${curr.mission_statement} vibe_check: ${JSON.stringify(curr.vibe_check)}`;
-    acc += `${idx + 1}. ${aspiration}\n`;
-    return acc;
-  },
-  ""
-);
+
+
