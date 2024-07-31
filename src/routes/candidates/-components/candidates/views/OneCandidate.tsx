@@ -1,4 +1,4 @@
-import {  Link, useParams } from "@tanstack/react-router";
+import { Link, useParams } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { oneCandidateQueryOptions } from "../../candidate-query-options";
@@ -8,11 +8,11 @@ interface OneCandidateProps {}
 
 export function OneCandidate({}: OneCandidateProps) {
   const params = useParams({ from: "/candidates/$candidate/" });
-  const query = useSuspenseQuery(oneCandidateQueryOptions({candidate_id:params.candidate}));
+  const query = useSuspenseQuery(oneCandidateQueryOptions({ candidate_id: params.candidate }));
   const data = query.data.data;
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  console.log(" =================== one candidate  =================== ", data);
+
   return (
     <div className="w-full h-full flex flex-col p-2">
       <div className="w-full h-full flex flex-col justify-center items-center sm:flex-row gap-2 p-2 relative">
@@ -32,10 +32,16 @@ export function OneCandidate({}: OneCandidateProps) {
             <CandidateBasicDetailsDialog candidate={data} />
           </div>
         )}
+        <div className="">
+          <Link
+            to="/candidates/$candidate/update"
+            params={{ candidate: params.candidate }}
+            search={{ form_step: 0 }}>
+            update
+          </Link>
+        </div>
       </div>
-      <p>
-        {data?.candidate_summary}
-      </p>
+      <p>{data?.candidate_summary}</p>
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: params.candidate }}>
         show more
       </Link>

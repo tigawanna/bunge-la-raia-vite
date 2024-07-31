@@ -1,4 +1,6 @@
+import { CardsListSuspenseFallback } from '@/components/loaders/GenericDataCardsListSuspenseFallback';
 import { createFileRoute } from '@tanstack/react-router'
+import { Suspense } from 'react';
 import { z } from 'zod';
 const searchparams = z.object({
   is_fresh: z.boolean().optional(),
@@ -13,8 +15,10 @@ export const Route = createFileRoute("/candidates/$candidate/update")({
 
 export function UpdateCandidate(){
 return (
- <div className='w-full h-full flex flex-col items-center justify-center'>
-  <h1 className='text-xl'>Update Candidate</h1>
- </div>
+  <div className="w-full h-full flex flex-col items-center justify-center">
+    <Suspense fallback={<CardsListSuspenseFallback cardClassName="w-[40%]" cards={2} />}>
+      <UpdateCandidate />
+    </Suspense>
+  </div>
 );
 }
