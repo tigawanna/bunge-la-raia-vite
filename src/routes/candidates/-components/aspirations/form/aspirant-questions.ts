@@ -1,11 +1,6 @@
-export interface VibeCheckQuestions {
-  query: string;
-  type: "multiple_choice" | "open_ended" | "yes_no";
-  options?:{
-    key:string;
-    value:string
-  }[];
-}
+import { VibeCheckQuestions } from "@/components/forms/vibe-check/types";
+
+
 
 export const questions: VibeCheckQuestions[] = [
   {

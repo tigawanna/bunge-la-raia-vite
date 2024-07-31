@@ -2,9 +2,10 @@ import { CandidateAspirationRowType } from "../types";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useState } from "react";
 import { AspirationBasicsForm } from "./AspirationBasicsForm";
-import { VibecheckForm } from "./vibe-check/VibecheckForm";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UseNavigateResult, useSearch } from "@tanstack/react-router";
+import { AspirationVibeCheckForm } from "./AspirationVibeCheckForm";
 
 interface AspirationsFormProps {
   aspiration?: CandidateAspirationRowType;
@@ -50,7 +51,7 @@ export function AspirationsForm({ aspiration, navigate, justCreated }: Aspiratio
                 if (justCreated) {
                   navigate({
                     to: "/candidates/$candidate/aspirations/$aspiration/update",
-                    search:{is_fresh:true,v_step:0},
+                    search: { is_fresh: true, form_step: 0 },
                     params: {
                       candidate: viewer?.id,
                       aspiration: asp.id,
@@ -59,7 +60,7 @@ export function AspirationsForm({ aspiration, navigate, justCreated }: Aspiratio
                 }
                 navigate({
                   to: "/candidates/$candidate/aspirations/$aspiration/update",
-                  search: { is_fresh: false, v_step: 0 },
+                  search: { is_fresh: false, form_step: 0 },
                   params: {
                     candidate: viewer?.id,
                     aspiration: asp.id,
@@ -73,7 +74,7 @@ export function AspirationsForm({ aspiration, navigate, justCreated }: Aspiratio
           />
         )}
         {formStep === 1 && aspiration && (
-          <VibecheckForm
+          <AspirationVibeCheckForm
             candidate_id={viewer?.id}
             aspiration={aspiration}
             next={() => {

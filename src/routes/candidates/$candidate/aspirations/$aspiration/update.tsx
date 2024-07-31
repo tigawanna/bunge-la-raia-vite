@@ -6,7 +6,7 @@ import { UpdateAspirations } from "../../../-components/aspirations/form/UpdateA
 
 const searchparams = z.object({
   is_fresh: z.boolean().optional(),
-  v_step: z.number().default(0),
+  form_step: z.number().default(0),
 });
 export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspiration/update")({
   component: UpdateAspirationPage,
