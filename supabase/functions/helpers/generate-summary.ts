@@ -9,56 +9,59 @@
 
 import { genAI } from "./gemini-genai-instance.ts";
 
-
-
-
-
-interface GenerateVibeSummary{
-    inputText:string;
+interface GenerateCandidateVibeSummary {
+  inputText: string;
 }
-export async function generateVibeSummary({inputText}:GenerateVibeSummary) {
+export async function generateCandidateVibeSummary(
+  { inputText }: GenerateCandidateVibeSummary,
+) {
   const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  systemInstruction: "this is civilization game modelled on the kenyan political system , based on the query answer combinations make a semi detalied summary of the candidate and below that highlight their strong points and concerns about them in markdown",
-});
+    model: "gemini-1.5-flash",
+    systemInstruction:
+      `this is civilization game modelled on the kenyan political system , 
+      based on the query answer combinations make a semi detailed summary of the candidate
+       and below that highlight their strong points and concerns about them in markdown`,
+  });
 
-const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
-  maxOutputTokens: 8192,
-  responseMimeType: "text/plain",
-};
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
   const chatSession = model.startChat({
     generationConfig,
   });
   const result = await chatSession.sendMessage(inputText);
-  console.log(result.response.text());
-  return result
+  // console.log(result.response.text());
+  return result;
 }
 
-
-interface GenerateuserSummary{
-    inputText:string;
+interface GenerateUserSummary {
+  inputText: string;
 }
-export async function generateUserSummary({inputText}:GenerateuserSummary) {
+export async function generateUserSummary({ inputText }: GenerateUserSummary) {
   const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  systemInstruction: "this is civilization game modelled on the kenyan political system , based on the query answer combinatiosn make a semi detalied summary of the player below , based on the input highlight what their main frustrtions re an what they expect from their leaders in markdown",
-});
+    model: "gemini-1.5-flash",
+    systemInstruction:
+      `this is civilization game modelled on the kenyan political system , 
+      based on the query answer combinatiosn make a semi detalied summary of the player below ,
+       based on the input highlight what their main frustrtions re an what they expect
+       from their leaders in markdown`,
+  });
 
-const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
-  maxOutputTokens: 8192,
-  responseMimeType: "text/plain",
-};
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
   const chatSession = model.startChat({
     generationConfig,
   });
   const result = await chatSession.sendMessage(inputText);
-  console.log(result.response.text());
-  return result
+  // console.log(result.response.text());
+  return result;
 }
-

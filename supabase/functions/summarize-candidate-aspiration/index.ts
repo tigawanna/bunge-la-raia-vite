@@ -1,8 +1,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
+
 import { createClient } from "jsr:@supabase/supabase-js";
 import { Database } from "../database.ts";
 import { CandidateAspirationRecordType, validateAspiration } from "../helpers/validate-record.ts";
+import { generateCandidateVibeSummary } from "../helpers/generate-summary.ts";
 
 interface RequestBody {
   record: CandidateAspirationRecordType
@@ -21,7 +22,7 @@ Deno.serve(async (req) => {
       return raw_string_input;
     }
 
-    const summary = await generateVibeSummary({ inputText: raw_string_input });
+    const summary = await generateCandidateVibeSummary({ inputText: raw_string_input });
     const summary_text = summary.response.text();
 
     if (!summary || !summary?.response) {

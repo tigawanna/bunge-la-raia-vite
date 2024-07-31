@@ -1,11 +1,12 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { generateVibeSummary } from "../helpers/generate-vibe-summary.ts";
+
 import { createClient } from "jsr:@supabase/supabase-js";
 import { Database } from "../database.ts";
 import {
   CandidateRecordType,
   validateCandidate,
 } from "../helpers/validate-record.ts";
+import { generateCandidateVibeSummary } from "../helpers/generate-summary.ts";
 
 interface RequestBody {
   record: CandidateRecordType;
@@ -37,7 +38,7 @@ Deno.serve(async (req) => {
       // @ts-expect-error supabase types are acting up here
       (acc, curr, idx) => {
         const aspiration =
-          `period: ${curr.period} vying_for: ${curr.vying_for} vying in ${curr.vying_in} 
+          ` period: ${curr.period} vying_for: ${curr.vying_for} vying in ${curr.vying_in} 
             mission statement: ${curr.mission_statement} vibe_check: ${
             JSON.stringify(curr.vibe_check)
           }`;
@@ -47,8 +48,8 @@ Deno.serve(async (req) => {
       "",
     );
 
-    const summary = await generateVibeSummary({
-      inputText: raw_string_input + "\n" + aspirations_text,
+    const summary = await generateCandidateVibeSummary({
+      inputText: raw_string_input + "\n" + "the candidate's other aspirations include:" + aspirations_text,
     });
     const summary_text = summary.response.text();
 
