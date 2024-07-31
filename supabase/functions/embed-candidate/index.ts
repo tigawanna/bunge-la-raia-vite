@@ -2,10 +2,13 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { geminiEmbedding } from "../helpers/generate-embedding.ts";
 import { Database } from "../database.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
-import { CandidateRecordType, validateCandidate } from "../helpers/validate-record.ts";
+import {
+  CandidateRecordType,
+  validateCandidate,
+} from "../helpers/validate-record.ts";
 
 interface RequestBody {
-  record: CandidateRecordType
+  record: CandidateRecordType;
 }
 
 Deno.serve(async (req) => {
@@ -31,6 +34,7 @@ Deno.serve(async (req) => {
       .from("candidates")
       .update({
         embedding: embeddingResult,
+        last_proompted_on: new Date().toISOString(),
       })
       .eq("id", record.id)
       .select("*")

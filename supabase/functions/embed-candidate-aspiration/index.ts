@@ -31,6 +31,7 @@ Deno.serve(async (req) => {
       .from("candidate_aspirations")
       .update({
         embedding: embeddingResult,
+                last_proompted_on:new Date().toISOString()
       })
       .eq("id", record.id)
       .select("*")

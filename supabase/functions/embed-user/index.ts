@@ -1,13 +1,15 @@
-
-import "jsr:@supabase/functions-js/edge-runtime.d.ts"
-import { PublicUserRecordType, validateUser } from "../helpers/validate-record.ts";
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import {
+  PublicUserRecordType,
+  validateUser,
+} from "../helpers/validate-record.ts";
 import { createClient } from "jsr:@supabase/supabase-js";
 import { Database } from "../database.ts";
 import { geminiEmbedding } from "../helpers/generate-embedding.ts";
 
 
 interface RequestBody {
-  record: PublicUserRecordType
+  record: PublicUserRecordType;
 }
 
 Deno.serve(async (req) => {
@@ -32,15 +34,17 @@ Deno.serve(async (req) => {
     const { data, error } = await supabaseClient
       .from("users")
       .update({
-        // @ts-expect-error this type is wrong
         embedding: embeddingResult.embedding.values,
+        last_proompted_on: new Date().toISOString(),
       })
       .eq("id", record.id)
       .select("*")
       .single();
 
     if (error) {
-      throw new Error("error embedding aspiration :"+error.message,{cause:error.details});
+      throw new Error("error embedding aspiration :" + error.message, {
+        cause: error.details,
+      });
     }
 
     return new Response(
@@ -52,5 +56,4 @@ Deno.serve(async (req) => {
       status: 500,
     });
   }
-})
-
+});
