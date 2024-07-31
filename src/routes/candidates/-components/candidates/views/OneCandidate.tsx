@@ -2,7 +2,7 @@ import {  Link, useParams } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { oneCandidateQueryOptions } from "../../candidate-query-options";
-import { CandidateBasicDetailsDialog } from "../form/basics-details/CandidateBasicDetailsDialog";
+import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog";
 
 interface OneCandidateProps {}
 

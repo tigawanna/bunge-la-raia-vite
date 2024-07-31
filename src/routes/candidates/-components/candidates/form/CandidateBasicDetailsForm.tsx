@@ -1,23 +1,21 @@
 import { ResizeTextAreaFormField, TextFormField } from "@/lib/react-hook-form/TextFields";
-import { CandidateInsertType, CandidateRowType } from "../../../types";
+import { CandidateInsertType, CandidateRowType } from "../../types";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ImageURLInputField } from "@/lib/react-hook-form/ImageInput";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-import { useNavigate } from "@tanstack/react-router";
 import { toaster } from "@/components/navigation/ParkuiToast";
 
 interface CandidateBasicDetailsFormProps {
+  next: (candidate: CandidateRowType) => void;
   candidate?: CandidateRowType | null;
 }
 
-export function CandidateBasicDetailsForm({ candidate }: CandidateBasicDetailsFormProps) {
+export function CandidateBasicDetailsForm({ candidate, next }: CandidateBasicDetailsFormProps) {
   const { userQuery } = useViewer();
-  const navigate = useNavigate({
-    from: "/candidates/new",
-  });
+
   const viewer = userQuery?.data?.data;
 
   const { register, handleSubmit, formState, watch } = useForm<CandidateInsertType>({
@@ -36,8 +34,14 @@ export function CandidateBasicDetailsForm({ candidate }: CandidateBasicDetailsFo
       }
       return data;
     },
-    onSuccess: () => {
-      navigate({ to: "/candidates/$candidate", params: { candidate: viewer?.id! } });
+    onSuccess: (data) => {
+      // navigate({ to: "/candidates/$candidate", params: { candidate: viewer?.id! } });
+      toaster.create({
+        title: "Success",
+        description: `Aspiration created successfully`,
+        type: "success",
+      });
+      next(data as any as CandidateRowType);
     },
     onError: (error) => {
       toaster.create({

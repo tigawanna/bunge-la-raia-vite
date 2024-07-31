@@ -25,7 +25,7 @@ export function AspirationsView({ aspiration, candidate_id, viewer_id }: Aspirat
               className="hover:text-accent-text hover:text-underline"
               to="/candidates/$candidate/aspirations/$aspiration/update"
               params={{ candidate: candidate_id, aspiration: aspiration.id }}
-              search={{v_step: 0,is_fresh: true}}
+              search={{form_step: 0,is_fresh: true}}
               >
               <Edit />
             </Link>

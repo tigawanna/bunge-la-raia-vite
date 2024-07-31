@@ -2,7 +2,7 @@ import { IconButton } from "@/components/park/ui/icon-button";
 import { EditIcon, XIcon } from "lucide-react";
 import * as Dialog from "~/components/park/ui/dialog";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
-import { CandidateRowType } from "../../../types";
+import { CandidateRowType } from "../../types";
 
 interface CandidateBasicDetailsDialogProps {
   candidate?: CandidateRowType | null;
@@ -17,7 +17,7 @@ export function CandidateBasicDetailsDialog({ candidate }: CandidateBasicDetails
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content className="w-full h-full ">
-          <CandidateBasicDetailsForm candidate={candidate} />
+          <CandidateBasicDetailsForm candidate={candidate} next={()=>{}}/>
           <Dialog.CloseTrigger asChild className="absolute top-[2%] right-[2%]">
             <IconButton aria-label="Close Dialog" variant="ghost" size="sm">
               <XIcon />

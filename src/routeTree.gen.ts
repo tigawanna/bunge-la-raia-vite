@@ -32,6 +32,7 @@ import { Route as ConstituenciesConstituencyImport } from './routes/constituenci
 import { Route as CandidatesNewImport } from './routes/candidates/new'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as CandidatesCandidateIndexImport } from './routes/candidates/$candidate/index'
+import { Route as CandidatesCandidateUpdateImport } from './routes/candidates/$candidate/update'
 import { Route as CandidatesCandidateAspirationsIndexImport } from './routes/candidates/$candidate/aspirations/index'
 import { Route as CandidatesCandidateAspirationsNewImport } from './routes/candidates/$candidate/aspirations/new'
 import { Route as CandidatesCandidateAspirationsAspirationIndexImport } from './routes/candidates/$candidate/aspirations/$aspiration/index'
@@ -143,6 +144,11 @@ const AuthSignupRoute = AuthSignupImport.update({
 
 const CandidatesCandidateIndexRoute = CandidatesCandidateIndexImport.update({
   path: '/candidates/$candidate/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CandidatesCandidateUpdateRoute = CandidatesCandidateUpdateImport.update({
+  path: '/candidates/$candidate/update',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -314,6 +320,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WardsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/candidates/$candidate/update': {
+      id: '/candidates/$candidate/update'
+      path: '/candidates/$candidate/update'
+      fullPath: '/candidates/$candidate/update'
+      preLoaderRoute: typeof CandidatesCandidateUpdateImport
+      parentRoute: typeof rootRoute
+    }
     '/candidates/$candidate/': {
       id: '/candidates/$candidate/'
       path: '/candidates/$candidate'
@@ -374,6 +387,7 @@ export const routeTree = rootRoute.addChildren({
   MpsIndexRoute,
   ProfileIndexRoute,
   WardsIndexRoute,
+  CandidatesCandidateUpdateRoute,
   CandidatesCandidateIndexRoute,
   CandidatesCandidateAspirationsNewRoute,
   CandidatesCandidateAspirationsIndexRoute,
@@ -409,6 +423,7 @@ export const routeTree = rootRoute.addChildren({
         "/mps/",
         "/profile/",
         "/wards/",
+        "/candidates/$candidate/update",
         "/candidates/$candidate/",
         "/candidates/$candidate/aspirations/new",
         "/candidates/$candidate/aspirations/",
@@ -475,6 +490,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/wards/": {
       "filePath": "wards/index.tsx"
+    },
+    "/candidates/$candidate/update": {
+      "filePath": "candidates/$candidate/update.tsx"
     },
     "/candidates/$candidate/": {
       "filePath": "candidates/$candidate/index.tsx"

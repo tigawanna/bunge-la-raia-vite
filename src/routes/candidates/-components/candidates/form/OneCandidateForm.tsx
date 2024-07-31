@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { CandidateBasicDetailsForm } from "./basics-details/CandidateBasicDetailsForm";
+import { CandidateForm } from "./CandidateForm";
 
 interface OneCandidateFormProps {
   candidate_id: string;
@@ -25,7 +25,7 @@ export function OneCandidateForm({ candidate_id }: OneCandidateFormProps) {
   const candidate = query?.data;
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <CandidateBasicDetailsForm candidate={candidate} />
+      <CandidateForm candidate={candidate} />
     </div>
   );
 }

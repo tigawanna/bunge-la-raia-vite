@@ -38,7 +38,7 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
         description: `Aspiration created successfully`,
         type: "success",
       });
-      next(data as CandidateAspirationRowType);
+      next(data as any as CandidateAspirationRowType);
     },
     onError: (error) => {
       toaster.create({
