@@ -32,14 +32,15 @@ Deno.serve(async (req) => {
     const { data, error } = await supabaseClient
       .from("users")
       .update({
-        embedding: embeddingResult,
+        // @ts-expect-error this type is wrong
+        embedding: embeddingResult.embedding.values,
       })
       .eq("id", record.id)
       .select("*")
       .single();
 
     if (error) {
-      throw new Error("error embedding aspiration :", error.message);
+      throw new Error("error embedding aspiration :"+error.message,{cause:error.details});
     }
 
     return new Response(

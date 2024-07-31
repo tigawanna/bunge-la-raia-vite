@@ -1,9 +1,7 @@
 import  { GoogleGenerativeAI } from "npm:@google/generative-ai"
 
 
-
 const apiKey = Deno.env.get("GEMINI_API_KEY");
-console.log(apiKey)
 if(!apiKey) {
   throw new Error("GEMINI_API_KEY is not set");
 }
