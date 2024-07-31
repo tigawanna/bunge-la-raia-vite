@@ -17,6 +17,7 @@ export type Database = {
           embedding: string | null
           gps: unknown | null
           id: string
+          last_proompted_on: string | null
           mission_statement: string
           period: string
           updated_at: string | null
@@ -31,6 +32,7 @@ export type Database = {
           embedding?: string | null
           gps?: unknown | null
           id?: string
+          last_proompted_on?: string | null
           mission_statement: string
           period: string
           updated_at?: string | null
@@ -45,6 +47,7 @@ export type Database = {
           embedding?: string | null
           gps?: unknown | null
           id?: string
+          last_proompted_on?: string | null
           mission_statement?: string
           period?: string
           updated_at?: string | null
@@ -71,8 +74,10 @@ export type Database = {
           created_at: string
           embedding: string | null
           id: string
+          last_proompted_on: string | null
           name: string
           updated_at: string | null
+          vibe_check: Json | null
         }
         Insert: {
           account_id?: string
@@ -82,8 +87,10 @@ export type Database = {
           created_at?: string
           embedding?: string | null
           id?: string
+          last_proompted_on?: string | null
           name: string
           updated_at?: string | null
+          vibe_check?: Json | null
         }
         Update: {
           account_id?: string
@@ -93,8 +100,10 @@ export type Database = {
           created_at?: string
           embedding?: string | null
           id?: string
+          last_proompted_on?: string | null
           name?: string
           updated_at?: string | null
+          vibe_check?: Json | null
         }
         Relationships: [
           {
@@ -446,9 +455,11 @@ export type Database = {
           bio: string | null
           created_at: string
           email: string | null
+          embedding: string | null
           fullname: string | null
           gps: unknown | null
           id: string
+          last_proompted_on: string | null
           username: string | null
           vibe_check: Json | null
         }
@@ -457,9 +468,11 @@ export type Database = {
           bio?: string | null
           created_at?: string
           email?: string | null
+          embedding?: string | null
           fullname?: string | null
           gps?: unknown | null
           id?: string
+          last_proompted_on?: string | null
           username?: string | null
           vibe_check?: Json | null
         }
@@ -468,9 +481,11 @@ export type Database = {
           bio?: string | null
           created_at?: string
           email?: string | null
+          embedding?: string | null
           fullname?: string | null
           gps?: unknown | null
           id?: string
+          last_proompted_on?: string | null
           username?: string | null
           vibe_check?: Json | null
         }
@@ -555,6 +570,50 @@ export type Database = {
           event: Json
         }
         Returns: Json
+      }
+      match_candidate_aspirations: {
+        Args: {
+          query_embedding: string
+          match_threshold: number
+          match_count: number
+        }
+        Returns: {
+          id: string
+          vying_for: string
+          vying_in: string
+          period: string
+          candidate_id: string
+          mission_statement: string
+          similarity: number
+        }[]
+      }
+      match_candidates: {
+        Args: {
+          query_embedding: string
+          match_threshold: number
+          match_count: number
+        }
+        Returns: {
+          id: string
+          name: string
+          avatar_url: string
+          bio: string
+          similarity: number
+        }[]
+      }
+      match_users: {
+        Args: {
+          query_embedding: string
+          match_threshold: number
+          match_count: number
+        }
+        Returns: {
+          id: string
+          email: string
+          username: string
+          bio: string
+          similarity: number
+        }[]
       }
     }
     Enums: {

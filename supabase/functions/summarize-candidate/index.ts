@@ -60,6 +60,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabaseClient.from("candidates")
       .update({
         candidate_summary: summary_text,
+        last_proompted_on:new Date().toISOString()
       })
       .eq("id", record.id)
       .select("*")

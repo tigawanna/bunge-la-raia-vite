@@ -31,7 +31,7 @@ export async function generateVibeSummary({inputText}:GenerateVibeSummary) {
   const chatSession = model.startChat({
     generationConfig,
   });
-    const result = await chatSession.sendMessage(inputText);
+  const result = await chatSession.sendMessage(inputText);
   console.log(result.response.text());
   return result
 }
