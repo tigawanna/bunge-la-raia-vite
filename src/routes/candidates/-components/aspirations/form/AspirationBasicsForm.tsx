@@ -8,7 +8,7 @@ import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/Text
 import { z } from "zod";
 import { SelectFields } from "@/lib/tanstack/form/SelectFields";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
-import { AspirationToLeadModal } from "./AspirationToLeadCounty";
+import { AspirationToLeadModal } from "./AspirationToLeadModal";
 import { Search } from "lucide-react";
 
 
