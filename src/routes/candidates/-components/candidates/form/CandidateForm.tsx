@@ -2,7 +2,6 @@ import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { UseNavigateResult, useSearch } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
 import { CandidateRowType } from "../../types";
 import { CandidateVibeCheckForm } from "./CandidateVibeCheckForm";
