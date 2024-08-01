@@ -1,55 +1,37 @@
 import { VibeCheckQuestions } from "@/components/forms/vibe-check/types";
 
-
-
 export const questions: VibeCheckQuestions[] = [
   {
-    query: `A virus of unknown origin with a 90% fatality rate has broken out and we only
-       have enough vaccine doses for 10% of the population for it.
-        What criteria would you use to pick the recipients?`,
+    query: `What do you bring to the table`,
     type: "open_ended", // optional field to specify the query type
   },
+
   {
-    query: "Which of the following taxation strategies makes most sense to you?",
-    type: "multiple_choice",
-    options: [
-      { key: "a", value: "a flat tax on everyone " },
-      { key: "b", value: "a progressive tax that shields the lowest earners" },
-      { key: "c", value: "tax cuts for the rich to spur economic growth" },
-    ],
-  },
-  {
-    query: "Besides taxation, what other ideas do you have for revenue generation?",
+    query: `Would do you believe the people want`,
     type: "open_ended",
   },
   {
-    query: `Would you sacrifice a pension fund for an investment that would create 
-      1 million jobs for the current youths?`,
-    type: "yes_no",
-  },
-  {
-    query: "What are you most proud of about your country?",
+    query: `In your opinion, what did the previous guy fall short on?`,
     type: "open_ended",
   },
   {
-    query: "What scandal would you be most likely to be caught in?",
+    query: `how do you intemd to addressthose failings`,
     type: "open_ended",
   },
   {
-    query: `What constitutional ammendments do you think would be most helpful to the country?`,
+    query: `What do you think are the issues the people have`,
     type: "open_ended",
   },
   {
-    query: `What is your idea of an inclusive goverment?`,
+    query: `What potential does this area have to offer?`,
     type: "open_ended",
   },
   {
-    query: `Unemployment and an ever growing young population are common challenges in most countries , 
-    what would be your high level idea on how to fix it?`,
+    query: `how do you intend to make it work for the people?`,
     type: "open_ended",
   },
   {
-    query: `All public servants should exclusively use public transport ,hospitals and schools.`,
-    type: "yes_no",
+    query: `What gives you hope about this area?`,
+    type: "open_ended",
   },
 ];

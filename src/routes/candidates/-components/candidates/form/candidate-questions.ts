@@ -106,5 +106,9 @@ export const candidate_questions: VibeCheckQuestions[] = [
 
     ],
   },
+    {
+    query: `What gives you hope about this country?`,
+    type: "open_ended",
+  },
   
 ];
