@@ -39,6 +39,9 @@ export function TextFormField<T>({
     </div>
   );
 }
+
+
+
 export interface TextAreaFormFieldProps<T> extends FormFieldProps<T> {
   inputOptions?: React.InputHTMLAttributes<HTMLTextAreaElement>;
 }
@@ -105,6 +108,43 @@ export function ResizeTextAreaFormField<T>({
         onBlur={field.handleBlur}
         //   @ts-expect-error
         onChange={(e) => field.handleChange(e.target.value)}
+      />
+      <FieldInfo field={field} />
+    </div>
+  );
+}
+
+
+export interface ImageURLInputFieldProps<T> extends FormFieldProps<T> {
+  inputOptions?: React.InputHTMLAttributes<HTMLInputElement>;
+}
+
+export function ImageURLInputField<T>({
+  field,
+  fieldKey,
+  fieldlabel,
+  inputOptions,
+  className,
+}: ImageURLInputFieldProps<T>) {
+  const inputClassname = twMerge(
+    field.state.meta.errors.length > 0 ? "border-error-content" : "",
+    className
+  );
+const value = field.state.value as string
+  return (
+    <div className="w-full">
+      <FormLabel htmlFor={fieldKey} className="capitalize">
+        {fieldlabel || fieldKey}
+      </FormLabel>
+      <img src={value ?? ""} key={value} />
+      <Input
+        id={fieldKey}
+        name={fieldKey}
+        placeholder={fieldlabel ? `enter ${fieldlabel}` : `enter ${fieldKey}`}
+        {...inputOptions}
+        size="md"
+        className={inputClassname}
+        value={value}
       />
       <FieldInfo field={field} />
     </div>

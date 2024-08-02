@@ -3,11 +3,11 @@ import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
+import { ImageURLInputField, ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
 import { z } from "zod";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { UserProfileInsertType, UserProfileRowType } from "../types";
-import { ImageURLInputField } from "@/lib/react-hook-form/ImageInput";
+
 
 interface UserProfileBasicsFormProps {
   user_profile?: UserProfileRowType;
@@ -137,11 +137,13 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
           children={(field) => {
             return (
               <ImageURLInputField<UserProfileInsertType>
+                field={field}
                 fieldKey="avatar_url"
-                formState={formState}
-                register={register}
-                watch={watch}
-                required
+                fieldlabel="Avatar URL"
+                inputOptions={{
+                  onBlur: field.handleBlur,
+                  onChange: (e) => field.handleChange(e.target.value),
+                }}
               />
             );
           }}

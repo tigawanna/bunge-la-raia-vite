@@ -1,25 +1,21 @@
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useState } from "react";
-import { AspirationBasicsForm } from "./UserBasicsForm";
-
+import { UserProfileBasicsForm } from "./UserBasicsForm";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { UseNavigateResult, useSearch } from "@tanstack/react-router";
+import { UseNavigateResult } from "@tanstack/react-router";
 import { UserProfileRowType } from "../types";
+import { UserVibeCheckForm } from "./UserVibeCheckForm";
 
-
-interface userprofileFormProps {
+interface UserprofileFormProps {
   user_profile?: UserProfileRowType;
   navigate?: UseNavigateResult<"/profile/update">;
   justCreated?: boolean;
 }
 
-export function userprofileForm({ user_profile, navigate, justCreated }: userprofileFormProps) {
-  const {is_fresh} = useSearch({
-    from:"/profile/update",
-  });
+export function UserprofileForm({ user_profile, navigate, justCreated }: UserprofileFormProps) {
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState((user_profile && !is_fresh) ? 1 : 0);
+  const [formStep, setFormStep] = useState(user_profile ? 1 : 0);
   const canGoToNext = formStep < 1 && user_profile;
   const canGoToPrevious = formStep > 0 && user_profile;
   function handleNext() {
@@ -41,30 +37,19 @@ export function userprofileForm({ user_profile, navigate, justCreated }: userpro
 
       <div className="w-full h-full flex flex-col items-center justify-between p-2">
         {formStep === 0 && (
-          <AspirationBasicsForm
+          <UserProfileBasicsForm
             user_profile={user_profile}
-            viewer={{
-              id: viewer?.id,
-            }}
-            next={(asp) => {
+            next={() => {
               if (navigate && !user_profile) {
                 if (justCreated) {
                   navigate({
-                    to: "/candidates/$candidate/user_profiles/$user_profile/update",
+                    to: "/profile/update",
                     search: { is_fresh: true, form_step: 0 },
-                    params: {
-                      candidate: viewer?.id,
-                      user_profile: asp.id,
-                    },
                   });
                 }
                 navigate({
-                  to: "/candidates/$candidate/user_profiles/$user_profile/update",
+                  to: "/profile",
                   search: { is_fresh: false, form_step: 0 },
-                  params: {
-                    candidate: viewer?.id,
-                    user_profile: asp.id,
-                  },
                 });
               }
               if (user_profile) {
@@ -74,17 +59,13 @@ export function userprofileForm({ user_profile, navigate, justCreated }: userpro
           />
         )}
         {formStep === 1 && user_profile && (
-          <AspirationVibeCheckForm
-            candidate_id={viewer?.id}
+          <UserVibeCheckForm
+            profile_id={user_profile.id}
             user_profile={user_profile}
             next={() => {
               if (navigate) {
                 navigate({
-                  to: "/candidates/$candidate/user_profiles/$user_profile",
-                  params: {
-                    candidate: viewer?.id,
-                    user_profile: user_profile.id,
-                  },
+                  to: "/profile",
                 });
               }
               handleNext();

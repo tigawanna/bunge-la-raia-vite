@@ -4,15 +4,14 @@ import { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { MainNavbar } from "@/components/navigation/MainNavbar";
 import { ParkuiToast } from "@/components/navigation/ParkuiToast";
-import { RecordAuthResponse } from "pocketbase";
-import { SupabaseUser, TypedSupabaseClient } from "@/lib/supabase/client";
+import { SupabaseViewerResponse, TypedSupabaseClient } from "@/lib/supabase/client";
 import { TailwindIndicator } from "@/components/misc/tailwind-indicator";
 
 
 export const Route = createRootRouteWithContext<{
   supabase: TypedSupabaseClient;
   queryClient: QueryClient;
-  viewer?: RecordAuthResponse<SupabaseUser>;
+  viewer?: SupabaseViewerResponse;
 }>()({
   component: RootComponent,
 });

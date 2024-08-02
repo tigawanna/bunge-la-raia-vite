@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AddCounties } from "./-components/AddCounties";
-import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminPage,

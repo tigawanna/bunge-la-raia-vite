@@ -34,13 +34,18 @@ export async function getSupabaseViewer() {
   }
   return { data: { ...user, user_role: userRole }, error: null };
 }
-export type SupabaseVieweresponse = Awaited<ReturnType<typeof getSupabaseViewer>>;
+export type SupabaseVieweresponse = Awaited<
+  ReturnType<typeof getSupabaseViewer>
+>;
 export type SupabaseUserResponse = Awaited<ReturnType<typeof getSupabaseUser>>;
 export type SupabaseUser = SupabaseUserResponse["data"]["user"];
 export type TypedSupabaseClient = typeof supabase;
+export interface SupabaseViewerResponse {
+  data: SupabaseUser;
+  error: Error | null;
+}
 
 // npx supabase gen types --lang=typescript --project-id 'rkbhyhctrcs' --schema public > src/lib/supabase/db-types.ts
-
 
 // const { subscription: authListener } = supabase.auth.onAuthStateChange(
 //   async (event, session) => {

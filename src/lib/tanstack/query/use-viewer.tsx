@@ -1,8 +1,7 @@
 import {
-
   getSupabaseViewer,
   supabase,
-  SupabaseUser,
+  SupabaseViewerResponse,
   TypedSupabaseClient,
 } from "@/lib/supabase/client";
 import {
@@ -14,7 +13,7 @@ import {
 } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
 import { BeforeLoadContext } from "node_modules/@tanstack/react-router/dist/esm/route";
-import { RecordAuthResponse } from "pocketbase";
+
 
 export const viewerqueryOptions = queryOptions({
   queryKey: ["viewer"],
@@ -43,7 +42,8 @@ interface AuthGuardProps {
     {
       supabase: TypedSupabaseClient;
       queryClient: QueryClient;
-      viewer?: RecordAuthResponse<SupabaseUser>;
+      viewer?: SupabaseViewerResponse;
+
     }
   >;
 

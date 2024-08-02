@@ -25,6 +25,7 @@ import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as WardsWardImport } from './routes/wards/$ward'
 import { Route as ProfileUpdateImport } from './routes/profile/update'
+import { Route as ProfileNewImport } from './routes/profile/new'
 import { Route as MpsMpImport } from './routes/mps/$mp'
 import { Route as McasMcaImport } from './routes/mcas/$mca'
 import { Route as GovernorsGovernorImport } from './routes/governors/$governor'
@@ -108,6 +109,11 @@ const WardsWardRoute = WardsWardImport.update({
 
 const ProfileUpdateRoute = ProfileUpdateImport.update({
   path: '/profile/update',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileNewRoute = ProfileNewImport.update({
+  path: '/profile/new',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -247,6 +253,13 @@ declare module '@tanstack/react-router' {
       path: '/mps/$mp'
       fullPath: '/mps/$mp'
       preLoaderRoute: typeof MpsMpImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile/new': {
+      id: '/profile/new'
+      path: '/profile/new'
+      fullPath: '/profile/new'
+      preLoaderRoute: typeof ProfileNewImport
       parentRoute: typeof rootRoute
     }
     '/profile/update': {
@@ -389,6 +402,7 @@ export const routeTree = rootRoute.addChildren({
   GovernorsGovernorRoute,
   McasMcaRoute,
   MpsMpRoute,
+  ProfileNewRoute,
   ProfileUpdateRoute,
   WardsWardRoute,
   AdminIndexRoute,
@@ -426,6 +440,7 @@ export const routeTree = rootRoute.addChildren({
         "/governors/$governor",
         "/mcas/$mca",
         "/mps/$mp",
+        "/profile/new",
         "/profile/update",
         "/wards/$ward",
         "/admin/",
@@ -472,6 +487,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/mps/$mp": {
       "filePath": "mps/$mp.tsx"
+    },
+    "/profile/new": {
+      "filePath": "profile/new.tsx"
     },
     "/profile/update": {
       "filePath": "profile/update.tsx"
