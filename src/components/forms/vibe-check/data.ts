@@ -1,7 +1,7 @@
 import { VibeCheckQuestions } from "./types";
 
 
-export const aspirant_questions: VibeCheckQuestions[] = [
+export const generic_questions: VibeCheckQuestions[] = [
   {
     query: `A virus of unknown origin with a 90% fatality rate has broken out and we only
        have enough vaccine doses for 10% of the population for it.

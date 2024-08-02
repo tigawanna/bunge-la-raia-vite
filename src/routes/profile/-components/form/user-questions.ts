@@ -1,6 +1,6 @@
 import { VibeCheckQuestions } from "@/components/forms/vibe-check/types";
 
-export const aspirant_questions: VibeCheckQuestions[] = [
+export const user_questions: VibeCheckQuestions[] = [
   {
     query: `What do you bring to the table`,
     type: "open_ended", // optional field to specify the query type

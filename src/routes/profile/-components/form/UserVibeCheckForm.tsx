@@ -2,36 +2,36 @@ import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { CandidateAspirationRowType } from "../types";
 import { VibecheckForm } from "@/components/forms/vibe-check/VibecheckForm";
 import { VibecheckFormMutationProps } from "@/components/forms/vibe-check/types";
-import { aspirant_questions } from "./aspirant-questions";
+import { user_questions } from "./user-questions";
+import { UserProfileRowType } from "../types";
 
-interface AspirationVibeCheckFormProps {
-  candidate_id: string;
-  aspiration: CandidateAspirationRowType;
+interface UserVibeCheckFormProps {
+  profile_id: string;
+  user_profile: UserProfileRowType;
   next: () => void;
 }
 
-export function AspirationVibeCheckForm({
-  aspiration,
-  candidate_id,
+export function UserVibeCheckForm({
+  user_profile,
+  profile_id,
   next,
-}: AspirationVibeCheckFormProps) {
+}: UserVibeCheckFormProps) {
   const { form_step } = useSearch({
-    from: "/candidates/$candidate/aspirations/$aspiration/update",
+    from: "/profile/update",
   });
   const navigate = useNavigate({
-    from: "/candidates/$candidate/aspirations/$aspiration/update",
+    from: "/profile/update",
   });
   const mutation = useMutation({
     mutationFn: async ({ vibe }: VibecheckFormMutationProps) => {
       const { error } = await supabase
-        .from("candidate_aspirations")
+        .from("users")
         .update({
           vibe_check: vibe,
         })
-        .eq("id", aspiration.id);
+        .eq("id", user_profile.id);
       if (error) throw new Error(error.message);
     },
     onSuccess: () => {
@@ -50,7 +50,7 @@ export function AspirationVibeCheckForm({
       });
     },
     meta: {
-      invalidates: ["candidates", candidate_id, "candidate_aspirations"],
+      invalidates: ["user", profile_id],
     },
   });
 
@@ -58,7 +58,7 @@ export function AspirationVibeCheckForm({
     <div className="w-full h-full flex flex-col items-center justify-center">
       <VibecheckForm
         navigate={navigate}
-        questions={aspirant_questions}
+        questions={user_questions}
         form_step={form_step}
         mutation={mutation}
       />
