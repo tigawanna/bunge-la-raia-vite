@@ -9,13 +9,14 @@ import { AspirationVibeCheckForm } from "./AspirationVibeCheckForm";
 
 interface AspirationsFormProps {
   aspiration?: CandidateAspirationRowType;
+  from:"/candidates/$candidate/aspirations/new"|"/candidates/$candidate/aspirations/$aspiration/update";
   navigate?: UseNavigateResult<"/candidates/$candidate/aspirations/new">;
   justCreated?: boolean;
 }
 
-export function AspirationsForm({ aspiration, navigate, justCreated }: AspirationsFormProps) {
+export function AspirationsForm({ aspiration, navigate, justCreated,from }: AspirationsFormProps) {
   const {is_fresh} = useSearch({
-    from:"/candidates/$candidate/aspirations/$aspiration/update",
+    from
   });
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;

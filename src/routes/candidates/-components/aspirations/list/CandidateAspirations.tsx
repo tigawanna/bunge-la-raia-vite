@@ -25,7 +25,9 @@ export function CandidateAspirations({ candidate_id,from }: CandidateAspirations
         <div className="w-full flex gap-5 p-1">
           <h1 className="font-bold  ">Aspirations</h1>
           <Link
-            to="/candidates/new"
+            to="/candidates/$candidate/aspirations/new"
+            params={{ candidate: candidate_id }}
+            search={{is_fresh:true,form_step:0}}
             className="flex justify-center items-center gap-2 border rounded-lg px-2 hover:text-accent-text">
             <Plus /> add
           </Link>
