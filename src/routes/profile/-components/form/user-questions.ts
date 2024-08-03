@@ -2,7 +2,7 @@ import { VibeCheckQuestions } from "@/components/forms/vibe-check/types";
 
 export const user_questions: VibeCheckQuestions[] = [
   {
-    query: `How would you define your ideal leader`,
+    query: `Describe your ideal leader`,
     type: "open_ended", // optional field to specify the query type
   },
   {
@@ -23,20 +23,48 @@ export const user_questions: VibeCheckQuestions[] = [
       { key: "b", value: "keep your hands clean and let it run through the 5 people" },
     ]
   },
+    {
+    query: `What would you consider to be your political ideology?`,
+    type: "multiple_choice",
+    options: [
+      { key: "a", value: "Free market capitalist " },
+      { key: "b", value: "Libertarian" },
+      { key: "c", value: "Socialist" },
+      { key: "d", value: "Communist" },
+      { key: "e", value: "Social Democrat" },
+      { key: "f", value: "Conservative" },
+      { key: "g", value: "Other" },
+    ]
+  },
+    {
+    query: "What kind of society would you model in your country?",
+    type: "multiple_choice",
+    options: [
+      { key: "a", value: "Free market capitalist " },
+      { key: "b", value: "European style capitalist" },
+      { key: "c", value: "European style socialist" },
+      { key: "d", value: "Asian style capitalist" },
+      { key: "f", value: "Asian style socialist" },
+      { key: "g", value: "Religious state" },
+
+    ],
+  },
   {
-    query: `What do you think are the issues the people have`,
+    query: `Do you believe in taxation as a means of revenue generation
+     is fair if YES how much in income percentage do you think is fair ,
+     if NO why? and what other ways can we sustain our society?`,
     type: "open_ended",
   },
   {
-    query: `What potential does this area have to offer?`,
+    query: `Are you patriotic? if YES what about our country makes you the proudest? if NO why?`,
     type: "open_ended",
   },
   {
-    query: `how do you intend to make it work for the people?`,
+    query: `If you were given the ability to ammend the constitution , what would you change?`,
     type: "open_ended",
   },
   {
-    query: `What gives you hope about this area?`,
+    query: `if you were president for a day what problem would you solve or kick the process of solving into motion?`,
     type: "open_ended",
   },
 ];
