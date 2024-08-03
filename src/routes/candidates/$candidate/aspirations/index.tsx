@@ -24,7 +24,7 @@ export function OneCandidateAspirationsPage({}: OneCandidateAspirationsPageProps
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <CandidateAspirations candidate_id={params.candidate} />
+      <CandidateAspirations candidate_id={params.candidate} from="/candidates/$candidate/aspirations"/>
     </div>
   );
 }

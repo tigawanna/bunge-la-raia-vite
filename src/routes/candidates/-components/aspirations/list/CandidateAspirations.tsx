@@ -8,14 +8,15 @@ import { CandidateAspirantList } from "./CandidateAspirantList";
 
 interface CandidateAspirationsProps {
   candidate_id: string;
+  from: "/candidates/$candidate/aspirations" | "/candidates/$candidate";
 }
 
-export function CandidateAspirations({ candidate_id }: CandidateAspirationsProps) {
+export function CandidateAspirations({ candidate_id,from }: CandidateAspirationsProps) {
   const { aspsq } = useSearch({
-    from: "/candidates/$candidate/aspirations/",
+    from:`${from}/`
   });
   const { debouncedValue, isDebouncing, keyword, setKeyword } = useListSearch({
-    route: "/candidates/$candidate/aspirations",
+    route:from,
     sq: aspsq ?? "",
   });
   return (

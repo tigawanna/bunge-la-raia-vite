@@ -5,6 +5,7 @@ import { oneCandidateQueryOptions } from "../../candidate-query-options";
 import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog";
 import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
+import { CandidateAspirations } from "../../aspirations/list/CandidateAspirations";
 
 interface OneCandidateProps {}
 
@@ -50,10 +51,12 @@ export function OneCandidate({}: OneCandidateProps) {
         )}
       </div>
       <p>{data?.candidate_summary}</p>
+
+      {/* <OneCandidateAspirations candidate_id={params.candidate} /> */}
+      <CandidateAspirations from="/candidates/$candidate" candidate_id={params.candidate} />
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: params.candidate }}>
         show more
       </Link>
-      {/* <OneCandidateAspirations candidate_id={params.candidate} /> */}
     </div>
   );
 }

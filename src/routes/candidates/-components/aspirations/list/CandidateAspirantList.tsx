@@ -21,16 +21,21 @@ export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantL
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-    <ul className="w-full h-full flex flex-wrap items-center justify-center gap-2">
+    <ul className="w-full h-full flex flex-wrap items-center justify-center md:justify-start gap-2">
       {data?.map((item, idx) => {
         return (
           <Link
             to="/candidates/$candidate/aspirations/$aspiration"
             params={{ candidate: candidate_id, aspiration: item.id }}
             key={idx}
-            className="w-[95%] sm:w-[45%] md:w-[30%]  flex flex-col hover:text-accent-text justify-center gap-2 bg-bg-emphasized p-1 rounded-lg">
+            className="w-[95%] sm:w-[45%]  lg:w-[30%]  flex flex-col hover:text-accent-text justify-center gap-2 bg-bg-emphasized p-1 rounded-lg">
             <div className="w-full flex flex-col gap-2 p-1 ">
+              <div className="w-full flex items-center justify-between gap-2 ">
               <h1 className="text-xl">{item.vying_for}</h1>
+              <h2 className="">{item.vying_in}</h2>
+
+              </div>
+              <p className="text-sm line-clamp-2">{item.mission_statement}</p>
               <h1 className="text-sm">{item.period}</h1>
 
             </div>
