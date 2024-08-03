@@ -1,4 +1,5 @@
 import { AspirationsRowType, VibeCheckType } from "@/lib/supabase/extra-db-types";
+import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { Link } from "@tanstack/react-router";
 import { Edit } from "lucide-react";
 
@@ -25,8 +26,7 @@ export function AspirationsView({ aspiration, candidate_id, viewer_id }: Aspirat
               className="hover:text-accent-text hover:text-underline"
               to="/candidates/$candidate/aspirations/$aspiration/update"
               params={{ candidate: candidate_id, aspiration: aspiration.id }}
-              search={{form_step: 0,is_fresh: true}}
-              >
+              search={{ form_step: 0, is_fresh: true }}>
               <Edit />
             </Link>
           )}
@@ -41,6 +41,11 @@ export function AspirationsView({ aspiration, candidate_id, viewer_id }: Aspirat
         {vibes && vibes.length > 0 && (
           <div className="flex flex-col justify-center items-center gap-1 bg-bg-muted">
             <h2 className="text-xl font-bold">vibecheck </h2>
+            <div className="w-full">
+              {vibes && vibes.length > 0 && (
+                <VibeCheckView vibe_check={vibes} />
+              )}
+            </div>
             <ul className="flex h-full w-[90%] flex-col gap-3  p-2">
               {vibes.map((aspiration, idx) => {
                 return (

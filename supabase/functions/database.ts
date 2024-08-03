@@ -9,6 +9,18 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      bind_permissions: {
+        Row: {
+          count: number | null
+        }
+        Insert: {
+          count?: number | null
+        }
+        Update: {
+          count?: number | null
+        }
+        Relationships: []
+      }
       candidate_aspirations: {
         Row: {
           aspiration_summary: string | null
@@ -452,6 +464,7 @@ export type Database = {
       users: {
         Row: {
           avatar_url: string | null
+          banner_url: string | null
           bio: string | null
           created_at: string
           email: string | null
@@ -465,6 +478,7 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          banner_url?: string | null
           bio?: string | null
           created_at?: string
           email?: string | null
@@ -478,6 +492,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          banner_url?: string | null
           bio?: string | null
           created_at?: string
           email?: string | null
@@ -571,6 +586,10 @@ export type Database = {
         }
         Returns: Json
       }
+      hello_world: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       match_candidate_aspirations: {
         Args: {
           query_embedding: string
@@ -579,11 +598,10 @@ export type Database = {
         }
         Returns: {
           id: string
-          vying_for: string
-          vying_in: string
-          period: string
-          candidate_id: string
+          vying_for: Database["public"]["Enums"]["positions"]
           mission_statement: string
+          vying_in: string
+          candidate_name: string
           similarity: number
         }[]
       }
@@ -617,8 +635,11 @@ export type Database = {
       }
     }
     Enums: {
-      app_permission: "common.update" | "common.delete"
-      app_role: "admin" | "moderator"
+      app_permission:
+        | "common.update"
+        | "common.delete"
+        | "service.bypass_remove_omit_prompted_at"
+      app_role: "admin" | "moderator" | "service"
       contribution_status: "pending" | "verified"
       positions: "mca" | "mp" | "governor" | "president"
     }

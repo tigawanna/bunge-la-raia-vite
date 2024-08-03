@@ -19,7 +19,7 @@ interface ProfilePageProps {}
 
 export function ProfilePage({}: ProfilePageProps) {
   return (
-    <div className="w-full h-full min-h-screen flex flex-col items-center justify-center">
+    <div className="w-full h-full min-h-screen flex flex-col items-center ">
       <UserProfile />
     </div>
   );

@@ -3,6 +3,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { oneCandidateQueryOptions } from "../../candidate-query-options";
 import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog";
+import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
+import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 
 interface OneCandidateProps {}
 
@@ -40,6 +42,12 @@ export function OneCandidate({}: OneCandidateProps) {
             update
           </Link>
         </div>
+      </div>
+      <div className="w-full">
+        {/* @ts-expect-error */}
+        {data?.vibe_check && data?.vibe_check.length > 0 && (
+          <VibeCheckView vibe_check={data.vibe_check as VibeCheckType} />
+        )}
       </div>
       <p>{data?.candidate_summary}</p>
       <Link to="/candidates/$candidate/aspirations" params={{ candidate: params.candidate }}>
