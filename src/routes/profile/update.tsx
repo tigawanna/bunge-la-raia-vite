@@ -6,7 +6,7 @@ import { authGuard } from "@/lib/tanstack/query/use-viewer";
 
 const searchparams = z.object({
   is_fresh: z.boolean().optional(),
-  form_step: z.number().default(0),
+  form_step: z.number().optional().default(0),
 });
 export const Route = createFileRoute("/profile/update")({
   component: UpdateUserProfilepage,

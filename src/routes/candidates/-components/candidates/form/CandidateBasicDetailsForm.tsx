@@ -63,7 +63,9 @@ export function CandidateBasicDetailsForm({ candidate, next }: CandidateBasicDet
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-fit flex flex-col items-center bg-bg-emphasized justify-center p-[5%] lg:p-[3%] rounded-lg gap-4 overflow-auto">
-        <h1 className="text-2xl">Basic Details</h1>
+        <h1 className="text-xl font-bold">Candidate Basic Details</h1>
+    
+
         {/* register your input into the hook by invoking the "register" function */}
         <TextFormField<CandidateInsertType>
           fieldKey="name"

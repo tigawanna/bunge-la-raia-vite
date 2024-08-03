@@ -55,7 +55,8 @@ export function AspirationVibeCheckForm({
   });
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+      <h1 className="text-xl font-bold">Aspiration Vibe Chack</h1>
       <VibecheckForm
         navigate={navigate}
         questions={aspirant_questions}

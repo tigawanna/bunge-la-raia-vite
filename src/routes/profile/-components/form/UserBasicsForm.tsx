@@ -7,6 +7,7 @@ import { ImageURLInputField, ResizeTextAreaFormField, TextFormField } from "@/li
 import { z } from "zod";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { UserProfileInsertType, UserProfileRowType } from "../types";
+import { useCurrentLocation } from "@/utils/hooks/use-current-location";
 
 
 interface UserProfileBasicsFormProps {
@@ -15,6 +16,9 @@ interface UserProfileBasicsFormProps {
 }
 
 export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsFormProps) {
+
+const {location} = useCurrentLocation()
+
   const mutation = useMutation({
     mutationFn: async (vars: UserProfileInsertType) => {
       const { error, data } = await supabase.from("users").upsert(vars).select().single();
@@ -47,7 +51,9 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
     defaultValues: {
       username: user_profile?.username ?? "",
       bio: user_profile?.bio ?? "",
+      gps: user_profile?.gps??`POINT(${location?.latitude} ${location?.longitude})`,
       avatar_url: user_profile?.avatar_url ?? "",
+      banner_url:user_profile?.banner_url ?? "",
       fullname: user_profile?.fullname ?? "",
       vibe_check: user_profile?.vibe_check ?? [],
     },
@@ -59,6 +65,7 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
   // console.log("user_profile in string format  =========== ",JSON.stringify(user_profile?.vibe_check))
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -66,7 +73,7 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
           form.handleSubmit();
         }}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
-        <div className="w-full flex flex-col justify-center gap-3"></div>
+        <h1 className="text-xl font-bold">User Profile basics</h1>
         <form.Field
           name="fullname"
           validatorAdapter={zodValidator()}
@@ -129,7 +136,7 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
           }}
         />
         <form.Field
-          name="username"
+          name="avatar_url"
           validatorAdapter={zodValidator()}
           validators={{
             onChange: z.string(),
@@ -140,6 +147,26 @@ export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsF
                 field={field}
                 fieldKey="avatar_url"
                 fieldlabel="Avatar URL"
+                inputOptions={{
+                  onBlur: field.handleBlur,
+                  onChange: (e) => field.handleChange(e.target.value),
+                }}
+              />
+            );
+          }}
+        />
+        <form.Field
+          name="banner_url"
+          validatorAdapter={zodValidator()}
+          validators={{
+            onChange: z.string(),
+          }}
+          children={(field) => {
+            return (
+              <ImageURLInputField<UserProfileInsertType>
+                field={field}
+                fieldKey="banner_url"
+                fieldlabel="Banner URL"
                 inputOptions={{
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),

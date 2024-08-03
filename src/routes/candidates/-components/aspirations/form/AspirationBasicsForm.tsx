@@ -73,8 +73,9 @@ export function AspirationBasicsForm({ aspiration, viewer, next }: AspirationBas
           form.handleSubmit();
         }}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center p-[2%] bg-bg-muted rounded-md gap-4 ">
+          <h1 className="text-xl font-bold">Aspiration Basics</h1>
         <div className="w-full flex flex-col justify-center gap-3">
-          <div className="w-full flex gap-2">
+          <div className="w-full flex flex-col md:flex-row gap-2">
             <form.Field
               name="vying_for"
               validatorAdapter={zodValidator()}

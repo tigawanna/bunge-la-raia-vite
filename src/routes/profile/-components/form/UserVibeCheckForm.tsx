@@ -13,11 +13,7 @@ interface UserVibeCheckFormProps {
   next: () => void;
 }
 
-export function UserVibeCheckForm({
-  user_profile,
-  profile_id,
-  next,
-}: UserVibeCheckFormProps) {
+export function UserVibeCheckForm({ user_profile, profile_id, next }: UserVibeCheckFormProps) {
   const { form_step } = useSearch({
     from: "/profile/update",
   });
@@ -55,13 +51,14 @@ export function UserVibeCheckForm({
   });
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+      <h1 className="text-xl font-bold">User  Vibe Chack</h1>
       <VibecheckForm
         navigate={navigate}
         questions={user_questions}
         form_step={form_step}
         mutation={mutation}
-        vibe_check={user?.vibe_check}
+        vibe_check={user_profile?.vibe_check}
       />
     </div>
   );

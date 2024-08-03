@@ -1,18 +1,11 @@
-import { z } from "zod";
-import { VibeCheckQuestions } from "./data";
-import { formSchema } from "./VibecheckForm";
 import TextareaAutosize from "react-textarea-autosize";
 import { useState } from "react";
 import { Button } from "@/components/park/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { BaseVibecheckFormProps } from "./types";
 
-interface OpenEndedVibeCheckProps {
-  question: VibeCheckQuestions;
-  vibes: z.infer<typeof formSchema>;
-  setVibes: React.Dispatch<React.SetStateAction<z.infer<typeof formSchema>>>;
-  handleNext: () => void;
-  handlePrevious: () => void;
-  currentStep: number;
+interface OpenEndedVibeCheckProps extends BaseVibecheckFormProps {
+
 }
 
 export function OpenEndedVibeCheck({
@@ -32,7 +25,18 @@ export function OpenEndedVibeCheck({
     <div className="flex h-full w-full flex-col items-center justify-center gap-5 p-2">
       <div className="flex h-full w-[90%] flex-col items-center justify-center gap-5 rounded-lg bg-base-200/50 p-5 md:w-[60%]">
         <h4 className="H5 w-full">{question.query}</h4>
-        <div className={input.length < 20 ? "text-error flex text-sm" : "hidden"}>at leasst 20 characters {input.length}/20</div>
+        {question.media && (
+          <div className="w-full flex flex-wrap">
+            {question.media.map((item, idx) => {
+              if (item.type === "image") {
+                return <img key={idx} src={item.src} alt={item.src} />;
+              }
+            })}
+          </div>
+        )}
+        <div className={input.length < 20 ? "text-error flex text-sm" : "hidden"}>
+          at leasst 20 characters {input.length}/20
+        </div>
         <TextareaAutosize
           value={input}
           onChange={handleChange}

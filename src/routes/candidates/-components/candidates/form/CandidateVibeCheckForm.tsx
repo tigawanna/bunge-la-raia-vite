@@ -50,7 +50,8 @@ export function CandidateVibeCheckForm({candidate,next}: CandidateVibeCheckFormP
   });
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col gap-2 items-center justify-center">
+      <h1 className="text-xl font-bold">Candidate Vibe Check</h1>
       <VibecheckForm
         navigate={navigate}
         questions={candidate_questions}

@@ -26,7 +26,7 @@ export function UpdateAspirations({}: UpdateAspirationsProps) {
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-        <AspirationsForm aspiration={one_aspiration as any} />
+        <AspirationsForm from="/candidates/$candidate/aspirations/$aspiration/update" aspiration={one_aspiration as any} />
     </div>
   );
 }

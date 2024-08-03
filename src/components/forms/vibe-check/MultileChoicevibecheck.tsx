@@ -1,19 +1,13 @@
-import { z } from "zod";
-import { formSchema } from "./VibecheckForm";
 import { Button } from "@/components/park/ui/button";
 import { Checkbox } from "@/components/park/ui/checkbox";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { VibeCheckQuestions } from "./data";
 import { FormLabel } from "@/components/park/ui/form-label";
+import { BaseVibecheckFormProps } from "./types";
 
-interface MultileChoicevibecheckProps {
-  question: VibeCheckQuestions;
-  vibes: z.infer<typeof formSchema>;
-  setVibes: React.Dispatch<React.SetStateAction<z.infer<typeof formSchema>>>;
-  handleNext: () => void;
-  handlePrevious: () => void;
-  currentStep: number;
+
+interface MultileChoicevibecheckProps extends BaseVibecheckFormProps {
+
 }
 
 export function MultileChoicevibecheck({
@@ -31,6 +25,17 @@ export function MultileChoicevibecheck({
     <div className="flex h-full w-full flex-col items-center justify-center gap-5 p-2">
       <div className="flex h-full w-[90%] flex-col items-center justify-center gap-5 rounded-lg bg-base-200/40 p-5 md:w-[60%]">
         <h4 className="H5 w-full">{question.query}</h4>
+        {/* optional media */}
+        {question.media&&<div className="w-full flex flex-wrap">
+            {question.media.map((item,idx) => {
+              if(item.type === "image"){
+                return (
+                  <img key={idx} src={item.src} alt={item.src}/>
+                )
+              }
+              
+            })}
+        </div>}
         <div className={checkedOption.length === 0 ? "text-error flex text-sm" : "hidden"}>
           Please select an option
         </div>

@@ -6,6 +6,9 @@ import { MainNavbar } from "@/components/navigation/MainNavbar";
 import { ParkuiToast } from "@/components/navigation/ParkuiToast";
 import { SupabaseViewerResponse, TypedSupabaseClient } from "@/lib/supabase/client";
 import { TailwindIndicator } from "@/components/misc/tailwind-indicator";
+import { TSRBreadCrumbs } from "@/lib/tanstack/router/TSRBreadCrumbs";
+
+
 
 
 export const Route = createRootRouteWithContext<{
@@ -17,10 +20,12 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
+
   return (
     <>
       <div className="h-full min-h-screen flex flex-col bg-bg-default text-fg-default">
         <MainNavbar />
+        <TSRBreadCrumbs/>
         <Outlet />
         <ParkuiToast />
       </div>

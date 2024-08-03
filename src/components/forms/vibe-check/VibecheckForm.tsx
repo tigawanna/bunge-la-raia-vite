@@ -11,7 +11,7 @@ import { UseNavigateResult } from "@tanstack/react-router";
 import { ValidRoutes } from "@/lib/tanstack/types";
 
 interface VibecheckFormProps {
-  vibe_check?: VibesFormType;
+  vibe_check?: VibesFormType|null;
   navigate: UseNavigateResult<ValidRoutes>;
   form_step: number;
   questions: VibeCheckQuestions[];
@@ -44,7 +44,7 @@ export function VibecheckForm({ navigate, form_step, questions, mutation,vibe_ch
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <h1 className="text-2xl">Vibecheck</h1>
+
 
       <form className="flex h-full w-full flex-col items-center justify-center">
         {currentStep < questions.length && (
