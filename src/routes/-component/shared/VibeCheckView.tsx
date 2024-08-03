@@ -36,39 +36,6 @@ export function VibeCheckView({ vibe_check }: VibeCheckViewProps) {
           );
         })}
       </ul>
-      {/* <Accordion.Root multiple className="px-3">
-        {vibe_check.map((vibe) => {
-          return (
-            <Accordion.Item key={vibe.query} value={vibe.query}>
-              <Accordion.ItemTrigger>
-                <p>Q: {vibe.query}</p>
-                <Accordion.ItemIndicator>
-                  <ChevronDownIcon />
-                </Accordion.ItemIndicator>
-              </Accordion.ItemTrigger>
-              <Accordion.ItemContent>
-                {vibe.options ? (
-                  <div>
-                    {vibe.options?.map(({ key, value }) => {
-                      if (value == vibe.answer) {
-                        return (
-                          <p className="font-bold text-success flex items-center gap-1" key={key}>
-                            <CircleCheck className="size-4" />
-                            {value}
-                          </p>
-                        );
-                      }
-                      return <p key={key}>{value}</p>;
-                    })}
-                  </div>
-                ) : (
-                  <p>A: {vibe.answer}</p>
-                )}
-              </Accordion.ItemContent>
-            </Accordion.Item>
-          );
-        })}
-      </Accordion.Root> */}
     </div>
   );
 }
