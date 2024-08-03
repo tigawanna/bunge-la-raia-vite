@@ -36,20 +36,13 @@ export function UserProfile({}: UserProfileProps) {
           <div className="h-full flex flex-col justify-center gap-1">
             <h1 className="text-xl">{one_user?.fullname}</h1>
             <h1 className="text-sm">{one_user?.email}</h1>
-            <button className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
-              edit profile
-            </button>
-            <Link to="/profile/update" search={{is_fresh:true,form_step:0 }} className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
+
+            <Link to="/profile/update" search={{is_fresh:false,form_step:0 }} className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
               Edit profile
             </Link>
           </div>
           <p className="text-sm">
             {one_user?.bio}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sit saepe quo, ipsum
-            eaque perspiciatis sint non, dolore fuga enim sapiente. Totam eos qui odio asperiores
-            commodi doloremque, ducimus deleniti. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Minima sit saepe quo, ipsum eaque perspiciatis sint non, dolore fuga enim
-            sapiente. Totam eos qui odio asperiores commodi doloremque, ducimus deleniti.
           </p>
           <div className="w-full">
             {/* @ts-expect-error */}

@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { UserProfile } from "./-components/view/UserProfile";
 import { oneUserQueryOptions } from "./-components/profile-query-options";
 import { authGuard } from "@/lib/tanstack/query/use-viewer";
