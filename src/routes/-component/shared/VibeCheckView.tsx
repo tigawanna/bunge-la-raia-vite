@@ -20,17 +20,21 @@ export function VibeCheckView({ vibe_check }: VibeCheckViewProps) {
                   {vibe.options?.map(({ key, value }) => {
                     if (value == vibe.answer) {
                       return (
-                        <p className="text-success text-sm flex items-center gap-1" key={key}>
-                          <CircleCheck className="size-4" />
+                        <p className="text-success-content  text-sm flex items-center gap-1" key={key}>
                           {value}
+                          <CircleCheck className="size-4" />
                         </p>
                       );
                     }
-                    return <p className="text-sm brightness-50" key={key}>{value}</p>;
+                    return (
+                      <p className="text-sm brightness-75" key={key}>
+                        {value}
+                      </p>
+                    );
                   })}
                 </div>
               ) : (
-                <p className="text-sm text-success">A: {vibe.answer}</p>
+                <p className="text-sm text-success-content">A: {vibe.answer}</p>
               )}
             </li>
           );

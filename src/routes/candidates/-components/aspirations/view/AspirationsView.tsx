@@ -46,18 +46,7 @@ export function AspirationsView({ aspiration, candidate_id, viewer_id }: Aspirat
                 <VibeCheckView vibe_check={vibes} />
               )}
             </div>
-            <ul className="flex h-full w-[90%] flex-col gap-3  p-2">
-              {vibes.map((aspiration, idx) => {
-                return (
-                  <li
-                    key={idx}
-                    className="flex w-full flex-col gap-1 rounded-lg  border bg-bg-subtle p-3">
-                    <h2 className="text-sm border-b">Q: {aspiration.query}</h2>
-                    <p className="pl-2 text-sm">A: {aspiration.answer}</p>
-                  </li>
-                );
-              })}
-            </ul>
+      
           </div>
         )}
       </div>
