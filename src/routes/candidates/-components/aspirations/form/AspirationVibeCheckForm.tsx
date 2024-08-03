@@ -61,6 +61,7 @@ export function AspirationVibeCheckForm({
         questions={aspirant_questions}
         form_step={form_step}
         mutation={mutation}
+        vibe_check={aspiration.vibe_check}
       />
     </div>
   );

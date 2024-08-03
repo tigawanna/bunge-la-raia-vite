@@ -61,6 +61,7 @@ export function UserVibeCheckForm({
         questions={user_questions}
         form_step={form_step}
         mutation={mutation}
+        vibe_check={user?.vibe_check}
       />
     </div>
   );

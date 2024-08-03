@@ -11,14 +11,15 @@ import { UseNavigateResult } from "@tanstack/react-router";
 import { ValidRoutes } from "@/lib/tanstack/types";
 
 interface VibecheckFormProps {
+  vibe_check?: VibesFormType;
   navigate: UseNavigateResult<ValidRoutes>;
   form_step: number;
   questions: VibeCheckQuestions[];
   mutation: UseMutationResult<void, Error, VibecheckFormMutationProps, unknown>;
 }
 
-export function VibecheckForm({ navigate, form_step, questions, mutation }: VibecheckFormProps) {
-  const [vibes, setVibes] = useState<VibesFormType>([]);
+export function VibecheckForm({ navigate, form_step, questions, mutation,vibe_check }: VibecheckFormProps) {
+  const [vibes, setVibes] = useState<VibesFormType>(vibe_check??[]);
   function handleNext() {
     // setCurrentStep(currentStep + 1);
     if (form_step < questions.length) {

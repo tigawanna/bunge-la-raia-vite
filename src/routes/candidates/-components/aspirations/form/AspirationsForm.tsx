@@ -2,7 +2,6 @@ import { CandidateAspirationRowType } from "../types";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useState } from "react";
 import { AspirationBasicsForm } from "./AspirationBasicsForm";
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UseNavigateResult, useSearch } from "@tanstack/react-router";
 import { AspirationVibeCheckForm } from "./AspirationVibeCheckForm";

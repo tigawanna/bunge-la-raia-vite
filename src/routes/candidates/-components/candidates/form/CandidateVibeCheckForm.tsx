@@ -2,9 +2,8 @@ import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { aspirant_questions } from "@/components/forms/vibe-check/data";
 import { VibecheckForm } from "@/components/forms/vibe-check/VibecheckForm";
-import { VibecheckFormMutationProps } from "@/components/forms/vibe-check/types";
+import { VibecheckFormMutationProps, VibesFormType } from "@/components/forms/vibe-check/types";
 import { CandidateRowType } from "../../types";
 import { candidate_questions } from "./candidate-questions";
 
@@ -57,6 +56,7 @@ export function CandidateVibeCheckForm({candidate,next}: CandidateVibeCheckFormP
         questions={candidate_questions}
         form_step={form_step}
         mutation={mutation}
+        vibe_check={candidate?.vibe_check as VibesFormType}
       />
     </div>
   );
