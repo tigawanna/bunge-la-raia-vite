@@ -1,5 +1,5 @@
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
-import { UseNavigateResult, useSearch } from "@tanstack/react-router";
+import { UseNavigateResult } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
@@ -13,7 +13,6 @@ interface CandidateFormProps {
 }
 
 export function CandidateForm({ candidate, start_from_basics, navigate }: CandidateFormProps) {
-
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
   const [formStep, setFormStep] = useState(candidate && !start_from_basics ? 1 : 0);
@@ -40,7 +39,7 @@ export function CandidateForm({ candidate, start_from_basics, navigate }: Candid
         {formStep === 0 && (
           <CandidateBasicDetailsForm
             candidate={candidate}
-            next={(asp) => {
+            next={() => {
               if (navigate && !candidate) {
                 if (start_from_basics) {
                   navigate({
@@ -71,9 +70,8 @@ export function CandidateForm({ candidate, start_from_basics, navigate }: Candid
             next={() => {
               if (navigate) {
                 navigate({
-                  to: "/candidates/$candidate/update",
-                  search: { is_fresh: false, form_step: 0 },
-                  params: {
+                  to: "/candidates/$candidate",
+                params: {
                     candidate: viewer?.id,
                   },
                 });

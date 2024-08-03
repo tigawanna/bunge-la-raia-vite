@@ -3,7 +3,7 @@ import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useState } from "react";
 import { AspirationBasicsForm } from "./AspirationBasicsForm";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { UseNavigateResult, useSearch } from "@tanstack/react-router";
+import { UseNavigateResult} from "@tanstack/react-router";
 import { AspirationVibeCheckForm } from "./AspirationVibeCheckForm";
 
 interface AspirationsFormProps {
@@ -16,9 +16,7 @@ interface AspirationsFormProps {
 }
 
 export function AspirationsForm({ aspiration, navigate, start_from_basics,from }: AspirationsFormProps) {
-  const {is_fresh} = useSearch({
-    from
-  });
+
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
   const [formStep, setFormStep] = useState(aspiration && !start_from_basics ? 1 : 0);
