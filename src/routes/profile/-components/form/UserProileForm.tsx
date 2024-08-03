@@ -9,13 +9,17 @@ import { UserVibeCheckForm } from "./UserVibeCheckForm";
 interface UserprofileFormProps {
   user_profile?: UserProfileRowType;
   navigate?: UseNavigateResult<"/profile/update">;
-  justCreated?: boolean;
+  start_from_basics?: boolean;
 }
 
-export function UserprofileForm({ user_profile, navigate, justCreated }: UserprofileFormProps) {
+export function UserprofileForm({
+  user_profile,
+  navigate,
+  start_from_basics,
+}: UserprofileFormProps) {
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState(user_profile ? 1 : 0);
+  const [formStep, setFormStep] = useState(start_from_basics ? 0 : 1);
   const canGoToNext = formStep < 1 && user_profile;
   const canGoToPrevious = formStep > 0 && user_profile;
   function handleNext() {
@@ -41,7 +45,7 @@ export function UserprofileForm({ user_profile, navigate, justCreated }: Userpro
             user_profile={user_profile}
             next={() => {
               if (navigate && !user_profile) {
-                if (justCreated) {
+                if (start_from_basics) {
                   navigate({
                     to: "/profile/update",
                     search: { is_fresh: true, form_step: 0 },

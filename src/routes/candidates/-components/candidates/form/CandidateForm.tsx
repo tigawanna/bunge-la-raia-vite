@@ -9,16 +9,14 @@ import { CandidateVibeCheckForm } from "./CandidateVibeCheckForm";
 interface CandidateFormProps {
   candidate?: CandidateRowType | null;
   navigate?: UseNavigateResult<"/candidates/$candidate">;
-  justCreated?: boolean;
+  start_from_basics?: boolean;
 }
 
-export function CandidateForm({candidate,justCreated,navigate}: CandidateFormProps) {
-  const { is_fresh } = useSearch({
-    from: "/candidates/$candidate/update",
-  });
+export function CandidateForm({ candidate, start_from_basics, navigate }: CandidateFormProps) {
+
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState(candidate && !is_fresh ? 1 : 0);
+  const [formStep, setFormStep] = useState(candidate && !start_from_basics ? 1 : 0);
   const canGoToNext = formStep < 1 && candidate;
   const canGoToPrevious = formStep > 0 && candidate;
   function handleNext() {
@@ -44,7 +42,7 @@ export function CandidateForm({candidate,justCreated,navigate}: CandidateFormPro
             candidate={candidate}
             next={(asp) => {
               if (navigate && !candidate) {
-                if (justCreated) {
+                if (start_from_basics) {
                   navigate({
                     to: "/candidates/$candidate/update",
                     search: { is_fresh: true, form_step: 0 },

@@ -8,18 +8,20 @@ import { AspirationVibeCheckForm } from "./AspirationVibeCheckForm";
 
 interface AspirationsFormProps {
   aspiration?: CandidateAspirationRowType;
-  from:"/candidates/$candidate/aspirations/new"|"/candidates/$candidate/aspirations/$aspiration/update";
+  from:
+    | "/candidates/$candidate/aspirations/new"
+    | "/candidates/$candidate/aspirations/$aspiration/update";
   navigate?: UseNavigateResult<"/candidates/$candidate/aspirations/new">;
-  justCreated?: boolean;
+  start_from_basics?: boolean;
 }
 
-export function AspirationsForm({ aspiration, navigate, justCreated,from }: AspirationsFormProps) {
+export function AspirationsForm({ aspiration, navigate, start_from_basics,from }: AspirationsFormProps) {
   const {is_fresh} = useSearch({
     from
   });
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const [formStep, setFormStep] = useState((aspiration && !is_fresh) ? 1 : 0);
+  const [formStep, setFormStep] = useState(aspiration && !start_from_basics ? 1 : 0);
   const canGoToNext = formStep < 1 && aspiration;
   const canGoToPrevious = formStep > 0 && aspiration;
   function handleNext() {
@@ -48,7 +50,7 @@ export function AspirationsForm({ aspiration, navigate, justCreated,from }: Aspi
             }}
             next={(asp) => {
               if (navigate && !aspiration) {
-                if (justCreated) {
+                if (start_from_basics) {
                   navigate({
                     to: "/candidates/$candidate/aspirations/$aspiration/update",
                     search: { is_fresh: true, form_step: 0 },

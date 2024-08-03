@@ -1,5 +1,4 @@
-// import { Database } from "./db-types";
-// export type AspirationsRowType = Database["public"]["Tables"]["candidate_aspirations"];
+
 
 export type VibeCheckType= {
     query: string;

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { UpdateAspirations } from "../../../-components/aspirations/form/UpdateAspirations";
 
 const searchparams = z.object({
+  basics: z.boolean().optional(),
   is_fresh: z.boolean().optional(),
   form_step: z.number().default(0),
 });

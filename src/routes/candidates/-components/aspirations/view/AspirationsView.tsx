@@ -1,10 +1,11 @@
-import { AspirationsRowType, VibeCheckType } from "@/lib/supabase/extra-db-types";
+import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { Link } from "@tanstack/react-router";
 import { Edit } from "lucide-react";
+import { CandidateAspirationRowType } from "../types";
 
 interface AspirationsViewProps {
-  aspiration: AspirationsRowType["Row"];
+  aspiration: CandidateAspirationRowType;
   candidate_id: string;
   viewer_id?: string;
 }
@@ -25,8 +26,9 @@ export function AspirationsView({ aspiration, candidate_id, viewer_id }: Aspirat
             <Link
               className="hover:text-accent-text hover:text-underline"
               to="/candidates/$candidate/aspirations/$aspiration/update"
+
               params={{ candidate: candidate_id, aspiration: aspiration.id }}
-              search={{ form_step: 0, is_fresh: true }}>
+              search={{ form_step: 0, is_fresh: true,basics:true }}>
               <Edit />
             </Link>
           )}

@@ -5,9 +5,11 @@ import { oneUserQueryOptions } from "../profile-query-options";
 import { UserprofileForm } from "./UserProileForm";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 
-interface UpdateUserProfileProps {}
+interface UpdateUserProfileProps {
+  start_from_basics: boolean;
+}
 
-export function UpdateUserProfile({}: UpdateUserProfileProps) {
+export function UpdateUserProfile({start_from_basics}: UpdateUserProfileProps) {
   const { userQuery } = useViewer();
   const viewer = userQuery.data.data;
   const user_id = viewer?.id!;
@@ -24,7 +26,7 @@ export function UpdateUserProfile({}: UpdateUserProfileProps) {
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <UserprofileForm user_profile={one_user as any} />
+      <UserprofileForm user_profile={one_user as any}   start_from_basics={start_from_basics}/>
     </div>
   );
 }

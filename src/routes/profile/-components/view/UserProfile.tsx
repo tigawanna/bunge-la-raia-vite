@@ -37,7 +37,7 @@ export function UserProfile({}: UserProfileProps) {
             <h1 className="text-xl">{one_user?.fullname}</h1>
             <h1 className="text-sm">{one_user?.email}</h1>
 
-            <Link to="/profile/update" search={{is_fresh:false,form_step:0 }} className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
+            <Link to="/profile/update" search={{is_fresh:false,form_step:0 ,basics:true }} className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
               Edit profile
             </Link>
           </div>
