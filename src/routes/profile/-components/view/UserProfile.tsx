@@ -1,4 +1,3 @@
-import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { oneUserQueryOptions } from "../profile-query-options";
 import { Link, Navigate } from "@tanstack/react-router";
@@ -6,12 +5,12 @@ import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import Avatar from "boring-avatars";
 import { Plus } from "lucide-react";
-interface UserProfileProps {}
+interface UserProfileProps {
+  user_id: string;
+  viewer_id?: string;
+}
 
-export function UserProfile({}: UserProfileProps) {
-  const { userQuery } = useViewer();
-  const viewer = userQuery.data.data;
-  const user_id = viewer?.id!;
+export function UserProfile({ user_id, viewer_id }: UserProfileProps) {
   const query = useSuspenseQuery(oneUserQueryOptions({ user_id }));
   const one_user = query.data?.data;
 
@@ -38,50 +37,63 @@ export function UserProfile({}: UserProfileProps) {
             e.currentTarget.src = "https://picsum.photos/700/200";
           }}
         />
-        <div className="flex  justify-center gap-1 absolute top-[20%] left-[5%] z-20">
+        <div className="w-full h-[200px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " />
+        <div
+          className="flex flex-col justify-center  gap-1 absolute top-0 bottom-0 left-0 z-20 
+          p-4">
           {one_user?.avatar_url ? (
             <img
               src={one_user?.avatar_url}
-              className="size-[150px] rounded-full"
+              className="size-[90px] rounded-full"
               onError={(e) => {
-                e.currentTarget.src = "https://picsum.photos/150/150";
+                e.currentTarget.src = "https://picsum.photos/90/90";
               }}
             />
           ) : (
-            <Avatar name={one_user.email || "Maria Mitchell"} size={150} variant="bauhaus" />
+            <Avatar name={one_user.email || "Maria Mitchell"} size={90} variant="bauhaus" />
           )}
-          <div className="flex flex-col gap-1  justify-center bg-slate-700/20 text-slate-100 rounded-lg p-1">
-            <span className="flex flex-col md:flex-row gap-2  md:items-center">
+          <div className="flex flex-col  justify-center  rounded-lg p-1 bg-bg-muted opacity-70">
+            <span className="flex flex-col md:flex-row  md:items-cente">
               <h1 className="text-xl">{one_user?.fullname}</h1>
-              <Link
-                to="/profile/update"
-                search={{ is_fresh: false, form_step: 0, basics: true }}
-                className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
-                Edit profile
-              </Link>
+              {viewer_id && (
+                <Link
+                  to="/profile/update"
+                  search={{ is_fresh: false, form_step: 0, basics: true }}
+                  className="text-sm rounded-lg border w-fit px-2 hover:bg-bg-emphasized">
+                  Edit profile
+                </Link>
+              )}
             </span>
             <h1 className="text-sm">{one_user?.email}</h1>
-
-            <p className="text-sm">{one_user?.bio}</p>
           </div>
         </div>
       </div>
 
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        {one_user?.bio && one_user?.bio.length > 0 && (
+          <div className="w-full h-full flex flex-col justify-center items-center">
+            <h1 className="text-xl">Bio</h1>
+            <p className="text-sm">{one_user?.bio}</p>
+          </div>
+        )}
         {/* @ts-expect-error */}
-        {one_user?.vibe_check && one_user?.vibe_check.length > 0 ? (
-           <div className="w-full h-full flex flex-col justify-center items-center p-2">
+        {one_user?.vibe_check && one_user?.vibe_check?.length > 0 ? (
+          <div className="w-full h-full flex flex-col justify-center items-center p-2">
             <h1 className="text-xl">Vibe Check</h1>
-          <VibeCheckView vibe_check={one_user.vibe_check as VibeCheckType} />
-        </div>
+            <VibeCheckView vibe_check={one_user.vibe_check as VibeCheckType} />
+          </div>
         ) : (
-          <div className="min-h-[50vh] flex justify-center items-center">
-            <Link
-              to="/profile/update"
-              search={{ is_fresh: false, form_step: 0, basics: false }}
-              className="rounded-lg border text-lg w-fit px-2 hover:bg-bg-emphasized flex gap-2 justify-center items-center">
-              Do a vibe check <Plus className="size-10" />
-            </Link>
+          <div className="flex justify-center items-center">
+            {viewer_id && (
+              <div className="min-h-[50vh] flex justify-center items-center">
+                <Link
+                  to="/profile/update"
+                  search={{ is_fresh: false, form_step: 0, basics: false }}
+                  className="rounded-lg border text-lg w-fit px-2 hover:bg-bg-emphasized flex gap-2 justify-center items-center">
+                  Do a vibe check <Plus className="size-10" />
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>

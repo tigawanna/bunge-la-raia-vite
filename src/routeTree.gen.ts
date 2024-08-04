@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as WardsIndexImport } from './routes/wards/index'
+import { Route as UsersIndexImport } from './routes/users/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
 import { Route as MpsIndexImport } from './routes/mps/index'
 import { Route as McasIndexImport } from './routes/mcas/index'
@@ -24,6 +25,7 @@ import { Route as CandidatesIndexImport } from './routes/candidates/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as WardsWardImport } from './routes/wards/$ward'
+import { Route as UsersUserImport } from './routes/users/$user'
 import { Route as ProfileUpdateImport } from './routes/profile/update'
 import { Route as ProfileNewImport } from './routes/profile/new'
 import { Route as MpsMpImport } from './routes/mps/$mp'
@@ -54,6 +56,11 @@ const IndexRoute = IndexImport.update({
 
 const WardsIndexRoute = WardsIndexImport.update({
   path: '/wards/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UsersIndexRoute = UsersIndexImport.update({
+  path: '/users/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -104,6 +111,11 @@ const AdminIndexRoute = AdminIndexImport.update({
 
 const WardsWardRoute = WardsWardImport.update({
   path: '/wards/$ward',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UsersUserRoute = UsersUserImport.update({
+  path: '/users/$user',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -269,6 +281,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileUpdateImport
       parentRoute: typeof rootRoute
     }
+    '/users/$user': {
+      id: '/users/$user'
+      path: '/users/$user'
+      fullPath: '/users/$user'
+      preLoaderRoute: typeof UsersUserImport
+      parentRoute: typeof rootRoute
+    }
     '/wards/$ward': {
       id: '/wards/$ward'
       path: '/wards/$ward'
@@ -339,6 +358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
+    '/users/': {
+      id: '/users/'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof UsersIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/wards/': {
       id: '/wards/'
       path: '/wards'
@@ -404,6 +430,7 @@ export const routeTree = rootRoute.addChildren({
   MpsMpRoute,
   ProfileNewRoute,
   ProfileUpdateRoute,
+  UsersUserRoute,
   WardsWardRoute,
   AdminIndexRoute,
   AuthIndexRoute,
@@ -414,6 +441,7 @@ export const routeTree = rootRoute.addChildren({
   McasIndexRoute,
   MpsIndexRoute,
   ProfileIndexRoute,
+  UsersIndexRoute,
   WardsIndexRoute,
   CandidatesCandidateUpdateRoute,
   CandidatesCandidateIndexRoute,
@@ -442,6 +470,7 @@ export const routeTree = rootRoute.addChildren({
         "/mps/$mp",
         "/profile/new",
         "/profile/update",
+        "/users/$user",
         "/wards/$ward",
         "/admin/",
         "/auth/",
@@ -452,6 +481,7 @@ export const routeTree = rootRoute.addChildren({
         "/mcas/",
         "/mps/",
         "/profile/",
+        "/users/",
         "/wards/",
         "/candidates/$candidate/update",
         "/candidates/$candidate/",
@@ -494,6 +524,9 @@ export const routeTree = rootRoute.addChildren({
     "/profile/update": {
       "filePath": "profile/update.tsx"
     },
+    "/users/$user": {
+      "filePath": "users/$user.tsx"
+    },
     "/wards/$ward": {
       "filePath": "wards/$ward.tsx"
     },
@@ -523,6 +556,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
+    },
+    "/users/": {
+      "filePath": "users/index.tsx"
     },
     "/wards/": {
       "filePath": "wards/index.tsx"
