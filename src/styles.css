@@ -285,28 +285,4 @@ h6 {
 }
 
 
-.bread-crumbs-links {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 4rem;
-  transition: max-width 2s;
-  cursor: pointer;
-}
-.bread-crumbs-links:hover {
-  max-width: min-content;
-  transition: max-width 0.3s ease-out;
-  animation: bread-crumbs-links-hover 0.3s ease-in-out forwards;
-  @apply text-accent-text;
-
-}
-
-@keyframes bread-crumbs-links-hover {
-  0% {
-    max-width: 4rem;
-  }
-  100% {
-    max-width: min-content;
-  }
-}
 
