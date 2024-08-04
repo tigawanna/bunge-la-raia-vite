@@ -3,7 +3,6 @@ import { IconButton } from "@/components/park/ui/icon-button";
 import { supabase } from "@/lib/supabase/client";
 import { viewerqueryOptions } from "@/lib/tanstack/query/use-viewer";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-
 import { FaGoogle } from "react-icons/fa6";
 import { Loader } from "lucide-react";
 
@@ -13,9 +12,12 @@ export function OauthSigninButtons({}: OauthSigninButtonsProps) {
   const qc = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (provider: "google") => {
-      return await supabase.auth.signInWithOAuth({ provider });
+      const { error } = await supabase.auth.signInWithOAuth({ provider });
+      if (error) {
+        throw error;
+      }
     },
-    onSuccess() {
+    onSuccess(data) {
       qc.invalidateQueries(viewerqueryOptions);
     },
     onError(error) {

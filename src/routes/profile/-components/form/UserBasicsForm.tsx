@@ -3,12 +3,15 @@ import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { ImageURLInputField, ResizeTextAreaFormField, TextFormField } from "@/lib/tanstack/form/TextFields";
+import {
+  ImageURLInputField,
+  ResizeTextAreaFormField,
+  TextFormField,
+} from "@/lib/tanstack/form/TextFields";
 import { z } from "zod";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { UserProfileInsertType, UserProfileRowType } from "../types";
 import { useCurrentLocation } from "@/utils/hooks/use-current-location";
-
 
 interface UserProfileBasicsFormProps {
   user_profile?: UserProfileRowType;
@@ -16,12 +19,21 @@ interface UserProfileBasicsFormProps {
 }
 
 export function UserProfileBasicsForm({ user_profile, next }: UserProfileBasicsFormProps) {
-
-const {location} = useCurrentLocation()
+  const { location } = useCurrentLocation();
 
   const mutation = useMutation({
     mutationFn: async (vars: UserProfileInsertType) => {
-      const { error, data } = await supabase.from("users").upsert(vars).select().single();
+      if (user_profile?.id) {
+        const { error, data } = await supabase
+          .from("users")
+          .update(vars)
+          .eq("id", user_profile?.id);
+        if (error) {
+          throw new Error(error.message);
+        }
+        return data;
+      }
+    const { error, data } = await supabase.from("users").insert(vars);
       if (error) {
         throw new Error(error.message);
       }
@@ -31,7 +43,7 @@ const {location} = useCurrentLocation()
       //   navigate({ to: "/candidates/$candidate", params: { id: viewer?.id! } });
       toaster.create({
         title: "Success",
-        description: `Aspiration created successfully`,
+        description: `User inserted successfully`,
         type: "success",
       });
       next(data as any as UserProfileRowType);
@@ -51,9 +63,9 @@ const {location} = useCurrentLocation()
     defaultValues: {
       username: user_profile?.username ?? "",
       bio: user_profile?.bio ?? "",
-      gps: user_profile?.gps??`POINT(${location?.latitude} ${location?.longitude})`,
+      gps: user_profile?.gps ?? `POINT(${location?.latitude} ${location?.longitude})`,
       avatar_url: user_profile?.avatar_url ?? "",
-      banner_url:user_profile?.banner_url ?? "",
+      banner_url: user_profile?.banner_url ?? "https://picsum.photos/id/62/700/200",
       fullname: user_profile?.fullname ?? "",
       vibe_check: user_profile?.vibe_check ?? [],
     },
@@ -65,7 +77,6 @@ const {location} = useCurrentLocation()
   // console.log("user_profile in string format  =========== ",JSON.stringify(user_profile?.vibe_check))
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -85,7 +96,7 @@ const {location} = useCurrentLocation()
               <TextFormField<UserProfileInsertType>
                 field={field}
                 fieldKey="fullname"
-                fieldlabel="Bio"
+                fieldlabel="Full Name"
                 inputOptions={{
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),
@@ -105,7 +116,7 @@ const {location} = useCurrentLocation()
               <TextFormField<UserProfileInsertType>
                 field={field}
                 fieldKey="username"
-                fieldlabel="Bio"
+                fieldlabel="Username"
                 inputOptions={{
                   onBlur: field.handleBlur,
                   onChange: (e) => field.handleChange(e.target.value),
@@ -119,7 +130,7 @@ const {location} = useCurrentLocation()
           name="bio"
           validatorAdapter={zodValidator()}
           validators={{
-            onChange: z.string().min(50).max(700),
+            onChange: z.string().min(30).max(700),
           }}
           children={(field) => {
             return (

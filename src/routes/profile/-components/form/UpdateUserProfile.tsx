@@ -1,4 +1,4 @@
-import { Navigate } from "@tanstack/react-router";
+import { Navigate, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { toaster } from "@/components/navigation/ParkuiToast";
 import { oneUserQueryOptions } from "../profile-query-options";
@@ -11,6 +11,9 @@ interface UpdateUserProfileProps {
 
 export function UpdateUserProfile({start_from_basics}: UpdateUserProfileProps) {
   const { userQuery } = useViewer();
+  const navigate = useNavigate({
+    from: "/profile/update",
+  })
   const viewer = userQuery.data.data;
   const user_id = viewer?.id!;
   const query = useSuspenseQuery(oneUserQueryOptions({ user_id }));
@@ -25,8 +28,9 @@ export function UpdateUserProfile({start_from_basics}: UpdateUserProfileProps) {
     return <Navigate to="/profile/new" />;
   }
   return (
+
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <UserprofileForm user_profile={one_user as any}   start_from_basics={start_from_basics}/>
+      <UserprofileForm user_profile={one_user as any}  navigate={navigate} start_from_basics={start_from_basics}/>
     </div>
   );
 }

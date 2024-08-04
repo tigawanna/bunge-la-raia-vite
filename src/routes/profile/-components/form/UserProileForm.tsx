@@ -8,7 +8,7 @@ import { UserVibeCheckForm } from "./UserVibeCheckForm";
 
 interface UserprofileFormProps {
   user_profile?: UserProfileRowType;
-  navigate?: UseNavigateResult<"/profile/update">;
+  navigate: UseNavigateResult<"/profile/update"|"/profile/new">;
   start_from_basics?: boolean;
 }
 
