@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IntroImport } from './routes/intro'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as WardsIndexImport } from './routes/wards/index'
@@ -43,6 +44,11 @@ import { Route as CandidatesCandidateAspirationsAspirationIndexImport } from './
 import { Route as CandidatesCandidateAspirationsAspirationUpdateImport } from './routes/candidates/$candidate/aspirations/$aspiration/update'
 
 // Create/Update Routes
+
+const IntroRoute = IntroImport.update({
+  path: '/intro',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
@@ -216,6 +222,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/intro': {
+      id: '/intro'
+      path: '/intro'
+      fullPath: '/intro'
+      preLoaderRoute: typeof IntroImport
       parentRoute: typeof rootRoute
     }
     '/auth/signup': {
@@ -421,6 +434,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  IntroRoute,
   AuthSignupRoute,
   CandidatesNewRoute,
   ConstituenciesConstituencyRoute,
@@ -461,6 +475,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_layout",
+        "/intro",
         "/auth/signup",
         "/candidates/new",
         "/constituencies/$constituency",
@@ -496,6 +511,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout": {
       "filePath": "_layout.tsx"
+    },
+    "/intro": {
+      "filePath": "intro.tsx"
     },
     "/auth/signup": {
       "filePath": "auth/signup.tsx"
