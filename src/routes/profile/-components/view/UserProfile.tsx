@@ -38,26 +38,21 @@ export function UserProfile({ user_id, viewer_id }: UserProfileProps) {
           }}
         />
         {/* <div className="w-full h-[120px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " /> */}
-        
+
         <div
           className="w-full flex sm:flex-row flex-col justify-center 
           sm:justify-between items-start sm:items-end gap-1 absolute top-[120px] bottom-0 left-0 z-20 
           p-4">
-          {one_user?.avatar_url ? (
-            <img
-              src={one_user?.avatar_url}
-              height={120}
-              width={120}
-              className="aspect-square sm:size-[150px] rounded-lg"
-              onError={(e) => {
-                e.currentTarget.src = "/kenya-globe.png";
-              }}
-            />
-          ) : (
-            <Avatar name={one_user.email || "Maria Mitchell"} size={120} variant="bauhaus" />
-          )}
-          <div
-            className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
+          <img
+            src={one_user?.avatar_url ?? "/kenya-globe.png"}
+            height={120}
+            width={120}
+            className="aspect-square sm:size-[150px] rounded-lg"
+            onError={(e) => {
+              e.currentTarget.src = "/kenya-globe.png";
+            }}
+          />
+          <div className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
             <span className="flex flex-col  md:flex-row  md:items-cente">
               <h1 className="text-xl">{one_user?.fullname}</h1>
               {viewer_id && (

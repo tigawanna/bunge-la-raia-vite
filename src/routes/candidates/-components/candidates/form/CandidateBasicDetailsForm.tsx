@@ -60,7 +60,7 @@ export function CandidateBasicDetailsForm({ candidate, next }: CandidateBasicDet
     mutation.mutate(data);
   };
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center ">
+    <div className="w-full h-full py-5 flex flex-col items-center justify-center ">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-fit flex flex-col items-center bg-bg-emphasized justify-center p-[5%] lg:p-[3%] rounded-lg gap-4 overflow-auto">

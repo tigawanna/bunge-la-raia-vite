@@ -5,7 +5,7 @@ import { useState } from "react";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
 import { CandidateRowType } from "../../types";
 import { CandidateVibeCheckForm } from "./CandidateVibeCheckForm";
-import { DismissableAlert } from "@/components/wrappers/DismissableAlert";
+
 
 interface CandidateFormProps {
   candidate?: CandidateRowType | null;

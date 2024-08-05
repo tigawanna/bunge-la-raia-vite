@@ -14,7 +14,7 @@ export function CandidateBasicDetailsDialog({ candidate }: CandidateBasicDetails
       <Dialog.Trigger asChild>
         <EllipsisVertical />
       </Dialog.Trigger>
-      <Dialog.Backdrop className="opacity-40" />
+      <Dialog.Backdrop className="" />
       <Dialog.Positioner>
         <Dialog.Content className="w-full h-full ">
           <CandidateBasicDetailsForm candidate={candidate} next={()=>{}}/>
