@@ -6,7 +6,7 @@ import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog
 import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { CandidateAspirations } from "../../aspirations/list/CandidateAspirations";
-import { Edit } from "lucide-react";
+import { Edit, Sparkles } from "lucide-react";
 
 interface OneCandidateProps {}
 
@@ -27,7 +27,7 @@ export function OneCandidate({}: OneCandidateProps) {
             e.currentTarget.src = "/black-flag.webp";
           }}
         />
-        {one_candidate?.id === params.candidate && (
+        {viewer?.id === params.candidate && (
           <div className="absolute top-[2%] z-30 right-[2%]">
             <CandidateBasicDetailsDialog candidate={one_candidate} />
           </div>
@@ -49,7 +49,7 @@ export function OneCandidate({}: OneCandidateProps) {
 
           <div className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
             <h1 className="text-xl">{one_candidate?.name}</h1>
-            {viewer?.id && (
+            {viewer?.id === params.candidate && (
               <Link
                 to="/candidates/$candidate/update"
                 className="border rounded-lg px-1 w-fit flex gap-2 justify-center items-center"
@@ -66,9 +66,17 @@ export function OneCandidate({}: OneCandidateProps) {
         <p className="text-sm">{one_candidate?.bio}</p>
       </div>
 
-      <div className="w-full">
+      <div className="w-full flex flex-col items-center gap-2  relative">
         {one_candidate?.vibe_check && one_candidate?.vibe_check !== "" && (
-          <VibeCheckView vibe_check={one_candidate.vibe_check as VibeCheckType} />
+          <div className="w-full flex flex-col items-center gap-2 relative">
+            <VibeCheckView vibe_check={one_candidate.vibe_check as VibeCheckType} />
+            <button
+              type="button"
+              className="absolute  bg-bg-default rounded-lg p-2 bottom-[5%] right-[5%] flex gap-2 items-center justify-center">
+              chat with candidate
+              <Sparkles />
+            </button>
+          </div>
         )}
       </div>
       <p>{one_candidate?.candidate_summary}</p>
