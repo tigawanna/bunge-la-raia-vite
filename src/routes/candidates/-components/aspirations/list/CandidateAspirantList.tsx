@@ -21,7 +21,7 @@ export function CandidateAspirantList({ q="", candidate_id }: CandidateAspirantL
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-    <ul className="w-full h-full flex flex-wrap items-center justify-center md:justify-start gap-2">
+    <ul className="w-full h-full flex flex-wrap items-center justify-center gap-2">
       {data?.map((item, idx) => {
         return (
           <Link
