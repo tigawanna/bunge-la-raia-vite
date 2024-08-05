@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase/client";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { toaster } from "@/components/navigation/ParkuiToast";
+import { DismissableAlert } from "@/components/wrappers/DismissableAlert";
 
 interface CandidateBasicDetailsFormProps {
   next: (candidate: CandidateRowType) => void;
@@ -64,7 +65,11 @@ export function CandidateBasicDetailsForm({ candidate, next }: CandidateBasicDet
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] md:w-[60%] lg:w-[50%] h-fit flex flex-col items-center bg-bg-emphasized justify-center p-[5%] lg:p-[3%] rounded-lg gap-4 overflow-auto">
         <h1 className="text-xl font-bold">Candidate Basic Details</h1>
-    
+
+        <DismissableAlert
+          className=" text-sm bg-error text-error-content text-center"
+          message="prefer not using your real name and images  to encourage your message to speak louder"
+        />
 
         {/* register your input into the hook by invoking the "register" function */}
         <TextFormField<CandidateInsertType>

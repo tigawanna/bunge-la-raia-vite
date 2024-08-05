@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
 import { CandidateRowType } from "../../types";
 import { CandidateVibeCheckForm } from "./CandidateVibeCheckForm";
+import { DismissableAlert } from "@/components/wrappers/DismissableAlert";
 
 interface CandidateFormProps {
   candidate?: CandidateRowType | null;
@@ -18,6 +19,7 @@ export function CandidateForm({ candidate, start_from_basics, navigate }: Candid
   const [formStep, setFormStep] = useState(candidate && !start_from_basics ? 1 : 0);
   const canGoToNext = formStep < 1 && candidate;
   const canGoToPrevious = formStep > 0 && candidate;
+
   function handleNext() {
     if (canGoToNext) {
       setFormStep((prev) => prev + 1);
@@ -30,11 +32,10 @@ export function CandidateForm({ candidate, start_from_basics, navigate }: Candid
   }
   if (viewer?.id == null) return;
   return (
-    <div className="w-full h-full flex items-center justify-center gap-2">
+    <div className="w-full h-full flex items-center justify-center gap-2 ">
       {canGoToPrevious && (
         <ChevronLeft className="size-20 hidden lg:flex" onClick={() => handlePrevious()} />
       )}
-
       <div className="w-full h-full flex flex-col items-center justify-between p-2">
         {formStep === 0 && (
           <CandidateBasicDetailsForm
@@ -71,7 +72,7 @@ export function CandidateForm({ candidate, start_from_basics, navigate }: Candid
               if (navigate) {
                 navigate({
                   to: "/candidates/$candidate",
-                params: {
+                  params: {
                     candidate: viewer?.id,
                   },
                 });
