@@ -31,28 +31,30 @@ export function UserProfile({ user_id, viewer_id }: UserProfileProps) {
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex flex-col h-[200px] items-center relative">
         <img
-          src={one_user?.banner_url ?? "https://picsum.photos/700/200"}
+          src={one_user?.banner_url ?? "/kenya-red-flag.webp"}
           className="w-full h-[200px] object-cover absolute top-0"
           onError={(e) => {
-            e.currentTarget.src = "https://picsum.photos/700/200";
+            e.currentTarget.src = "/kenya-red-flag.webp";
           }}
         />
-        <div className="w-full h-[200px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " />
+        {/* <div className="w-full h-[200px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " /> */}
         <div
           className="flex flex-col justify-center  gap-1 absolute top-0 bottom-0 left-0 z-20 
           p-4">
           {one_user?.avatar_url ? (
             <img
               src={one_user?.avatar_url}
+              height={90}
+              width={90}
               className="size-[90px] rounded-full"
               onError={(e) => {
-                e.currentTarget.src = "https://picsum.photos/90/90";
+                e.currentTarget.src = "/kenya-globe.png";
               }}
             />
           ) : (
             <Avatar name={one_user.email || "Maria Mitchell"} size={90} variant="bauhaus" />
           )}
-          <div className="flex flex-col  justify-center  rounded-lg p-1 bg-bg-muted opacity-70">
+          <div className="flex flex-col  justify-center  rounded-lg p-1 bg-bg-default opacity-70">
             <span className="flex flex-col md:flex-row  md:items-cente">
               <h1 className="text-xl">{one_user?.fullname}</h1>
               {viewer_id && (
