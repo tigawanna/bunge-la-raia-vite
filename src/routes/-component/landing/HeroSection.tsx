@@ -1,7 +1,6 @@
 "use client";
 import { AngryAtGoverment, HappyCitizen, InTheirShoes, Inconvinience } from "./Slides";
 import { useEffect, useState } from "react";
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/park/ui/button";
 
