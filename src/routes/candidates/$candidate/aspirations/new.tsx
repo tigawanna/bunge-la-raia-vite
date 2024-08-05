@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AspirationsForm } from "../../-components/aspirations/form/AspirationsForm";
 import { z } from "zod";
+import { authGuard } from "@/lib/tanstack/query/use-viewer";
 
 const searchparams = z.object({
   is_fresh: z.boolean().optional(),
@@ -9,6 +10,9 @@ const searchparams = z.object({
 export const Route = createFileRoute("/candidates/$candidate/aspirations/new")({
   component: NewAspirationPage,
   validateSearch: (search) => searchparams.parse(search),
+  async beforeLoad(ctx) {
+    await authGuard({ ctx });
+  },
 });
 
 interface NewAspirationPageProps {}

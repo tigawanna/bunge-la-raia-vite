@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { CardsListSuspenseFallback } from "@/components/loaders/GenericDataCardsListSuspenseFallback";
 import { z } from "zod";
 import { UpdateAspirations } from "../../../-components/aspirations/form/UpdateAspirations";
+import { authGuard } from "@/lib/tanstack/query/use-viewer";
 
 const searchparams = z.object({
   basics: z.boolean().optional(),
@@ -12,6 +13,9 @@ const searchparams = z.object({
 export const Route = createFileRoute("/candidates/$candidate/aspirations/$aspiration/update")({
   component: UpdateAspirationPage,
   validateSearch: (search) => searchparams.parse(search),
+  async beforeLoad(ctx) {
+    await authGuard({ ctx });
+  },
 });
 
 export function UpdateAspirationPage() {

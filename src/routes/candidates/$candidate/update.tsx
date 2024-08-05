@@ -1,8 +1,9 @@
 import { CardsListSuspenseFallback } from "@/components/loaders/GenericDataCardsListSuspenseFallback";
-import { createFileRoute, useSearch } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { z } from "zod";
 import { UpdateCandidateForm } from "../-components/candidates/form/UpdateCandidateForm";
+import { authGuard } from "@/lib/tanstack/query/use-viewer";
 const searchparams = z.object({
   basics: z.boolean().optional(),
   is_fresh: z.boolean().optional(),
@@ -11,6 +12,9 @@ const searchparams = z.object({
 export const Route = createFileRoute("/candidates/$candidate/update")({
   component: UpdateCandidate,
   validateSearch: (search) => searchparams.parse(search),
+  async beforeLoad(ctx) {
+    await authGuard({ ctx });
+  },
 });
 
 export function UpdateCandidate() {

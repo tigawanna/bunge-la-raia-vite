@@ -1,8 +1,12 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { CandidateForm } from './-components/candidates/form/CandidateForm';
+import { authGuard } from '@/lib/tanstack/query/use-viewer';
 
 export const Route = createFileRoute("/candidates/new")({
   component: NewCandidateForm,
+  async beforeLoad(ctx) {
+    await authGuard({ ctx });
+  },
 });
 
 
