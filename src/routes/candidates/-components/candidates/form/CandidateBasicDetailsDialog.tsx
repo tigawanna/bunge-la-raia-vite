@@ -1,5 +1,5 @@
 import { IconButton } from "@/components/park/ui/icon-button";
-import { EditIcon, XIcon } from "lucide-react";
+import { EllipsisVertical,XIcon } from "lucide-react";
 import * as Dialog from "~/components/park/ui/dialog";
 import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
 import { CandidateRowType } from "../../types";
@@ -10,11 +10,11 @@ interface CandidateBasicDetailsDialogProps {
 
 export function CandidateBasicDetailsDialog({ candidate }: CandidateBasicDetailsDialogProps) {
   return (
-    <Dialog.Root>
+    <Dialog.Root >
       <Dialog.Trigger asChild>
-        <EditIcon />
+        <EllipsisVertical />
       </Dialog.Trigger>
-      <Dialog.Backdrop />
+      <Dialog.Backdrop className="opacity-40" />
       <Dialog.Positioner>
         <Dialog.Content className="w-full h-full ">
           <CandidateBasicDetailsForm candidate={candidate} next={()=>{}}/>

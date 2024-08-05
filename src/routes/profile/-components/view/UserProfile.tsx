@@ -29,33 +29,36 @@ export function UserProfile({ user_id, viewer_id }: UserProfileProps) {
   }
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="w-full flex flex-col h-[200px] items-center relative">
+      <div className="w-full flex flex-col h-[200px] sm:h-[300px] items-center relative">
         <img
-          src={one_user?.banner_url ?? "/kenya-red-flag.webp"}
-          className="w-full h-[200px] object-cover absolute top-0"
+          src={one_user?.banner_url ?? "/black-flag.webp"}
+          className="w-full h-[150px] sm:h-[200px] object-cover absolute top-0"
           onError={(e) => {
-            e.currentTarget.src = "/kenya-red-flag.webp";
+            e.currentTarget.src = "/black-flag.webp";
           }}
         />
-        {/* <div className="w-full h-[200px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " /> */}
+        {/* <div className="w-full h-[120px] z-10 object-cover absolute opacity-35 top-0 bg-gradient-to-r from-20% from-bg-muted " /> */}
+        
         <div
-          className="flex flex-col justify-center  gap-1 absolute top-0 bottom-0 left-0 z-20 
+          className="w-full flex sm:flex-row flex-col justify-center 
+          sm:justify-between items-start sm:items-end gap-1 absolute top-[120px] bottom-0 left-0 z-20 
           p-4">
           {one_user?.avatar_url ? (
             <img
               src={one_user?.avatar_url}
-              height={90}
-              width={90}
-              className="size-[90px] rounded-full"
+              height={120}
+              width={120}
+              className="aspect-square sm:size-[150px] rounded-lg"
               onError={(e) => {
                 e.currentTarget.src = "/kenya-globe.png";
               }}
             />
           ) : (
-            <Avatar name={one_user.email || "Maria Mitchell"} size={90} variant="bauhaus" />
+            <Avatar name={one_user.email || "Maria Mitchell"} size={120} variant="bauhaus" />
           )}
-          <div className="flex flex-col  justify-center  rounded-lg p-1 bg-bg-default opacity-70">
-            <span className="flex flex-col md:flex-row  md:items-cente">
+          <div
+            className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
+            <span className="flex flex-col  md:flex-row  md:items-cente">
               <h1 className="text-xl">{one_user?.fullname}</h1>
               {viewer_id && (
                 <Link
@@ -71,7 +74,7 @@ export function UserProfile({ user_id, viewer_id }: UserProfileProps) {
         </div>
       </div>
 
-      <div className="w-full h-full flex flex-col justify-center items-center">
+      <div className="pt-[10%] md:pt-[2%] w-full h-full flex flex-col justify-center items-center">
         {one_user?.bio && one_user?.bio.length > 0 && (
           <div className="w-full h-full flex flex-col justify-center items-center">
             <h1 className="text-xl">Bio</h1>

@@ -6,6 +6,8 @@ import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog
 import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { CandidateAspirations } from "../../aspirations/list/CandidateAspirations";
+import Avatar from "boring-avatars";
+import { Edit } from "lucide-react";
 
 interface OneCandidateProps {}
 
@@ -18,32 +20,65 @@ export function OneCandidate({}: OneCandidateProps) {
 
   return (
     <div className="w-full h-full flex flex-col p-2">
-      <div className="w-full h-full flex flex-col justify-center items-center sm:flex-row gap-2 p-2 relative">
+      <div className="w-full flex flex-col h-[200px] sm:h-[300px] items-center relative">
         <img
-          height={200}
-          width={200}
-          className="aspect-square  o  rounded-lg"
-          src={data?.avatar_url || ""}
-          alt={data?.name}
+          src={viewer?.banner_url ?? "/black-flag.webp"}
+          className="w-full h-[150px] sm:h-[200px] object-cover absolute top-0"
+          onError={(e) => {
+            e.currentTarget.src = "/black-flag.webp";
+          }}
         />
-        <div className="w-full h-full flex flex-col p-2">
-          <h1 className="text-2xl text-accent-text">{data?.name}</h1>
-          <p className="text-sm md:line-clamp-6">{data?.bio}</p>
-        </div>
         {viewer?.id === params.candidate && (
-          <div className="absolute top-[2%] right-[2%]">
+          <div className="absolute top-[2%] z-30 right-[2%]">
             <CandidateBasicDetailsDialog candidate={data} />
           </div>
         )}
-        <div className="">
-          <Link
-            to="/candidates/$candidate/update"
-            params={{ candidate: params.candidate }}
-            search={{ form_step: 0 }}>
-            update
-          </Link>
+
+        <div
+          className="w-full flex sm:flex-row flex-col justify-center 
+          sm:justify-between items-start sm:items-end gap-1 absolute top-[120px] bottom-0 left-0 z-20 
+          p-4">
+          {viewer?.avatar_url ? (
+            <img
+              src={viewer?.avatar_url}
+              height={120}
+              width={120}
+              className="aspect-square sm:size-[150px] rounded-lg"
+              onError={(e) => {
+                e.currentTarget.src = "/kenya-globe.png";
+              }}
+            />
+          ) : (
+            <Avatar name={viewer?.email || "Maria Mitchell"} size={120} variant="bauhaus" />
+          )}
+          <div className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
+            <h1 className="text-xl">{viewer?.username}</h1>
+            {viewer && (
+              <Link
+                to="/candidates/$candidate/update"
+                className="border rounded-lg px-1 w-fit flex gap-2 justify-center items-center"
+                params={{ candidate: params.candidate }}
+                search={{ form_step: 0,basics:true }}>
+                update <Edit className="size-3"/>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+      <div className="w-full  px-5 py-2  lg:max-w-[60%]">
+        <h1 className=" ">bio</h1>
+        <p className="text-sm">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga provident deserunt saepe
+          odit in illo, eius hic cumque, minus reiciendis nisi, veritatis ut doloremque quaerat et
+          quis magni culpa autem! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
+          provident deserunt saepe odit in illo, eius hic cumque, minus reiciendis nisi, veritatis
+          ut doloremque quaerat et quis magni culpa autem! Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Fuga provident deserunt saepe odit in illo, eius hic cumque, minus
+          reiciendis nisi, veritatis ut doloremque quaerat et quis magni culpa autem!
+          {data?.bio}
+        </p>
+      </div>
+
       <div className="w-full">
         {/* @ts-expect-error */}
         {data?.vibe_check && data?.vibe_check.length > 0 && (
