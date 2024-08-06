@@ -53,7 +53,7 @@ export async function authGuard({ ctx, reverse }: AuthGuardProps) {
   // @ts-expect-error
   const returnTo = ctx.search?.returnTo ?? "/";
   const user = ctx.context?.viewer?.data;
-  console.log(" ============ user in ",ctx.location.pathname," guard =========== ", user);
+  // console.log(" ============ user in ",ctx.location.pathname," guard =========== ", user);
 
   if (!user) {
     // console.log(" ++++++++ no user redirectiong to auth ++++++ ");

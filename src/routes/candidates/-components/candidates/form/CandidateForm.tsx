@@ -9,7 +9,7 @@ import { CandidateVibeCheckForm } from "./CandidateVibeCheckForm";
 
 interface CandidateFormProps {
   candidate?: CandidateRowType | null;
-  navigate?: UseNavigateResult<"/candidates/$candidate">;
+  navigate: UseNavigateResult<"/candidates/$candidate"|"/candidates/$candidate/update">;
   start_from_basics?: boolean;
 }
 

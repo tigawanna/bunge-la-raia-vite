@@ -1,4 +1,4 @@
-import { useParams, Navigate, useSearch } from "@tanstack/react-router";
+import { useParams, Navigate, useSearch, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { oneCandidateQueryOptions } from "../../candidate-query-options";
 import { toaster } from "@/components/navigation/ParkuiToast";
@@ -15,7 +15,9 @@ export function UpdateCandidateForm({}: UpdateCandidateFormProps) {
     const { basics } = useSearch({
       from: "/candidates/$candidate/update",
     });
-
+const navigate = useNavigate({
+  from:"/candidates/$candidate/update"
+})
   const query = useSuspenseQuery(oneCandidateQueryOptions({ candidate_id: candidate }));
   const one_candidate = query.data?.data;
 
@@ -29,7 +31,7 @@ export function UpdateCandidateForm({}: UpdateCandidateFormProps) {
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <CandidateForm candidate={one_candidate as any} start_from_basics={basics}/>
+      <CandidateForm candidate={one_candidate as any} start_from_basics={basics} navigate={navigate}/>
     </div>
   );
 }

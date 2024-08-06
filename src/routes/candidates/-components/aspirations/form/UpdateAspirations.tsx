@@ -1,4 +1,4 @@
-import { useParams, Navigate, useSearch } from "@tanstack/react-router";
+import { useParams, Navigate, useSearch, useNavigate } from "@tanstack/react-router";
 import { AspirationsForm } from "./AspirationsForm";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { toaster } from "@/components/navigation/ParkuiToast";
@@ -13,6 +13,9 @@ export function UpdateAspirations({}: UpdateAspirationsProps) {
     const { basics } = useSearch({
       from: "/candidates/$candidate/aspirations/$aspiration/update",
     });
+    const navigate = useNavigate({
+      from: "/candidates/$candidate/aspirations/$aspiration/update",
+    })
 
   const query = useSuspenseQuery(
     oneCandidateAspirationsQueryOptions({ aspiration_id: aspiration, candidate_id: candidate })
@@ -29,8 +32,9 @@ export function UpdateAspirations({}: UpdateAspirationsProps) {
   }
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-        <AspirationsForm from="/candidates/$candidate/aspirations/$aspiration/update" 
-        aspiration={one_aspiration as any} start_from_basics={basics??false}/>
+        <AspirationsForm navigate={navigate}
+        aspiration={one_aspiration as any} 
+        start_from_basics={basics??false}/>
     </div>
   );
 }

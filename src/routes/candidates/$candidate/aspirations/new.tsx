@@ -23,7 +23,8 @@ export function NewAspirationPage({}: NewAspirationPageProps) {
   });
   return (
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-center">
-      <AspirationsForm navigate={navigate} start_from_basics={false} from="/candidates/$candidate/aspirations/new" />
+      <AspirationsForm navigate={navigate} 
+      start_from_basics={false} />
     </div>
   );
 }

@@ -24,6 +24,7 @@ export function AspirationVibeCheckForm({
   const navigate = useNavigate({
     from: "/candidates/$candidate/aspirations/$aspiration/update",
   });
+
   const mutation = useMutation({
     mutationFn: async ({ vibe }: VibecheckFormMutationProps) => {
       const { error } = await supabase
