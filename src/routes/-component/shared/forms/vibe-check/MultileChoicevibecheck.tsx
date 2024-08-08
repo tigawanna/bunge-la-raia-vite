@@ -47,19 +47,19 @@ export function MultileChoicevibecheck({
                 key={item.key}
                 className={
                   item.value === checkedOption
-                    ? "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border bg-base-200 p-2"
-                    : "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md border p-2"
+                    ? "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md  bg-bg-subtle p-2"
+                    : "flex w-full flex-row items-center space-x-3 space-y-0 rounded-md p-2"
                 }>
                 <Checkbox
-                  className="size-6 border-4"
+                  className="size-6 border"
                   checked={item.value === checkedOption}
                   onCheckedChange={() => {
                     setCheckedOptins(item.value);
                   }}
                 />
 
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="text-lg">{item.key}</FormLabel>
+                <div className="space-y-1 leading-none flex">
+                  {/* <FormLabel className="text-lg">{item.key}</FormLabel> */}
                   <p>{item.value}</p>
                 </div>
               </div>

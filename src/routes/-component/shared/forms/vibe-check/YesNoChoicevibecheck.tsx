@@ -28,11 +28,11 @@ export function YesNoChoicevibecheck({
           <div
             className={
               yesOrNo === "yes"
-                ? "flex w-full items-center  gap-3 rounded-md border bg-base-200 p-2"
-                : "flex w-full items-center  gap-3 rounded-md border p-2"
+                ? "flex w-full items-center  gap-3 rounded-md  bg-bg-subtle p-2"
+                : "flex w-full items-center  gap-3 rounded-md  p-2"
             }>
             <Checkbox
-              className="size-6 border-4"
+              className="size-6 border"
               checked={yesOrNo === "yes"}
               onCheckedChange={() => {
                 setYesOrNo("yes");
@@ -46,11 +46,11 @@ export function YesNoChoicevibecheck({
           <div
             className={
               yesOrNo === "no"
-                ? "flex w-full items-center  gap-3 rounded-md border bg-base-200 p-2"
-                : "flex w-full items-center  gap-3 rounded-md border p-2"
+                ? "flex w-full items-center  gap-3 rounded-md bg-bg-subtle p-2"
+                : "flex w-full items-center  gap-3 rounded-md p-2"
             }>
             <Checkbox
-              className="size-6 border-4"
+              className="size-6 border"
               checked={yesOrNo === "no"}
               onCheckedChange={() => {
                 setYesOrNo("no");
@@ -68,7 +68,7 @@ export function YesNoChoicevibecheck({
             <Button
               type="button"
               variant="outline"
-              className="iyems-center  btn flex justify-center gap-2 text-base-content"
+              className="items-center  btn flex justify-center gap-2 text-base-content"
               onClick={() => {
                 handlePrevious();
               }}>
