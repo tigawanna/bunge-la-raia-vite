@@ -10,7 +10,7 @@ interface CandidateBasicDetailsDialogProps {
 
 export function CandidateBasicDetailsDialog({ candidate }: CandidateBasicDetailsDialogProps) {
   return (
-    <Dialog.Root >
+    <Dialog.Root role="alertdialog">
       <Dialog.Trigger asChild>
         <EllipsisVertical />
       </Dialog.Trigger>

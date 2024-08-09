@@ -47,12 +47,12 @@ export function OneCandidate({}: OneCandidateProps) {
             }}
           />
 
-          <div className=" flex flex-col h-fit justify-cente rrounded-lg p-1">
+          <div className=" flex flex-col h-fit justify-cente rrounded-lg p-1 gap-1">
             <h1 className="text-xl">{one_candidate?.name}</h1>
             {viewer?.id === params.candidate && (
               <Link
                 to="/candidates/$candidate/update"
-                className="border rounded-lg px-1 w-fit flex gap-2 justify-center items-center"
+                className="bg-bg-default rounded-lg px-1 text-sm w-fit flex  justify-center items-center gap-2"
                 params={{ candidate: params.candidate }}
                 search={{ form_step: 0, basics: true }}>
                 update <Edit className="size-3" />
@@ -69,13 +69,14 @@ export function OneCandidate({}: OneCandidateProps) {
       <div className="w-full flex flex-col items-center gap-2  relative">
         {one_candidate?.vibe_check && one_candidate?.vibe_check !== "" && (
           <div className="w-full flex flex-col items-center gap-2 relative">
-            <VibeCheckView vibe_check={one_candidate.vibe_check as VibeCheckType} />
-            <button
-              type="button"
-              className="absolute  bg-bg-default rounded-lg p-2 bottom-[5%] right-[5%] flex gap-2 items-center justify-center">
+            <Link
+              to="/candidates/$candidate/chat"
+              params={{ candidate: params.candidate }}
+              className="bg-bg-muted border border-accent-default rounded-lg p-2   flex gap-2 items-center justify-center">
               chat with candidate
               <Sparkles />
-            </button>
+            </Link>
+            <VibeCheckView vibe_check={one_candidate.vibe_check as VibeCheckType} />
           </div>
         )}
       </div>
