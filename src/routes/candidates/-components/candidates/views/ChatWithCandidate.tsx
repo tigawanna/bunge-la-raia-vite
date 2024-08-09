@@ -1,6 +1,6 @@
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { useChat } from "ai/react";
-import { ChevronsLeft, ChevronsRight,RotateCcw, Send, X } from "lucide-react";
+import { ChevronsLeft, ChevronsRight, RotateCcw, Send, X } from "lucide-react";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { Button } from "@/components/park/ui/button";
 import { formartDateToHourMinutesSeconds } from "@/utils/date-helpers copy";
@@ -13,12 +13,26 @@ export function ChatWithCandidate({ candidate_id }: ChatWithCandidateProps) {
 
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const { messages, input, handleSubmit, handleInputChange, isLoading, stop, error, reload } =
+  const { messages, input,setInput, handleSubmit, handleInputChange, isLoading, stop, error, reload } =
     useChat({
       keepLastMessageOnError: true,
       api: endpoint,
     });
-
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && event.shiftKey) {
+      event.preventDefault();
+      setInput((prevInput) => prevInput + "\n");
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(event, {
+        body: {
+          viewer_id: viewer?.id,
+          candidate_id,
+        },
+      });
+    }
+  };
+  
   return (
     <div className="w-full h-screen flex flex-col  items-center justify-between ">
       <h1 className="text-xl">Chat with Candidate</h1>
@@ -100,6 +114,7 @@ export function ChatWithCandidate({ candidate_id }: ChatWithCandidateProps) {
           }
           className="w-full flex items-center justify-between sticky bottom-1 left-0 right-0 p-5 gap-2">
           <ReactTextareaAutosize
+            onKeyDown={handleKeyDown}
             name="prompt"
             value={input}
             onChange={handleInputChange}
