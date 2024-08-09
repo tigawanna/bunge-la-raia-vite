@@ -12,7 +12,7 @@ export function CandidateChatPage(){
     from:"/candidates/$candidate/chat"
   })
 return (
- <div className='w-full min-h-screen h-full flex flex-col items-center justify-center'>
+ <div className='w-full h-screen overflow-y-y-hidden flex flex-col items-center justify-center'>
   <ChatWithCandidate candidate_id={candidate}/>
  </div>
 );

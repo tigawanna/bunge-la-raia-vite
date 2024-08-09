@@ -24,3 +24,9 @@ export function getPrevMonthandYear(month_num?:number) {
 }
 
 
+export function formartDateToHourMinutesSeconds(date: Date) {
+    const hour = date.getHours();
+    const miniute = date.getMinutes();
+    const seconds = date.getSeconds();
+    return `${hour}:${miniute}:${seconds}`
+}
