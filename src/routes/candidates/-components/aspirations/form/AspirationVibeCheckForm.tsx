@@ -3,8 +3,8 @@ import { supabase } from "@/lib/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 import { useSearch, useNavigate } from "@tanstack/react-router";
 import { CandidateAspirationRowType } from "../types";
-import { VibecheckForm } from "@/routes/-component/shared/forms/vibe-check/VibecheckForm";
-import { VibecheckFormMutationProps } from "@/routes/-component/shared/forms/vibe-check/types";
+import { VibecheckForm } from "@/routes/-component/shared/vibe-check/VibecheckForm";
+import { VibecheckFormMutationProps } from "@/routes/-component/shared/vibe-check/types";
 import { aspirant_questions } from "./aspirant-questions";
 
 interface AspirationVibeCheckFormProps {

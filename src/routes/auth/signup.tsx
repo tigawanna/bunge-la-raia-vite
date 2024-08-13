@@ -12,7 +12,7 @@ export const Route = createFileRoute("/auth/signup")({
   async beforeLoad(ctx) {
     const viewer = ctx.context?.viewer;
     const returnTo = ctx.search?.returnTo ?? "/";
-    if (viewer?.record) {
+    if (viewer?.data) {
       throw redirect({ to: returnTo });
     }
   }

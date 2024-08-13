@@ -2,8 +2,8 @@ import { toaster } from "@/components/navigation/ParkuiToast";
 import { supabase } from "@/lib/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { VibecheckForm } from "@/routes/-component/shared/forms/vibe-check/VibecheckForm";
-import { VibecheckFormMutationProps, VibesFormType } from "@/routes/-component/shared/forms/vibe-check/types";
+import { VibecheckForm } from "@/routes/-component/shared/vibe-check/VibecheckForm";
+import { VibecheckFormMutationProps, VibesFormType } from "@/routes/-component/shared/vibe-check/types";
 import { CandidateRowType } from "../../types";
 import { candidate_questions } from "./candidate-questions";
 

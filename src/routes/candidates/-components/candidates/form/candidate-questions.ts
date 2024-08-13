@@ -1,4 +1,4 @@
-import { VibeCheckQuestions } from "@/routes/-component/shared/forms/vibe-check/types";
+import { VibeCheckQuestions } from "@/routes/-component/shared/vibe-check/types";
 
 
 export const candidate_questions: VibeCheckQuestions[] = [

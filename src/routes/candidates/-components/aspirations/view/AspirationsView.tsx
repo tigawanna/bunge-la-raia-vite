@@ -1,5 +1,5 @@
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
-import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
+import { VibeCheckView } from "@/routes/-component/shared/vibe-check/VibeCheckView";
 import { Link } from "@tanstack/react-router";
 import { Edit } from "lucide-react";
 import { CandidateAspirationRowType } from "../types";

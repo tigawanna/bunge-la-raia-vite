@@ -2,7 +2,6 @@ import { Button } from "@/components/park/ui/button";
 import { Checkbox } from "@/components/park/ui/checkbox";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { FormLabel } from "@/components/park/ui/form-label";
 import { BaseVibecheckFormProps } from "./types";
 
 

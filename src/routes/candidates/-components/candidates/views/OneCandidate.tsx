@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useViewer } from "@/lib/tanstack/query/use-viewer";
 import { oneCandidateQueryOptions } from "../../candidate-query-options";
 import { CandidateBasicDetailsDialog } from "../form/CandidateBasicDetailsDialog";
-import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
+import { VibeCheckView } from "@/routes/-component/shared/vibe-check/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { CandidateAspirations } from "../../aspirations/list/CandidateAspirations";
 import { Edit, Sparkles } from "lucide-react";

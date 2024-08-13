@@ -1,5 +1,5 @@
-import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { CircleCheck,} from "lucide-react";
+import { VibeCheckType } from "./vibe-check-schema";
 interface VibeCheckViewProps {
   vibe_check: VibeCheckType;
 }

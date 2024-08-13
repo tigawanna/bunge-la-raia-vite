@@ -1,4 +1,5 @@
-import { VibeCheckType } from "@/lib/supabase/extra-db-types";
+import { VibeCheckType } from "./vibe-check-schema";
+
 
 export interface VibeCheckQuestions {
   query: string;
@@ -20,6 +21,7 @@ export type VibesFormType = {
       }[]
     | undefined;
 }[];
+
 export interface VibecheckFormMutationProps {
   vibe: VibesFormType;
 }
