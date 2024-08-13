@@ -17,7 +17,7 @@ export function OauthSigninButtons({}: OauthSigninButtonsProps) {
         throw error;
       }
     },
-    onSuccess(data) {
+    onSuccess() {
       qc.invalidateQueries(viewerqueryOptions);
     },
     onError(error) {

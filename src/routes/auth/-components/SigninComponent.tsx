@@ -47,7 +47,6 @@ export function SigninComponent({}: SigninComponentProps) {
         type: "success",
       });
       qc.invalidateQueries(viewerqueryOptions);
-      // @ts-expect-error
       navigate({ to: returnTo || "/" });
     },
     onError(error) {

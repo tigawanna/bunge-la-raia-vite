@@ -2,13 +2,13 @@
 import { AngryAtGoverment, HappyCitizen, InTheirShoes, Inconvinience } from "./Slides";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/park/ui/button";
+
 
 interface HeroSectionProps {}
 
 const slides_arr = [HappyCitizen, Inconvinience, AngryAtGoverment, InTheirShoes];
 export function HeroSection({}: HeroSectionProps) {
-  const [slides, setSlides] = useState(slides_arr);
+  const [slides,] = useState(slides_arr);
   const [slideIndex, setSlideIndex] = useState(0);
 
   const canShowPrev = slideIndex > 0;
