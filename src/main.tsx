@@ -7,6 +7,7 @@ import "./styles.css";
 import "@park-ui/tailwind-plugin/preset.css";
 import { useViewer } from "./lib/tanstack/query/use-viewer";
 import { supabase } from "./lib/supabase/client";
+import { CardsListSuspenseFallback } from "./components/loaders/GenericDataCardsListSuspenseFallback";
 
 
 export const queryClient = new QueryClient({
@@ -35,7 +36,7 @@ const router = createRouter({
   routeTree,
   defaultPendingComponent: () => (
     <div className={`p-2 text-2xl`}>
-      <Spinner />
+      <CardsListSuspenseFallback/>
     </div>
   ),
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,

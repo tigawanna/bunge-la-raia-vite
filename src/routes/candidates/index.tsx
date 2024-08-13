@@ -7,8 +7,7 @@ import { listCandidateQueryOptions } from "./-components/candidate-query-options
 
 const searchparams = z.object({
   sq: z.string().optional(),
-  
-});
+  });
 export const Route = createFileRoute("/candidates/")({
   component: CandidatesPage,
   validateSearch: (search) => searchparams.parse(search),

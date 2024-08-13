@@ -13,11 +13,20 @@ export function ChatWithCandidate({ candidate_id }: ChatWithCandidateProps) {
 
   const { userQuery } = useViewer();
   const viewer = userQuery?.data?.data;
-  const { messages, input,setInput, handleSubmit, handleInputChange, isLoading, stop, error, reload } =
-    useChat({
-      keepLastMessageOnError: true,
-      api: endpoint,
-    });
+  const {
+    messages,
+    input,
+    setInput,
+    handleSubmit,
+    handleInputChange,
+    isLoading,
+    stop,
+    error,
+    reload,
+  } = useChat({
+    keepLastMessageOnError: true,
+    api: endpoint,
+  });
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && event.shiftKey) {
       event.preventDefault();
@@ -32,7 +41,7 @@ export function ChatWithCandidate({ candidate_id }: ChatWithCandidateProps) {
       });
     }
   };
-  
+
   return (
     <div className="w-full h-screen flex flex-col  items-center justify-between ">
       <h1 className="text-xl">Chat with Candidate</h1>
