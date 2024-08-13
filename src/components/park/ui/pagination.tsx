@@ -1,8 +1,8 @@
 import { Pagination as ArkPagination, type PaginationRootProps } from '@ark-ui/react/pagination'
 import { forwardRef } from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
-import { Button } from '~/components/ui/button'
-import { IconButton } from '~/components/ui/icon-button'
+import { Button } from '~/components/park/ui/button'
+import { IconButton } from '~/components/park/ui/icon-button'
 
 export interface PaginationProps extends PaginationRootProps, PaginationVariantProps {}
 

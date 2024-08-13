@@ -117,7 +117,9 @@ if(!data || data.length === 0) {
   return (
     <div className="w-full h-full flex flex-col overflow-y-scroll">
       <ul className="w-full flex flex-wrap gap-2 justify-center p-1">
-        {data?.map((row) => (
+        {data?.map((row) => {
+          if (!row || "count" in row) return null;
+          return(
           <CloseTrigger key={row.id} asChild className="">
             <li
               key={row.id}
@@ -129,7 +131,8 @@ if(!data || data.length === 0) {
               {row[filterBy as keyof typeof row]}
             </li>
           </CloseTrigger>
-        ))}
+        )}
+        )}
       </ul>
     </div>
   );

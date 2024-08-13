@@ -1,7 +1,7 @@
 import { PinInput as ArkPinInput, type PinInputRootProps } from '@ark-ui/react/pin-input'
 import { forwardRef } from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
-import { Input } from '~/components/ui/input'
+import { Input } from '~/components/park/ui/input'
 
 export interface PinInputProps extends PinInputRootProps, PinInputVariantProps {
   /**

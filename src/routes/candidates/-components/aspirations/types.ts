@@ -11,7 +11,7 @@ export type CandidateAspirationRowType = {
   id: string;
   mission_statement: string;
   period: string;
-  vibe_check: VibeCheckType;
+  vibe_check: VibeCheckType|null;
   vying_for: Database["public"]["Enums"]["positions"];
   vying_in?: string | null;
 };
@@ -25,5 +25,5 @@ export type CandidateAspirationInsertType = {
   period: string;
   vying_for: Database["public"]["Enums"]["positions"];
   vying_in?: string | null;
-  vibe_check: VibeCheckType;
+  vibe_check: VibeCheckType|null;
 };

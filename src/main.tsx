@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import { RouterProvider, ErrorComponent, createRouter } from "@tanstack/react-router";
-import { Spinner } from "./components/Spinner";
 import { routeTree } from "./routeTree.gen";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./styles.css";
