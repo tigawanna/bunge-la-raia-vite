@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { VibesFormType } from "./VibecheckForm";
 import { supabase } from "@/lib/supabase/client";
 import { toaster } from "@/components/navigation/ParkuiToast";
-import { CandidateRowType } from "../../../types";
+import { CandidateRowType } from "@/routes/candidates/-components/types";
+import { VibesFormType } from "./types";
+
 
 
 interface VibecheckFormProps {

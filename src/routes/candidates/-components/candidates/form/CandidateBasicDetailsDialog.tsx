@@ -5,7 +5,7 @@ import { CandidateBasicDetailsForm } from "./CandidateBasicDetailsForm";
 import { CandidateRowType } from "../../types";
 
 interface CandidateBasicDetailsDialogProps {
-  candidate?: CandidateRowType | null;
+  candidate?: CandidateRowType;
 }
 
 export function CandidateBasicDetailsDialog({ candidate }: CandidateBasicDetailsDialogProps) {

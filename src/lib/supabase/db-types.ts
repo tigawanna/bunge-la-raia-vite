@@ -1,3 +1,5 @@
+import { VibeCheckType } from "./extra-db-types"
+
 export type Json =
   | string
   | number
@@ -33,7 +35,7 @@ export type Database = {
           mission_statement: string
           period: string
           updated_at: string | null
-          vibe_check: Json | null
+          vibe_check: VibeCheckType| null
           vying_for: Database["public"]["Enums"]["positions"]
           vying_in: string | null
         }
@@ -48,7 +50,7 @@ export type Database = {
           mission_statement: string
           period: string
           updated_at?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
           vying_for: Database["public"]["Enums"]["positions"]
           vying_in?: string | null
         }
@@ -63,7 +65,7 @@ export type Database = {
           mission_statement?: string
           period?: string
           updated_at?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
           vying_for?: Database["public"]["Enums"]["positions"]
           vying_in?: string | null
         }
@@ -90,7 +92,7 @@ export type Database = {
           last_proompted_on: string | null
           name: string
           updated_at: string | null
-          vibe_check: Json | null
+          vibe_check: VibeCheckType| null
         }
         Insert: {
           account_id?: string
@@ -104,7 +106,7 @@ export type Database = {
           last_proompted_on?: string | null
           name: string
           updated_at?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
         }
         Update: {
           account_id?: string
@@ -118,7 +120,7 @@ export type Database = {
           last_proompted_on?: string | null
           name?: string
           updated_at?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
         }
         Relationships: [
           {
@@ -477,7 +479,7 @@ export type Database = {
           id: string
           last_proompted_on: string | null
           username: string | null
-          vibe_check: Json | null
+          vibe_check: VibeCheckType| null
         }
         Insert: {
           avatar_url?: string | null
@@ -491,7 +493,7 @@ export type Database = {
           id?: string
           last_proompted_on?: string | null
           username?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
         }
         Update: {
           avatar_url?: string | null
@@ -505,7 +507,7 @@ export type Database = {
           id?: string
           last_proompted_on?: string | null
           username?: string | null
-          vibe_check?: Json | null
+          vibe_check?:VibeCheckType | null
         }
         Relationships: [
           {

@@ -7,6 +7,7 @@ import { VibeCheckView } from "@/routes/-component/shared/VibeCheckView";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 import { CandidateAspirations } from "../../aspirations/list/CandidateAspirations";
 import { Edit, Sparkles } from "lucide-react";
+import { CandidateRowType } from "../../types";
 
 interface OneCandidateProps {}
 
@@ -27,9 +28,9 @@ export function OneCandidate({}: OneCandidateProps) {
             e.currentTarget.src = "/black-flag.webp";
           }}
         />
-        {viewer?.id === params.candidate && (
+        {viewer?.id === params.candidate && one_candidate && (
           <div className="absolute top-[2%] z-30 right-[2%]">
-            <CandidateBasicDetailsDialog candidate={one_candidate} />
+            <CandidateBasicDetailsDialog candidate={one_candidate as CandidateRowType} />
           </div>
         )}
 
@@ -67,7 +68,7 @@ export function OneCandidate({}: OneCandidateProps) {
       </div>
 
       <div className="w-full flex flex-col items-center gap-2  relative">
-        {one_candidate?.vibe_check && one_candidate?.vibe_check !== "" && (
+        {one_candidate?.vibe_check  && (
           <div className="w-full flex flex-col items-center gap-2 relative">
             <Link
               to="/candidates/$candidate/chat"

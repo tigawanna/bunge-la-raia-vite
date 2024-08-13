@@ -1,4 +1,3 @@
-import { Database } from "@/lib/supabase/db-types";
 import { VibeCheckType } from "@/lib/supabase/extra-db-types";
 
 // export type CandidateRowType = Database["public"]["Tables"]["candidates"]["Row"];
