@@ -17,7 +17,7 @@ export function TextFormField<T>({
   className,
 }: TextFormFieldProps<T>) {
   const inputClassname = twMerge(
-    field.state.meta.errors.length>0 ? "border-error-content" : "",
+    field.state.meta.errors.length > 0 ? "border-error-content" : "",
     className
   );
 
@@ -29,7 +29,7 @@ export function TextFormField<T>({
       <Input
         id={fieldKey}
         name={fieldKey}
-        placeholder={fieldlabel?`enter ${fieldlabel}`:`enter ${fieldKey}`}
+        placeholder={fieldlabel ? `enter ${fieldlabel}` : `enter ${fieldKey}`}
         {...inputOptions}
         className={inputClassname}
         // @ts-expect-error
@@ -40,8 +40,6 @@ export function TextFormField<T>({
   );
 }
 
-
-
 export interface TextAreaFormFieldProps<T> extends FormFieldProps<T> {
   inputOptions?: React.InputHTMLAttributes<HTMLTextAreaElement>;
 }
@@ -50,7 +48,7 @@ export function TextAreaFormField<T>({
   field,
   fieldKey,
   fieldlabel,
-    inputOptions,
+  inputOptions,
   className,
 }: TextAreaFormFieldProps<T>) {
   const inputClassname = twMerge(
@@ -88,7 +86,8 @@ export function ResizeTextAreaFormField<T>({
   className,
 }: TextAreaFormFieldProps<T>) {
   const inputClassname = twMerge(
-    field.state.meta.errors ?"min-h-[100px] p-1 rounded-lg border-error-content"
+    field.state.meta.errors
+      ? "min-h-[100px] p-1 rounded-lg border-error-content"
       : "min-h-[100px] p-1 rounded-lg",
     className
   );
@@ -114,7 +113,6 @@ export function ResizeTextAreaFormField<T>({
   );
 }
 
-
 export interface ImageURLInputFieldProps<T> extends FormFieldProps<T> {
   inputOptions?: React.InputHTMLAttributes<HTMLInputElement>;
 }
@@ -130,7 +128,7 @@ export function ImageURLInputField<T>({
     field.state.meta.errors.length > 0 ? "border-error-content" : "",
     className
   );
-const value = field.state.value as string
+  const value = field.state.value as string;
   return (
     <div className="w-full">
       <FormLabel htmlFor={fieldKey} className="capitalize">
